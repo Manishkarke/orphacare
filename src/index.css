@@ -1,13 +1,37 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Using Font Face */
+@font-face {
+  font-family: "Inter";
+  src: url(./assets/fonts/Inter.ttf) format("TrueType");
+}
+
+/****************************** CSS VARIABLES ******************************/
+:root {
+  /* Font Family Variables */
+  --ff-form: 'Inter' ,sans-serif;
+
+  /* Font Weight Variables */
+  --fw-title: 700;
+  --fw-button: 500;
+  --fw-label: 500;
+
+  /* Font Size Variables */
+  --fs-header: 2.5rem;
+  --fs-button: 1rem;
+  --fs-normal: 14px;
+
+
+  /* Color Variables */
+  --background-color: #eff0ff;
+  --primary-color: #5429FF;
+  --secondary-color: #344054;
+}
+
+body {
+  background-color: var(--background-color);
 }

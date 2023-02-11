@@ -1,0 +1,130 @@
+.container {
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  font-family: var(--ff-form);
+  max-width: 375px;
+  margin: 150px auto;
+  padding: 20px 10px;
+
+  display: flex;
+  align-items: center;
+  flex-flow: column wrap;
+}
+
+.container > h2 {
+  font-size: var(--fs-header);
+  font-weight: var(--fw-title);
+}
+
+.container > form {
+  margin-top: 20px;
+}
+
+.container .inputfield {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.inputfield > label {
+  flex: 1 1 100%;
+
+  color: var(--secondary-color);
+  font-size: var(--fs-normal);
+  font-weight: var(--fw-label);
+  margin-bottom: 3px;
+}
+
+.inputfield input {
+  min-width: 100%;
+  min-height: 35px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  line-height: 24px;
+  font-size: 1rem;
+}
+
+.inputfield input:focus {
+  outline: none;
+}
+
+.inputfield input::placeholder {
+  font-size: var(--fs-normal);
+}
+
+.inputfield .inputfield__password {
+  min-width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  display: flex;
+}
+
+.inputfield__password > input {
+  min-width: 80%;
+  border: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  /* flex: 1 1 70%; */
+}
+
+.inputfield__password > #show-password {
+  min-width: 20%;
+  padding: 10px 0px;
+  /* height: 100%; */
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: #ffffff;
+}
+
+.helper-section {
+  margin: 15px 0;
+  color: var(--secondary-color);
+  font-size: var(--fs-normal);
+  font-weight: var(--fw-label);
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.helper-section .helper-section__inner > input {
+  margin-right: 5px;
+}
+
+.helper-section > a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+button.btn {
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-size: var(--fs-button);
+  line-height: 20px;
+  padding: 12px 40%;
+  width: 100%;
+}
+
+.signup_link {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.signup_link > span {
+  color: var(--secondary-color);
+  font-size: var(--fs-normal);
+  font-weight: 400;
+  margin-right: 7px;
+}
+
+.signup_link > a {
+  color: var(--primary-color);
+  font-size: var(--fs-normal);
+  font-weight: 400;
+  line-height: 20px;
+  text-decoration: none;
+}
