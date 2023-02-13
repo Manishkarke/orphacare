@@ -4,51 +4,75 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SignIn = () => {
+  // Reference for User Inputs
   const userEmailRef = useRef();
   const passwordRef = useRef();
   const rememberUserRef = useRef();
-  const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({ emailError: "", passwordError: "" });
+  const [showPassword, setShowPassword] = useState(false); // To change password's input type
+  const [errors, setErrors] = useState({}); // To Store errors
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
+
+    console.log("this is executed.");
+
+    // Storing all input data in one object
     const formData = {
       userEmail: userEmailRef.current.value,
       userPassword: passwordRef.current.value,
       rememberme: rememberUserRef.current.checked,
     };
 
-    console.log(formData);
+    // Form Data Validation Starts here
+    let newError = {};
+    let formIsvaild = true;
+    const emailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
 
-    // VALIDATE FORM
-    function validateForm({ userEmail, userPassword }) {
-      const emailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
+    // Validate Email
+    if (formData.userEmail.trim() === "") {
+      newError.emailError = "Email is Required.";
+    } else if (!formData.userEmail.match(emailRegex)) {
+      newError.emailError = "Email is not vaild.";
+    }
 
-      if (userEmail.trim() === "") {
-        setErrors((prevState) => {
-          return (prevState.emailError = "Email cannot be empty.");
-        });
-      } else if (userEmail !== emailRegex) {
-        setErrors((prevState) => {
-          return (prevState.emailError = "This is not valid email.");
-        });
+    // Validate password
+    if (formData.userPassword.trim() === "") {
+      newError.passwordError = "Password is required.";
+    }
+
+    for (const error in newError) {
+      if (newError[error]) {
+        formIsvaild = false;
+        break;
       }
     }
 
-    validateForm(formData);
+    if (formIsvaild) {
 
-    userEmailRef.current.value = "";
-    passwordRef.current.value = "";
-    rememberUserRef.current.checked = false;
-    setShowPassword(false);
-    console.log(errors);
+      // FORM SUBMITTING LOGIC ARE HERE
+
+      // Resetting the Input Value to initial value
+      userEmailRef.current.value = "";
+      passwordRef.current.value = "";
+      rememberUserRef.current.checked = false;
+      setShowPassword(false);
+
+      console.log("This form is valid")
+
+    }
+
+    setErrors(newError);
   };
 
   return (
     <section className={classes.container}>
       <h2>Sign In</h2>
       <form onSubmit={formSubmitHandler}>
-        <div className={classes["inputfield"]}>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.emailError ? classes["input-error"] : ""
+          }`}
+        >
           <label htmlFor="username">Email</label>
           <input
             type="text"
@@ -56,9 +80,14 @@ const SignIn = () => {
             id="username"
             ref={userEmailRef}
           />
+          {errors.emailError && <span>{errors.emailError}</span>}
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.passwordError ? classes["input-error"] : ""
+          }`}
+        >
           <label htmlFor="password">Password</label>
           <div className={classes["inputfield__password"]}>
             <input
@@ -75,6 +104,7 @@ const SignIn = () => {
               }}
             />
           </div>
+          {errors.passwordError && <span>{errors.passwordError}</span>}
         </div>
 
         {/* Section For forget password and remember user */}
