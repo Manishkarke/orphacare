@@ -40,6 +40,8 @@ const SignIn = () => {
       newError.passwordError = "Password is required.";
     }
 
+    setErrors(newError);
+
     for (const error in newError) {
       if (newError[error]) {
         formIsvaild = false;
@@ -47,8 +49,8 @@ const SignIn = () => {
       }
     }
 
+    // Check if form is valid and if it is valid then reset the form data
     if (formIsvaild) {
-
       // FORM SUBMITTING LOGIC ARE HERE
 
       // Resetting the Input Value to initial value
@@ -57,11 +59,8 @@ const SignIn = () => {
       rememberUserRef.current.checked = false;
       setShowPassword(false);
 
-      console.log("This form is valid")
-
+      console.log("This form is valid");
     }
-
-    setErrors(newError);
   };
 
   return (

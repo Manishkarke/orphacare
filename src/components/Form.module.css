@@ -37,6 +37,7 @@
 }
 
 .inputfield input {
+  padding: 5px 15px;
   min-width: 100%;
   min-height: 35px;
   border: 1px solid #d0d5dd;
@@ -104,6 +105,7 @@ button.btn {
   color: #ffffff;
   font-size: var(--fs-button);
   line-height: 20px;
+  margin: 15px 0;
   padding: 12px 40%;
   width: 100%;
 }
@@ -129,6 +131,7 @@ button.btn {
   text-decoration: none;
 }
 
+/* Styles For Input field with Error */
 .input-error {
   color: #f32525;
 }
