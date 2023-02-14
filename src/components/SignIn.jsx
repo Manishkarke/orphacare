@@ -26,7 +26,7 @@ const SignIn = () => {
     // Form Data Validation Starts here
     let newError = {};
     let formIsvaild = true;
-    const emailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
+    const emailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     // Validate Email
     if (formData.userEmail.trim() === "") {
