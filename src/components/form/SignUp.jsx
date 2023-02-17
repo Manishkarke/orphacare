@@ -64,43 +64,40 @@ function SignUp() {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     ValidateForm(userData, confirmPassword, setErrors);
-    console.log(userData);
-
     console.log(errors);
-  };
+    // Form validation logics are here.
+    let formIsValid = true;
 
-  // Form validation logics are here.
-  let formIsValid = true;
-
-  for (let err in errors) {
-    if (errors[err]) {
-      formIsValid = false;
-      break;
+    for (let err in errors) {
+      if (errors[err]) {
+        formIsValid = false;
+        break;
+      }
     }
-  }
 
-  if (formIsValid) {
-    console.log("Form is valid.");
-    console.log(userData);
+    if (formIsValid) {
+      console.log("Form is valid.");
 
-    // Resetting the input fields
-    // setUserData({
-    //   userName: "",
-    //   userAddress: "",
-    //   userEmail: "",
-    //   phoneNumber: "",
-    //   userPassword: "",
-    // });
+      console.log(formIsValid);
+      // Resetting the input fields
+      setUserData({
+        userName: "",
+        userAddress: "",
+        userEmail: "",
+        phoneNumber: "",
+        userPassword: "",
+      });
 
-    // Resetting the Show/hide password buttons
-    // setShow({
-    //   showPassword: false,
-    //   showConfirmPassword: false,
-    // });
+      // Resetting the Show/hide password buttons
+      setShow({
+        showPassword: false,
+        showConfirmPassword: false,
+      });
 
-    // Resetting the confirm password field
-    // setConfirmPasword("");
-  }
+      // Resetting the confirm password field
+      setConfirmPasword("");
+    }
+  };
 
   return (
     <section className={classes["container"]}>
@@ -195,7 +192,10 @@ function SignUp() {
               id={classes["show-password"]}
               onClick={() =>
                 setShow((prevShow) => {
-                  return { ...prevShow, showPassword: !prevShow.showPassword };
+                  return {
+                    ...prevShow,
+                    showPassword: !prevShow.showPassword,
+                  };
                 })
               }
             />
@@ -264,7 +264,7 @@ function ValidateForm(
     });
   } else {
     setErrors((prevErrors) => {
-      return { ...prevErrors, userEmail: "" };
+      return { ...prevErrors, userName: "" };
     });
   }
 

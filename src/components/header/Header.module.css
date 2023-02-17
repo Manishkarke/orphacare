@@ -1,0 +1,39 @@
+/* Header's Container */
+.header-section {
+  margin: 0;
+  padding: 15px 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.company-logo {
+  color: var(--header-color);
+  font-family: var(--ff-logo);
+  font-size: var(--fs-header);
+  font-weight: var(--fw-company-logo);
+  line-height: 32px;
+}
+
+.header-section .navigation-section ul {
+  list-style: none;
+  display: flex;
+}
+
+.navigation-section ul li {
+  padding: 10px 20px;
+}
+
+ li.active-link a {
+   border-bottom: 2px solid var(--header-color);
+   padding-bottom: 10px;
+}
+
+.navigation-section ul li a {
+  color: var(--header-color);
+  font-family: var(--ff-navlink);
+  font-size: var(--fs-header);
+  font-weight: var(--fw-navlink);
+  text-decoration: none;
+}

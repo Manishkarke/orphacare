@@ -12,7 +12,7 @@
 }
 
 .container > h2 {
-  font-size: var(--fs-header);
+  font-size: var(--fs-section-title);
   font-weight: var(--fw-title);
 }
 

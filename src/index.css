@@ -10,26 +10,41 @@
   src: url(./assets/fonts/Inter.ttf) format("TrueType");
 }
 
+@font-face {
+  font-family: "Raleway";
+  src: url("./assets/fonts/Raleway.ttf") format("TrueType");
+}
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("./assets/fonts/Comfortaa.ttf") format("TrueType");
+}
+
 /****************************** CSS VARIABLES ******************************/
 :root {
   /* Font Family Variables */
-  --ff-form: 'Inter' ,sans-serif;
+  --ff-form: "Inter", sans-serif;
+  --ff-logo: "Comfortaa", sans-serif;
+  --ff-navlink: "Raleway", sans-serif;
 
   /* Font Weight Variables */
   --fw-title: 700;
   --fw-button: 500;
   --fw-label: 500;
+  --fw-navlink: 500;
+  --fw-company-logo: 700;
 
   /* Font Size Variables */
-  --fs-header: 2.5rem;
+  --fs-header: 1.125rem;
+  --fs-section-title: 2.5rem;
   --fs-button: 1rem;
   --fs-normal: 14px;
 
-
   /* Color Variables */
   --background-color: #eff0ff;
-  --primary-color: #5429FF;
+  --primary-color: #5429ff;
   --secondary-color: #344054;
+  --header-color: #25282b;
 }
 
 body {
