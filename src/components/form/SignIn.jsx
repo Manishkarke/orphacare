@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 import classes from "./Form.module.css";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,10 +12,11 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false); // To change password's input type
   const [errors, setErrors] = useState({}); // To Store errors
 
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    console.log("this is executed.");
+    const apiUrl = "http://localhost:3000/api/signin";
+    // url = "localhost:4000/api/signin"
 
     // Storing all input data in one object
     const formData = {
@@ -26,8 +28,8 @@ const SignIn = () => {
     // Form Data Validation Starts here
     let newError = {};
     let formIsvaild = true;
-    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     // Validate Email
     if (formData.userEmail.trim() === "") {
@@ -42,6 +44,7 @@ const SignIn = () => {
     }
 
     setErrors(newError);
+    const { emailAddress, password } = formData;
 
     for (const error in newError) {
       if (newError[error]) {
@@ -53,7 +56,14 @@ const SignIn = () => {
     // Check if form is valid and if it is valid then reset the form data
     if (formIsvaild) {
       // FORM SUBMITTING LOGIC ARE HERE
-
+      await axios
+        .post(apiUrl, { emailAddress, password })
+        .then((Response) => {
+          console.log(Response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       // Resetting the Input Value to initial value
       userEmailRef.current.value = "";
       passwordRef.current.value = "";

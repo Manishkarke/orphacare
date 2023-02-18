@@ -25,10 +25,10 @@
   padding: 10px 20px;
 }
 
- li.active-link a {
+/* li a.active {
    border-bottom: 2px solid var(--header-color);
    padding-bottom: 10px;
-}
+} */
 
 .navigation-section ul li a {
   color: var(--header-color);
