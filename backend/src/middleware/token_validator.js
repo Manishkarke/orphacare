@@ -1,26 +1,30 @@
-const jwtHandler = require(`../services/jwt_handler.js`);
+const {CustomError} = require('./error_handler.js');
+const jwtHandler = require('../services/jwt_handler.js');
 
 module.exports.accessTokenValidator = async (req, res, next) => {
     const bearerToken = req.headers['authorization'];
-     // Validating access token
-     if(bearerToken == undefined || bearerToken == "" || bearerToken.trim() == ""){
-        throw 'Access token is required.'
+    if(!bearerToken || !bearerToken.trim()){
+        throw new CustomError(401, 'Access token is required.');
     }
     const accessToken = bearerToken.split(' ')[1];
 
-    const userEmail = await jwtHandler.validateAccessToken(accessToken);
-    req.body.email = userEmail;
+    const userId = await jwtHandler.validateAccessToken(accessToken);
+    req.body.userId = userId;
     next();
 }
 
 module.exports.refreshTokenValidator = async (req, res, next) => {
     const bearerToken = req.headers['authorization'];
-    if(bearerToken == undefined || bearerToken == "" || bearerToken.trim() == ""){
-        throw 'Refresh token is required.'
+    if(!bearerToken || !bearerToken.trim()){
+        throw new CustomError(401, 'Refresh token is required.');
     }
     const refreshToken = bearerToken.split(' ')[1];
 
-    const userEmail = await jwtHandler.validateRefreshToken(refreshToken);
-    req.body.email = userEmail;
+    const userId = await jwtHandler.validateRefreshToken(refreshToken);
+    req.body.userId = userId;
     next();
 }
+
+
+
+

@@ -5,6 +5,7 @@ const app = express();
 
 
 const authRouter = require('./routes/auth_route.js');
+const homeRouter = require('./routes/home_route.js');
 
 app.use(cors());
 app.use(express.json());
@@ -35,6 +36,7 @@ const apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 apiRouter.use('/auth', authRouter);
+apiRouter.use('/home', homeRouter);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the registration API!');

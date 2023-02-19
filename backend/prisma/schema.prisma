@@ -11,11 +11,23 @@ datasource db {
 }
 
 model User {
-  id            Int     @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   name          String
   address       String
-  emailAddress  String  @unique
-  phoneNumber   String  @unique
+  emailAddress  String          @unique
+  phoneNumber   String          @unique
   password      String
-  createdAt     DateTime @default(now())
+  createdAt     DateTime        @default(now())
+  MissingReport MissingReport[]
+}
+
+model MissingReport {
+  id                   Int      @id @default(autoincrement())
+  reporterName         String
+  childLastSeenAddress String
+  childLastSeenTime    DateTime
+  childAge             Int
+  remarks              String?
+  reporterId           Int
+  reporter             User     @relation(fields: [reporterId], references: [id])
 }

@@ -1,4 +1,5 @@
 const { FAILED } = require('../constants/constants')
+const { CustomError } = require('../middleware/error_handler')
 
 const validateRequest = (validationSchema) => async (req, res, next) => {
   try {
@@ -8,10 +9,7 @@ const validateRequest = (validationSchema) => async (req, res, next) => {
     }
     next()
   } catch (error) {
-    res.status(400).json({
-      status: FAILED,
-      message: error.message,
-    })
+    throw new CustomError(400,error.message);
   }
 }
 
