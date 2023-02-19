@@ -3,7 +3,10 @@ import axios from "axios";
 import classes from "./Form.module.css";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const SignIn = () => {
   // Reference for User Inputs
   const userEmailRef = useRef();
@@ -15,7 +18,7 @@ const SignIn = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    const apiUrl = "http://localhost:3000/api/signin";
+    const apiUrl = "http://localhost:4000/api/auth/signin";
     // url = "localhost:4000/api/signin"
 
     // Storing all input data in one object
@@ -44,7 +47,7 @@ const SignIn = () => {
     }
 
     setErrors(newError);
-    const { emailAddress, password } = formData;
+    const { userEmail, userPassword } = formData;
 
     for (const error in newError) {
       if (newError[error]) {
@@ -52,18 +55,42 @@ const SignIn = () => {
         break;
       }
     }
-
     // Check if form is valid and if it is valid then reset the form data
     if (formIsvaild) {
       // FORM SUBMITTING LOGIC ARE HERE
-      await axios
-        .post(apiUrl, { emailAddress, password })
-        .then((Response) => {
-          console.log(Response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      try {
+        const response = await axios.post(apiUrl, { userEmail, userPassword });
+        console.log(`The response is ${response}`);
+
+        if (response.data.status === "error") {
+          // Show error message
+          console.log(`The error message is`);
+          toast.error(response.data.message);
+        } else {
+          // Redirect to home page
+          window.location.href = "/home";
+        }
+      } catch (error) {
+        if (error.response) {
+          // The request was made and the server responded with an error status code
+          console.log(
+            `The server responded with an error: ${error.response.data.message[0]}`
+          );
+          toast.error(error.response.data.message[0]);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log("No response was received from the server.");
+          toast.error(
+            "An error occurred while processing your request. Please try again later."
+          );
+        } else {
+          // Something else happened in making the request that triggered an error
+          console.log(`An error occurred: ${error.message}`);
+          toast.error(
+            "An error occurred while processing your request. Please try again later."
+          );
+        }
+      }
       // Resetting the Input Value to initial value
       userEmailRef.current.value = "";
       passwordRef.current.value = "";
@@ -136,6 +163,7 @@ const SignIn = () => {
           Sign In
         </button>
       </form>
+      <ToastContainer />
 
       <div className={classes["signup_link"]}>
         <span>Don't have an account?</span>

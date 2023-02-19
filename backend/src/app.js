@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 
 const authRouter = require('./routes/auth_route.js');
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -29,7 +31,10 @@ prisma.$connect()
     console.log('Error connecting to database', error);
   });
 
-app.use('/api', authRouter);
+const apiRouter = express.Router();
+app.use('/api', apiRouter);
+
+apiRouter.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the registration API!');
