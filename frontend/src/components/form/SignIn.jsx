@@ -3,6 +3,7 @@ import axios from "axios";
 import classes from "./Form.module.css";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ApiConstants } from "../../constants/constants";
 // import { toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,8 +19,7 @@ const SignIn = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    const apiUrl = "http://localhost:4000/api/auth/signin";
-    // url = "localhost:4000/api/signin"
+    const apiUrl = ApiConstants.signIn;
 
     // Storing all input data in one object
     const formData = {
@@ -59,7 +59,10 @@ const SignIn = () => {
     if (formIsvaild) {
       // FORM SUBMITTING LOGIC ARE HERE
       try {
-        const response = await axios.post(apiUrl, { userEmail, userPassword });
+        const response = await axios.post(apiUrl, {
+          emailAddress: userEmail,
+          password: userPassword,
+        });
         console.log(`The response is ${response}`);
 
         if (response.data.status === "error") {
@@ -67,6 +70,12 @@ const SignIn = () => {
           console.log(`The error message is`);
           toast.error(response.data.message);
         } else {
+          // Resetting the Input Value to initial value
+          userEmailRef.current.value = "";
+          passwordRef.current.value = "";
+          rememberUserRef.current.checked = false;
+          setShowPassword(false);
+
           // Redirect to home page
           window.location.href = "/home";
         }
@@ -74,9 +83,9 @@ const SignIn = () => {
         if (error.response) {
           // The request was made and the server responded with an error status code
           console.log(
-            `The server responded with an error: ${error.response.data.message[0]}`
+            `The server responded with an error: ${error.response.data.message}`
           );
-          toast.error(error.response.data.message[0]);
+          toast.error(error.response.data.message);
         } else if (error.request) {
           // The request was made but no response was received
           console.log("No response was received from the server.");
@@ -91,11 +100,6 @@ const SignIn = () => {
           );
         }
       }
-      // Resetting the Input Value to initial value
-      userEmailRef.current.value = "";
-      passwordRef.current.value = "";
-      rememberUserRef.current.checked = false;
-      setShowPassword(false);
 
       console.log("This form is valid");
     }

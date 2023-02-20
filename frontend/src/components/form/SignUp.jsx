@@ -2,8 +2,14 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import classes from "./Form.module.css";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignUp() {
+  // API URL IS STORED HERE
+  const baseUrl = "http://localhost:4000/api/auth/signup";
+
   // For Storing User Data
   const [userData, setUserData] = useState({
     userName: "",
@@ -61,10 +67,12 @@ function SignUp() {
   };
 
   // This function will be executed when the form is submitted.
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
+
     ValidateForm(userData, confirmPassword, setErrors);
     console.log(errors);
+
     // Form validation logics are here.
     let formIsValid = true;
 
@@ -77,6 +85,67 @@ function SignUp() {
 
     if (formIsValid) {
       console.log("Form is valid.");
+
+      const { userName, userAddress, userEmail, phoneNumber, userPassword } =
+        userData;
+      // Sending Data to API
+      try {
+        const response = await axios.post(baseUrl, {
+          name: userName,
+          address: userAddress,
+          emailAddress: userEmail,
+          phoneNumber: phoneNumber,
+          password: userPassword,
+        });
+        console.log(`The response is ${response}`);
+
+        if (response.data.status === "error") {
+          // Show error message
+          console.log(`The error message is`);
+          toast.error(response.data.message);
+        } else {
+          // Resetting the input fields
+          setUserData({
+            userName: "",
+            userAddress: "",
+            userEmail: "",
+            phoneNumber: "",
+            userPassword: "",
+          });
+
+          // Resetting the Show/hide password buttons
+          setShow({
+            showPassword: false,
+            showConfirmPassword: false,
+          });
+
+          // Resetting the confirm password field
+          setConfirmPasword("");
+
+          // Redirect to home page
+          window.location.href = "/home";
+        }
+      } catch (error) {
+        if (error.response) {
+          // The request was made and the server responded with an error status code
+          console.log(
+            `The server responded with an error: ${error.response.data.message}`
+          );
+          toast.error(error.response.data.message);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log("No response was received from the server.");
+          toast.error(
+            "An error occurred while processing your request. Please try again later."
+          );
+        } else {
+          // Something else happened in making the request that triggered an error
+          console.log(`An error occurred: ${error.message}`);
+          toast.error(
+            "An error occurred while processing your request. Please try again later."
+          );
+        }
+      }
 
       console.log(formIsValid);
       // Resetting the input fields
@@ -240,6 +309,8 @@ function SignUp() {
         <button type="submit" className={classes["btn"]}>
           Sign Up
         </button>
+
+        <ToastContainer />
       </form>
     </section>
   );
