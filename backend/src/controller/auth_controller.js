@@ -57,7 +57,8 @@ module.exports.signUpUser = async (req, res, next) => {
 
 module.exports.loginUser = async (req, res) => {
 
-    const { userEmail: emailAddress, userPassword: password } = req.body;
+    const {  emailAddress,  password } = req.body;
+    // const { userEmail: emailAddress, userPassword: password } = req.body;
     // Find user in database
     const user = await prisma.user.findUnique({ where: { emailAddress } });
 

@@ -8,7 +8,7 @@ const missingReportSchema = require('../validation/schema/missingReportSchema.js
 const validateRequest = require('../validation/validator.js')
 
 router.post('/createMissingReport',errorHandler(accessTokenValidator) ,errorHandler(validateRequest(missingReportSchema)), errorHandler(Controller.createMissingReport));
-// router.post('/signin', errorHandler(validateRequest(loginSchema)), errorHandler(Controller.loginUser));
 
+router.get('/getMissingReports',errorHandler(accessTokenValidator) ,errorHandler(Controller.getMissingReports));
 
 module.exports = router;
