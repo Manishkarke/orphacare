@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { navigationLinks } from "../../data/data";
+// import { navigationLinks } from "../../data/data";
+import { navigationLinks } from "../../constants/constants";
 import classes from "./Header.module.css";
 
 class Header extends Component {

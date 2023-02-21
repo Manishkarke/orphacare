@@ -3,7 +3,7 @@ import "./App.css";
 import SignIn from "./components/form/SignIn";
 import SignUp from "./components/form/SignUp";
 import Header from "./components/header/Header";
-import Report from "./components/Report";
+import AddReport from "./components/form/AddReport";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/report" element={<Report />} />
+        <Route path="/report" element={<AddReport />} />
       </Routes>
     </div>
   );

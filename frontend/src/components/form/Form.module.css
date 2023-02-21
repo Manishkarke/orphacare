@@ -36,7 +36,7 @@
   margin-bottom: 3px;
 }
 
-.inputfield input {
+.inputfield input , .inputfield textarea {
   padding: 5px 15px;
   min-width: 100%;
   min-height: 35px;
@@ -46,11 +46,11 @@
   font-size: 1rem;
 }
 
-.inputfield input:focus {
+.inputfield input:focus, .inputfield textarea:focus {
   outline: none;
 }
 
-.inputfield input::placeholder {
+.inputfield input::placeholder, .inputfield textarea::placeholder {
   font-size: var(--fs-normal);
 }
 
