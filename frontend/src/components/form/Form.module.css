@@ -110,20 +110,20 @@ button.btn {
   width: 100%;
 }
 
-.signup_link {
+.footer_link {
   margin: 15px 0;
   display: flex;
   justify-content: center;
 }
 
-.signup_link > span {
+.footer_link > span {
   color: var(--secondary-color);
   font-size: var(--fs-normal);
   font-weight: 400;
   margin-right: 7px;
 }
 
-.signup_link > a {
+.footer_link > a {
   color: var(--primary-color);
   font-size: var(--fs-normal);
   font-weight: 400;

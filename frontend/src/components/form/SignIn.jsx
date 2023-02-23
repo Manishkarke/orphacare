@@ -4,10 +4,10 @@ import classes from "./Form.module.css";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApiConstants } from "../../constants/constants";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
+
 const SignIn = () => {
   // Reference for User Inputs
   const userEmailRef = useRef();
@@ -63,6 +63,7 @@ const SignIn = () => {
           emailAddress: userEmail,
           password: userPassword,
         });
+        localStorage.setItem("access_token", response.data.access_token);
         console.log(`The response is ${response}`);
 
         if (response.data.status === "error") {
@@ -169,9 +170,9 @@ const SignIn = () => {
       </form>
       <ToastContainer />
 
-      <div className={classes["signup_link"]}>
+      <div className={classes["footer_link"]}>
         <span>Don't have an account?</span>
-        <a href="/signup">Sign up</a>
+        <Link to="/signup">Sign up</Link>
       </div>
     </section>
   );

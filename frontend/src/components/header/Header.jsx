@@ -19,10 +19,13 @@ class Header extends Component {
           <ul>
             {this.state.links.map((link) => {
               return (
-                <li key={link.id} className={classes["link"]}>
-                  <NavLink activeclassname={classes.active} to={link.route}>
-                    {link.name}
-                  </NavLink>
+                <li
+                  key={link.id}
+                  className={`${
+                    link.name === "Sign In" ? classes["sign-in"] : ""
+                  }`}
+                >
+                  <NavLink to={link.route}>{link.name}</NavLink>
                 </li>
               );
             })}

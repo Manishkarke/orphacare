@@ -5,6 +5,7 @@ import classes from "./Form.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   // API URL IS STORED HERE
@@ -309,6 +310,11 @@ function SignUp() {
         <button type="submit" className={classes["btn"]}>
           Sign Up
         </button>
+
+        <div className={classes["footer_link"]}>
+          <span>Already have an account?</span>
+          <Link to="/signin">Sign In</Link>
+        </div>
 
         <ToastContainer />
       </form>

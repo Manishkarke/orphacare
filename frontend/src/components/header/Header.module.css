@@ -25,10 +25,10 @@
   padding: 10px 20px;
 }
 
-/* li a.active {
-   border-bottom: 2px solid var(--header-color);
-   padding-bottom: 10px;
-} */
+/* li a.active { */
+  /* border-bottom: 2px solid var(--header-color); */
+  /* padding-bottom: 10px; */
+/* } */
 
 .navigation-section ul li a {
   color: var(--header-color);
@@ -36,4 +36,9 @@
   font-size: var(--fs-header);
   font-weight: var(--fw-navlink);
   text-decoration: none;
+}
+
+.sign-in {
+  border: 2px solid black;
+  border-radius: 10px;
 }

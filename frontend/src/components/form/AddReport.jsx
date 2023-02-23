@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import NepaliDate from "nepali-date-converter";
 import classes from "./Form.module.css";
 
 function Report() {
@@ -6,10 +7,13 @@ function Report() {
   const [report, setReport] = useState({
     userName: "",
     lastSeenAddress: "",
-    lastSeenTime: "",
-    childEstimatedAge: "",
+    lastSeenTime: new Date().toISOString().slice(0, 16),
+    childEstimatedAge: NaN,
     remarks: "",
   });
+
+  // State variable to Store errors
+  const [errors, setErrors] = useState({});
 
   // Input-Field Change Handlers
   // userName
@@ -46,10 +50,19 @@ function Report() {
       return { ...prevReport, remarks: event.target.value };
     });
   };
+
+  // Form Submit Logics here
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(report)
+  };
+  // Validate Form here
+  // validateForm(report, setErrors);
+
   return (
     <section className={classes["container"]}>
       <h2>Report</h2>
-      <form action="POST">
+      <form action="POST" onSubmit={formSubmitHandler}>
         <div className={classes["inputfield"]}>
           <label htmlFor="username">Your Name</label>
           <input
@@ -75,7 +88,7 @@ function Report() {
         <div className={classes["inputfield"]}>
           <label htmlFor="lastSeenTime">Last Seen Time</label>
           <input
-            type="text"
+            type="datetime-local"
             name="lastSeenTime"
             id="lastSeenTime"
             value={report.lastSeenTime}
@@ -86,7 +99,7 @@ function Report() {
         <div className={classes["inputfield"]}>
           <label htmlFor="estimatedAge">Child Estimated Age</label>
           <input
-            type="text"
+            type="number"
             name="estimatedAge"
             id="estimatedAge"
             value={report.childEstimatedAge}
@@ -115,3 +128,42 @@ function Report() {
 }
 
 export default Report;
+
+// Error Handlers
+function validateForm(
+  { userName, lastSeenAddress, lastSeenTime, childEstimatedAge },
+  setErrors
+) {
+  // Validate userName field
+  if (!userName.trim()) {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, userName: "Your Name is Required" };
+    });
+  } else {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, userName: "" };
+    });
+  }
+
+  // valiidate Address field
+  if (!lastSeenAddress.trim()) {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, address: "Address is Required." };
+    });
+  } else {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, address: "" };
+    });
+  }
+
+  // validate child's age
+  if (!childEstimatedAge) {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, age: "Age is Required" };
+    });
+  } else {
+    setErrors((prevErrors) => {
+      return { ...prevErrors, age: "" };
+    });
+  }
+}
