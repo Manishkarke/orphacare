@@ -1,10 +1,3 @@
-
-const baseUrl = "http://localhost:4000/api/";
-const ApiConstants = {
-    signIn: `${baseUrl}/auth/signin`,
-
-}
-
 const navigationLinks = [
     { id: "01", name: "Home", route: "/" },
     { id: "02", name: "Report", route: "/report" },
@@ -15,4 +8,4 @@ const navigationLinks = [
     { id: "07", name: "Sign In", route: "/signin" },
 ]
 
-export { navigationLinks, ApiConstants };
+export { navigationLinks };

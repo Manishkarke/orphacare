@@ -1,12 +1,11 @@
 import React, { useRef, useState } from "react";
-import axios from "axios";
 import classes from "./Form.module.css";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApiConstants } from "../../constants/constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import customFetch from "../../utils/axios";
 
 const SignIn = () => {
   // Reference for User Inputs
@@ -19,8 +18,6 @@ const SignIn = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    const apiUrl = ApiConstants.signIn;
-
     // Storing all input data in one object
     const formData = {
       userEmail: userEmailRef.current.value,
@@ -31,8 +28,7 @@ const SignIn = () => {
     // Form Data Validation Starts here
     let newError = {};
     let formIsvaild = true;
-    const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     // Validate Email
     if (formData.userEmail.trim() === "") {
@@ -59,12 +55,15 @@ const SignIn = () => {
     if (formIsvaild) {
       // FORM SUBMITTING LOGIC ARE HERE
       try {
-        const response = await axios.post(apiUrl, {
+        const response = await customFetch.post("auth/signin", {
           emailAddress: userEmail,
           password: userPassword,
         });
-        localStorage.setItem("access_token", response.data.access_token);
-        console.log(`The response is ${response}`);
+        localStorage.setItem("access_token", response.data.data.accessToken);
+
+        console.log(`The access token is: ${response.data.data.accessToken}`);
+
+        console.log(response);
 
         if (response.data.status === "error") {
           // Show error message
@@ -74,7 +73,9 @@ const SignIn = () => {
           // Resetting the Input Value to initial value
           userEmailRef.current.value = "";
           passwordRef.current.value = "";
+
           rememberUserRef.current.checked = false;
+
           setShowPassword(false);
 
           // Redirect to home page
@@ -83,22 +84,16 @@ const SignIn = () => {
       } catch (error) {
         if (error.response) {
           // The request was made and the server responded with an error status code
-          console.log(
-            `The server responded with an error: ${error.response.data.message}`
-          );
+          console.log(`The server responded with an error: ${error.response.data.message}`);
           toast.error(error.response.data.message);
         } else if (error.request) {
           // The request was made but no response was received
           console.log("No response was received from the server.");
-          toast.error(
-            "An error occurred while processing your request. Please try again later."
-          );
+          toast.error("An error occurred while processing your request. Please try again later.");
         } else {
           // Something else happened in making the request that triggered an error
           console.log(`An error occurred: ${error.message}`);
-          toast.error(
-            "An error occurred while processing your request. Please try again later."
-          );
+          toast.error("An error occurred while processing your request. Please try again later.");
         }
       }
 
@@ -111,17 +106,10 @@ const SignIn = () => {
       <h2>Sign In</h2>
       <form onSubmit={formSubmitHandler}>
         <div
-          className={`${classes["inputfield"]} ${
-            errors.emailError ? classes["input-error"] : ""
-          }`}
+          className={`${classes["inputfield"]} ${errors.emailError ? classes["input-error"] : ""}`}
         >
-          <label htmlFor="username">Email</label>
-          <input
-            type="text"
-            placeholder="Enter your email"
-            id="username"
-            ref={userEmailRef}
-          />
+          <label htmlFor='username'>Email</label>
+          <input type='text' placeholder='Enter your email' id='username' ref={userEmailRef} />
           {errors.emailError && <span>{errors.emailError}</span>}
         </div>
 
@@ -130,12 +118,12 @@ const SignIn = () => {
             errors.passwordError ? classes["input-error"] : ""
           }`}
         >
-          <label htmlFor="password">Password</label>
+          <label htmlFor='password'>Password</label>
           <div className={classes["inputfield__password"]}>
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
-              id="password"
+              placeholder='Enter your password'
+              id='password'
               ref={passwordRef}
             />
             <FontAwesomeIcon
@@ -152,19 +140,14 @@ const SignIn = () => {
         {/* Section For forget password and remember user */}
         <div className={classes["helper-section"]}>
           <div className={classes["helper-section__inner"]}>
-            <input
-              type="checkbox"
-              name="rememberme"
-              id="rememberme"
-              ref={rememberUserRef}
-            />
-            <label htmlFor="rememberme">Remember Me</label>
+            <input type='checkbox' name='rememberme' id='rememberme' ref={rememberUserRef} />
+            <label htmlFor='rememberme'>Remember Me</label>
           </div>
 
-          <a href="#h">Forget Password?</a>
+          <a href='#h'>Forget Password?</a>
         </div>
 
-        <button type="submit" className={classes["btn"]}>
+        <button type='submit' className={classes["btn"]}>
           Sign In
         </button>
       </form>
@@ -172,7 +155,7 @@ const SignIn = () => {
 
       <div className={classes["footer_link"]}>
         <span>Don't have an account?</span>
-        <Link to="/signup">Sign up</Link>
+        <Link to='/signup'>Sign up</Link>
       </div>
     </section>
   );
