@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
-const { createNewAccessToken,createNewRefreshToken } = require('../services/jwt_handler.js');
+const { createNewAccessToken, createNewRefreshToken } = require('../services/jwt_handler.js');
 const { CustomError } = require('../middleware/error_handler.js');
 
 const prisma = new PrismaClient();
@@ -57,10 +57,10 @@ module.exports.signUpUser = async (req, res, next) => {
 
 module.exports.loginUser = async (req, res) => {
 
-    const {  emailAddress,  password } = req.body;
-    // const { userEmail: emailAddress, userPassword: password } = req.body;
+    const { emailAddress, password } = req.body;
     // Find user in database
-    const user = await prisma.user.findUnique({ where: { emailAddress } });
+
+    const user = await prisma.user.findUnique({ where: { emailAddress: emailAddress } });
 
     if (!user) {
         throw new CustomError(401, 'Invalid email address or password');
@@ -70,7 +70,7 @@ module.exports.loginUser = async (req, res) => {
     const passwordMatches = await bcrypt.compare(password, user.password);
 
     if (!passwordMatches) {
-        throw new CustomError(401, 'Invalid email address or password');
+        throw new CustomError(401, 'Incorrect password.');
     }
 
     // Create JWT token
@@ -86,6 +86,6 @@ module.exports.loginUser = async (req, res) => {
         , refreshToken: refreshToken
     };
 
-    res.status(200).json({ status: 'success', message: 'Logged in successfully.', data: responseData});
+    res.status(200).json({ status: 'success', message: 'Logged in successfully.', data: responseData });
 };
 
