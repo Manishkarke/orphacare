@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import customFetch from "../../utils/axios";
 // import NepaliDate from "nepali-date-converter";
 import classes from "./Form.module.css";
 
@@ -52,18 +53,38 @@ function Report() {
   };
 
   // Form Submit Logics here
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(report)
-  };
-  // Validate Form here
-  // validateForm(report, setErrors);
+    console.log(report);
+    // Validate Form here
+    validateForm(report, setErrors);
+    console.log(errors);
 
+    // Checking If there is any errors and if not then sending the data to server
+    let formIsValid = true;
+
+    for (let error in errors) {
+      if (errors[error]) {
+        formIsValid = false;
+        break;
+      }
+    }
+
+    if (formIsValid) {
+      try {
+        const response = await customFetch.post()
+      } catch (error) {}
+    }
+  };
   return (
     <section className={classes["container"]}>
       <h2>Report</h2>
       <form action="POST" onSubmit={formSubmitHandler}>
-        <div className={classes["inputfield"]}>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.userName ? classes["input-error"] : ""
+          }`}
+        >
           <label htmlFor="username">Your Name</label>
           <input
             type="text"
@@ -72,9 +93,14 @@ function Report() {
             value={report.userName}
             onChange={userNameInputChangeHandler}
           />
+          {errors.userName && <span>{errors.userName}</span>}
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.address ? classes["input-error"] : ""
+          }`}
+        >
           <label htmlFor="lastSeenAddress">Last Seen Address</label>
           <input
             type="text"
@@ -83,6 +109,7 @@ function Report() {
             value={report.lastSeenAddress}
             onChange={seenAddressInputChangeHandler}
           />
+          {errors.address && <span>{errors.address}</span>}
         </div>
 
         <div className={classes["inputfield"]}>
@@ -96,7 +123,11 @@ function Report() {
           />
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.age ? classes["input-error"] : ""
+          }`}
+        >
           <label htmlFor="estimatedAge">Child Estimated Age</label>
           <input
             type="number"
@@ -105,6 +136,7 @@ function Report() {
             value={report.childEstimatedAge}
             onChange={childAgeInputChangeHandler}
           />
+          {errors.age && <span>{errors.age}</span>}
         </div>
 
         <div className={classes["inputfield"]}>
