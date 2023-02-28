@@ -72,40 +72,41 @@ function Report() {
 
     if (formIsValid) {
       try {
-        const response = await customFetch.post()
+        const response = await customFetch.post("/home/createMissingReport", {
+          reporterName: report.userName,
+          childLastSeenAddress: report.lastSeenAddress,
+          childLastSeenTime: report.lastSeenTime,
+          childAge: report.childEstimatedAge,
+          remarks: report.remarks,
+        });
+        console.log(response)
       } catch (error) {}
     }
   };
   return (
     <section className={classes["container"]}>
       <h2>Report</h2>
-      <form action="POST" onSubmit={formSubmitHandler}>
+      <form action='POST' onSubmit={formSubmitHandler}>
         <div
-          className={`${classes["inputfield"]} ${
-            errors.userName ? classes["input-error"] : ""
-          }`}
+          className={`${classes["inputfield"]} ${errors.userName ? classes["input-error"] : ""}`}
         >
-          <label htmlFor="username">Your Name</label>
+          <label htmlFor='username'>Your Name</label>
           <input
-            type="text"
-            name="username"
-            id="username"
+            type='text'
+            name='username'
+            id='username'
             value={report.userName}
             onChange={userNameInputChangeHandler}
           />
           {errors.userName && <span>{errors.userName}</span>}
         </div>
 
-        <div
-          className={`${classes["inputfield"]} ${
-            errors.address ? classes["input-error"] : ""
-          }`}
-        >
-          <label htmlFor="lastSeenAddress">Last Seen Address</label>
+        <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
+          <label htmlFor='lastSeenAddress'>Last Seen Address</label>
           <input
-            type="text"
-            name="lastSeenAddress"
-            id="lastSeenAddress"
+            type='text'
+            name='lastSeenAddress'
+            id='lastSeenAddress'
             value={report.lastSeenAddress}
             onChange={seenAddressInputChangeHandler}
           />
@@ -113,26 +114,22 @@ function Report() {
         </div>
 
         <div className={classes["inputfield"]}>
-          <label htmlFor="lastSeenTime">Last Seen Time</label>
+          <label htmlFor='lastSeenTime'>Last Seen Time</label>
           <input
-            type="datetime-local"
-            name="lastSeenTime"
-            id="lastSeenTime"
+            type='datetime-local'
+            name='lastSeenTime'
+            id='lastSeenTime'
             value={report.lastSeenTime}
             onChange={seenTimeInputChangeHandler}
           />
         </div>
 
-        <div
-          className={`${classes["inputfield"]} ${
-            errors.age ? classes["input-error"] : ""
-          }`}
-        >
-          <label htmlFor="estimatedAge">Child Estimated Age</label>
+        <div className={`${classes["inputfield"]} ${errors.age ? classes["input-error"] : ""}`}>
+          <label htmlFor='estimatedAge'>Child Estimated Age</label>
           <input
-            type="number"
-            name="estimatedAge"
-            id="estimatedAge"
+            type='number'
+            name='estimatedAge'
+            id='estimatedAge'
             value={report.childEstimatedAge}
             onChange={childAgeInputChangeHandler}
           />
@@ -140,18 +137,18 @@ function Report() {
         </div>
 
         <div className={classes["inputfield"]}>
-          <label htmlFor="remarks">Remarks</label>
+          <label htmlFor='remarks'>Remarks</label>
           <textarea
-            name="remarks"
-            id="remarks"
-            cols="30"
-            rows="3"
+            name='remarks'
+            id='remarks'
+            cols='30'
+            rows='3'
             value={report.remarks}
             onChange={remarksInputChangeHandler}
           />
         </div>
 
-        <button type="submit" className={classes["btn"]}>
+        <button type='submit' className={classes["btn"]}>
           Report
         </button>
       </form>
@@ -162,10 +159,7 @@ function Report() {
 export default Report;
 
 // Error Handlers
-function validateForm(
-  { userName, lastSeenAddress, lastSeenTime, childEstimatedAge },
-  setErrors
-) {
+function validateForm({ userName, lastSeenAddress, lastSeenTime, childEstimatedAge }, setErrors) {
   // Validate userName field
   if (!userName.trim()) {
     setErrors((prevErrors) => {
