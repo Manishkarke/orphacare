@@ -35,7 +35,6 @@ PRIMARY KEY (`id`)
   `childAge` int(11) NOT NULL,
   `remarks` varchar(255) NOT NULL,
   `reporterId` int(11) NOT NULL,
-  `reporter` int(11) NOT NULL,
    PRIMARY KEY (`id`),
    FOREIGN KEY (`reporterId`) REFERENCES `User` (`id`)
 
