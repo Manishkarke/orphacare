@@ -1,6 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-const Donation = require('../src/constants/enums.js') 
+
 
 generator client {
   provider = "prisma-client-js"
@@ -35,6 +35,15 @@ model MissingReport {
 }
 
 
+// enum Color {  RED  GREEN  YELLOW  BLUE  WHITE}
+
+enum DonationType  {
+  Food
+  Cloth
+  Books
+}
+
+
 model Donation {
   id            Int             @id @default(autoincrement())
   name          String
@@ -43,5 +52,5 @@ model Donation {
   emailAddress  String          
   weight        Int
   age           Int
-  donationType  Donation
+  donationType  DonationType
 }
