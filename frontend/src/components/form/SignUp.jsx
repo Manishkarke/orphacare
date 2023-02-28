@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
+import { registrationValidator } from "../../utils/errorHandler";
+
 function SignUp() {
   // API URL IS STORED HERE
   const baseUrl = "http://localhost:4000/api/auth/signup";
@@ -71,7 +73,8 @@ function SignUp() {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    ValidateForm(userData, confirmPassword, setErrors);
+    // ValidateForm(userData, confirmPassword, setErrors);
+    registrationValidator(userData, confirmPassword, setErrors);
     console.log(errors);
 
     // Form validation logics are here.
@@ -87,8 +90,7 @@ function SignUp() {
     if (formIsValid) {
       console.log("Form is valid.");
 
-      const { userName, userAddress, userEmail, phoneNumber, userPassword } =
-        userData;
+      const { userName, userAddress, userEmail, phoneNumber, userPassword } = userData;
       // Sending Data to API
       try {
         const response = await axios.post(baseUrl, {
@@ -129,22 +131,16 @@ function SignUp() {
       } catch (error) {
         if (error.response) {
           // The request was made and the server responded with an error status code
-          console.log(
-            `The server responded with an error: ${error.response.data.message}`
-          );
+          console.log(`The server responded with an error: ${error.response.data.message}`);
           toast.error(error.response.data.message);
         } else if (error.request) {
           // The request was made but no response was received
           console.log("No response was received from the server.");
-          toast.error(
-            "An error occurred while processing your request. Please try again later."
-          );
+          toast.error("An error occurred while processing your request. Please try again later.");
         } else {
           // Something else happened in making the request that triggered an error
           console.log(`An error occurred: ${error.message}`);
-          toast.error(
-            "An error occurred while processing your request. Please try again later."
-          );
+          toast.error("An error occurred while processing your request. Please try again later.");
         }
       }
 
@@ -174,16 +170,14 @@ function SignUp() {
       <h2>Register</h2>
       <form onSubmit={formSubmitHandler}>
         <div
-          className={`${classes["inputfield"]} ${
-            errors.userName ? classes["input-error"] : ""
-          }`}
+          className={`${classes["inputfield"]} ${errors.userName ? classes["input-error"] : ""}`}
         >
-          <label htmlFor="username">Username</label>
+          <label htmlFor='username'>Username</label>
           <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Enter your Username"
+            type='text'
+            name='username'
+            id='username'
+            placeholder='Enter your Username'
             value={userData.userName}
             onChange={nameInputChangeHandler}
           />
@@ -192,16 +186,14 @@ function SignUp() {
         </div>
 
         <div
-          className={`${classes["inputfield"]} ${
-            errors.userAddress ? classes["input-error"] : ""
-          }`}
+          className={`${classes["inputfield"]} ${errors.userAddress ? classes["input-error"] : ""}`}
         >
-          <label htmlFor="address">Address</label>
+          <label htmlFor='address'>Address</label>
           <input
-            type="text"
-            name="useraddress"
-            id="address"
-            placeholder="Enter your Address"
+            type='text'
+            name='useraddress'
+            id='address'
+            placeholder='Enter your Address'
             value={userData.userAddress}
             onChange={addressInputChangeHandler}
           />
@@ -209,16 +201,14 @@ function SignUp() {
         </div>
 
         <div
-          className={`${classes["inputfield"]} ${
-            errors.userEmail ? classes["input-error"] : ""
-          }`}
+          className={`${classes["inputfield"]} ${errors.userEmail ? classes["input-error"] : ""}`}
         >
-          <label htmlFor="useremail">Email</label>
+          <label htmlFor='useremail'>Email</label>
           <input
-            type="text"
-            name="userEmail"
-            id="useremail"
-            placeholder="Enter your email"
+            type='text'
+            name='userEmail'
+            id='useremail'
+            placeholder='Enter your email'
             value={userData.userEmail}
             onChange={emailInputChangeHandler}
           />
@@ -226,12 +216,12 @@ function SignUp() {
         </div>
 
         <div className={classes["inputfield"]}>
-          <label htmlFor="phonenumber">Phone number</label>
+          <label htmlFor='phonenumber'>Phone number</label>
           <input
-            type="text"
-            name="phonenumber"
-            id="phonenumber"
-            placeholder="Enter your phone number"
+            type='text'
+            name='phonenumber'
+            id='phonenumber'
+            placeholder='Enter your phone number'
             value={userData.phoneNumber}
             onChange={phoneNumberInputChangeHandler}
           />
@@ -240,19 +230,17 @@ function SignUp() {
         {/* Password Input Field Start */}
         <div
           className={`${classes["inputfield"]} ${
-            errors.userPassword || errors.confirmPassword
-              ? classes["input-error"]
-              : ""
+            errors.userPassword || errors.confirmPassword ? classes["input-error"] : ""
           }`}
         >
-          <label htmlFor="password">Password</label>
+          <label htmlFor='password'>Password</label>
 
           <div className={classes["inputfield__password"]}>
             <input
               type={show.showPassword ? "text" : "password"}
-              name="UserPassword"
-              id="password"
-              placeholder="Enter your password"
+              name='UserPassword'
+              id='password'
+              placeholder='Enter your password'
               value={userData.userPassword}
               onChange={passwordInputChangeHandler}
             />
@@ -279,13 +267,13 @@ function SignUp() {
             errors.confirmPassword ? classes["input-error"] : ""
           }`}
         >
-          <label htmlFor="confirmPassword">Confirm password</label>
+          <label htmlFor='confirmPassword'>Confirm password</label>
           <div className={classes["inputfield__password"]}>
             <input
               type={show.showConfirmPassword ? "text" : "password"}
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm your password"
+              name='confirmPassword'
+              id='confirmPassword'
+              placeholder='Confirm your password'
               value={confirmPassword}
               onChange={confirmPasswordInputChangeHandler}
             />
@@ -307,13 +295,13 @@ function SignUp() {
 
         {/* Password Input Field End */}
 
-        <button type="submit" className={classes["btn"]}>
+        <button type='submit' className={classes["btn"]}>
           Sign Up
         </button>
 
         <div className={classes["footer_link"]}>
           <span>Already have an account?</span>
-          <Link to="/signin">Sign In</Link>
+          <Link to='/signin'>Sign In</Link>
         </div>
 
         <ToastContainer />
@@ -323,88 +311,3 @@ function SignUp() {
 }
 
 export default SignUp;
-
-// Form Validation logics are here.
-function ValidateForm(
-  { userName, userPassword, userAddress, userEmail },
-  confirmPassword,
-  setErrors
-) {
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-  // Validate userName
-  if (!userName.trim()) {
-    // error.userName = "Username is required";
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userName: "Username is required" };
-    });
-  } else {
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userName: "" };
-    });
-  }
-
-  // Validate userEmail
-  if (!userEmail.trim()) {
-    // error.userEmail = "Email is required";
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userEmail: "Email is required" };
-    });
-  } else if (!userEmail.match(emailRegex)) {
-    // error.userEmail = "Email is not valid";
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userEmail: "Email is not valid" };
-    });
-  } else {
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userEmail: "" };
-    });
-  }
-
-  // Validate userPassword
-  if (!userPassword.trim()) {
-    // error.userPassword = "Password is required";
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userPassword: "Password is required" };
-    });
-  } else if (userPassword.trim().length < 8) {
-    // error.userPassword = "Password must be at least 8 character long";
-    setErrors((prevErrors) => {
-      return {
-        ...prevErrors,
-        userPassword: "Password must be at least 8 character long",
-      };
-    });
-  } else {
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userPassword: "" };
-    });
-  }
-
-  // Validate userAddress
-  if (!userAddress.trim()) {
-    // error.userPassword = "Address is required.";
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userAddress: "Address is required" };
-    });
-  } else {
-    setErrors((prevErrors) => {
-      return { ...prevErrors, userAddress: "" };
-    });
-  }
-
-  // check if password and confirm password match.
-  if (userPassword !== confirmPassword) {
-    // error.confirmPassword = "Passwords must match";
-    setErrors((prevErrors) => {
-      return { ...prevErrors, confirmPassword: "Passwords must match" };
-    });
-  } else if (userPassword === confirmPassword) {
-    setErrors((prevErrors) => {
-      return { ...prevErrors, confirmPassword: "" };
-    });
-  }
-
-  // setErrors(error);
-}
