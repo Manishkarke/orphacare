@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import customFetch from "../../utils/axios";
 import classes from "./Form.module.css";
+import { dontionFormValidator } from "../../utils/errorHandler";
 
 function DonateNow() {
   const [donation, setDonation] = useState({
@@ -12,6 +13,8 @@ function DonateNow() {
     howOld: NaN,
     type: "food",
   });
+
+  const [errors, setErrors] = useState({});
   // Handle Change of Name input field
   const nameChangeHandler = (event) => {
     setDonation((prevDonation) => {
@@ -64,18 +67,30 @@ function DonateNow() {
   // Is Executed on Form Submit
   const formSubmitHandler = async (event) => {
     event.preventDefault();
+    let formIsValid = true;
+    dontionFormValidator(donation, setErrors);
 
-    try {
-      const response = await customFetch.post("/home");
-    } catch (errors) {
-      console.log(errors);
+    console.log(errors);
+    for (let error in errors) {
+      if (errors[error]) {
+        formIsValid = false;
+        break;
+      }
+    }
+
+    if (formIsValid) {
+      try {
+        const response = await customFetch.post("/home");
+      } catch (errors) {
+        console.log(errors);
+      }
     }
   };
   return (
     <section className={classes["container"]}>
       <h2>Donate Now</h2>
       <form method='POST' onSubmit={formSubmitHandler}>
-        <div className={classes["inputfield"]}>
+        <div className={`${classes["inputfield"]} ${errors.name ? classes["input-error"] : ""}`}>
           <label htmlFor='username'>Name</label>
           <input
             type='text'
@@ -84,9 +99,10 @@ function DonateNow() {
             value={donation.name}
             onChange={nameChangeHandler}
           />
+          {errors.name && <span>{errors.name}</span>}
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
           <label htmlFor='address'>Address</label>
           <input
             type='text'
@@ -95,9 +111,12 @@ function DonateNow() {
             value={donation.address}
             onChange={addressChangeHandler}
           />
+          {errors.address && <span>{errors.address}</span>}
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div
+          className={`${classes["inputfield"]} ${errors.phoneNumber ? classes["input-error"] : ""}`}
+        >
           <label htmlFor='phoneNumber'>Phone Number</label>
           <input
             type='text'
@@ -106,9 +125,10 @@ function DonateNow() {
             value={donation.phoneNumber}
             onChange={phoneNumberChangeHandler}
           />
+          {errors.phoneNumber && <span>{errors.phoneNumber}</span>}
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div className={`${classes["inputfield"]} ${errors.email ? classes["input-error"] : ""}`}>
           <label htmlFor='email'>Email</label>
           <input
             type='text'
@@ -117,9 +137,10 @@ function DonateNow() {
             value={donation.email}
             onChange={emailChangeHandler}
           />
+          {errors.email && <span>{errors.email}</span>}
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div className={`${classes["inputfield"]} ${errors.weight ? classes["input-error"] : ""}`}>
           <label htmlFor='weight'>Weight/Quantity</label>
           <input
             type='number'
@@ -128,9 +149,10 @@ function DonateNow() {
             value={donation.weight}
             onChange={weightChangeHandler}
           />
+          {errors.weight && <span>{errors.weight}</span>}
         </div>
 
-        <div className={classes["inputfield"]}>
+        <div className={`${classes["inputfield"]} ${errors.howOld ? classes["input-error"] : ""}`}>
           <label htmlFor='howOld'>How Old</label>
           <input
             type='number'
@@ -139,6 +161,7 @@ function DonateNow() {
             value={donation.howOld}
             onChange={howOldChangeHandler}
           />
+          {errors.howOld && <span>{errors.howOld}</span>}
         </div>
 
         <div className={classes["inputfield"]}>

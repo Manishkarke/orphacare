@@ -1,10 +1,11 @@
+const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 function registrationValidator(
     { userName, userPassword, userAddress, userEmail },
     confirmPassword,
     setErrors
 ) {
-    const emailRegex =
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     // Validate userName
     if (!userName.trim()) {
@@ -85,7 +86,58 @@ function registrationValidator(
 
 function dontionFormValidator({ name, address, phoneNumber, email, weight, howOld }, setErrors) {
     // Name validator
+    if (!name.trim()) {
+        setErrors(prevErrors => {
+            return { ...prevErrors, name: "Name is required" }
+        });
+    } else if (name.match(emailRegex)) {
+        setErrors(prevErrors => { return { ...prevErrors, name: "Name is invalid" } });
+    } else {
+        setErrors(prevErrors => {
+            return { ...prevErrors, name: "" }
+        })
+    }
 
+    // Address Validator
+    if (!address.trim()) {
+        setErrors(prevErrors => { return { ...prevErrors, address: "Address is required" } })
+    } else {
+        setErrors(prevErrors => { return { ...prevErrors, address: "" } })
+    }
+
+    // Phone number validator
+    if (!phoneNumber.trim()) {
+        setErrors(prevErrors => { return { ...prevErrors, phoneNumber: "Phone number is required" } })
+    } else {
+        setErrors(prevErrors => { return { ...prevErrors, phoneNumber: "" } })
+    }
+
+    // Email validator 
+    if (!email.trim()) {
+        setErrors(prevErrors => { return { ...prevErrors, email: "Email is required" } });
+    } else if (!email.match(emailRegex)) {
+        setErrors(prevErrors => { return { ...prevErrors, email: "Email is Invalid" } });
+    } else {
+        setErrors(prevErrors => { return { ...prevErrors, email: "" } });
+    }
+
+    // Weight Validator
+    if (!weight) {
+        setErrors(prevErrors => { return { ...prevErrors, weight: "Weight is required" } });
+    } else if (weight < 0) {
+        setErrors(prevErrors => { return { ...prevErrors, weight: "Weight cannot be Negative" } });
+    } else {
+        setErrors(prevErrors => { return { ...prevErrors, weight: "" } });
+    }
+
+    // How Old Validator
+    if (!howOld) {
+        setErrors(prevErrors => { return { ...prevErrors, howOld: "Age is required" } });
+    } else if (howOld < 0) {
+        setErrors(prevErrors => { return { ...prevErrors, howOld: "Age cannot be Negative" } });
+    } else {
+        setErrors(prevErrors => { return { ...prevErrors, howOld: "" } });
+    }
 }
 
 export { registrationValidator, dontionFormValidator }
