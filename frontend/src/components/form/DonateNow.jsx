@@ -71,6 +71,7 @@ function DonateNow() {
     dontionFormValidator(donation, setErrors);
 
     console.log(errors);
+
     for (let error in errors) {
       if (errors[error]) {
         formIsValid = false;
@@ -80,7 +81,16 @@ function DonateNow() {
 
     if (formIsValid) {
       try {
-        const response = await customFetch.post("/home");
+        const response = await customFetch.post("/donation/createDonation", {
+          name: donation.name,
+          address: donation.address,
+          phoneNumber: donation.phoneNumber,
+          emailAddress: donation.email,
+          weight: donation.weight,
+          age: donation.howOld,
+          donationType: donation.type,
+        });
+        console.log(response)
       } catch (errors) {
         console.log(errors);
       }
@@ -167,10 +177,9 @@ function DonateNow() {
         <div className={classes["inputfield"]}>
           <label htmlFor='type'>Types(Food/Cloth/Books)</label>
           <select name='type' id='type' value={donation.type} onChange={typeChangeHandler}>
-            <option value='food'>Food</option>
-            <option value='cloth'>Cloth</option>
-            <option value='book'>Books</option>
-            <option value='combobox'>Combo Box</option>
+            <option value='Food'>Food</option>
+            <option value='Cloth'>Cloth</option>
+            <option value='Books'>Books</option>
           </select>
         </div>
 

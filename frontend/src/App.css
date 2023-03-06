@@ -7,3 +7,8 @@ li.sign-in a.active {
   padding-bottom: 0;
   border-bottom: none;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+}
