@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import customFetch from "../../utils/axios";
+import { addAccessTokenToLocalStorage } from "../../utils/localStorage";
+import { signInFormValidator } from "../../utils/errorHandler";
 
 const SignIn = () => {
   // Reference for User Inputs
@@ -26,27 +28,12 @@ const SignIn = () => {
     };
 
     // Form Data Validation Starts here
-    let newError = {};
-    let formIsvaild = true;
-    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-    // Validate Email
-    if (formData.userEmail.trim() === "") {
-      newError.emailError = "Email is Required.";
-    } else if (!formData.userEmail.match(emailRegex)) {
-      newError.emailError = "Email is not vaild.";
-    }
-
-    // Validate password
-    if (formData.userPassword.trim() === "") {
-      newError.passwordError = "Password is required.";
-    }
-
-    setErrors(newError);
     const { userEmail, userPassword } = formData;
+    let formIsvaild = true;
+    signInFormValidator(formData, setErrors);
 
-    for (const error in newError) {
-      if (newError[error]) {
+    for (const error in errors) {
+      if (errors[error]) {
         formIsvaild = false;
         break;
       }
@@ -59,7 +46,8 @@ const SignIn = () => {
           emailAddress: userEmail,
           password: userPassword,
         });
-        localStorage.setItem("access_token", response.data.data.accessToken);
+
+        addAccessTokenToLocalStorage(response.data.data.accessToken);
 
         console.log(`The access token is: ${response.data.data.accessToken}`);
 

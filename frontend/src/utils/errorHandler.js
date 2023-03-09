@@ -1,6 +1,7 @@
 const emailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
+// Error Handler for Registration form
 function registrationValidator(
     { userName, userPassword, userAddress, userEmail },
     confirmPassword,
@@ -80,46 +81,39 @@ function registrationValidator(
         });
     }
 
-    // setErrors(error);
 }
 
-
-function dontionFormValidator({ name, address, phoneNumber, email, weight, howOld }, setErrors) {
-    // Name validator
-    if (!name.trim()) {
-        setErrors(prevErrors => {
-            return { ...prevErrors, name: "Name is required" }
+// Error Handler for Sign In page
+function signInFormValidator({ userEmail, userPassword }, setErrors) {
+    // Email
+    if (!userEmail.trim()) {
+        setErrors((prevErrors) => {
+            return { ...prevErrors, emailError: "Email is Required" };
         });
-    } else if (name.match(emailRegex)) {
-        setErrors(prevErrors => { return { ...prevErrors, name: "Name is invalid" } });
+    } else if (!userEmail.match(emailRegex)) {
+        setErrors((prevErrors) => {
+            return { ...prevErrors, emailError: "Email is not Valid" };
+        });
     } else {
-        setErrors(prevErrors => {
-            return { ...prevErrors, name: "" }
-        })
+        setErrors((prevErrors) => {
+            return { ...prevErrors, emailError: "" };
+        });
     }
 
-    // Address Validator
-    if (!address.trim()) {
-        setErrors(prevErrors => { return { ...prevErrors, address: "Address is required" } })
+    // Password
+    if (!userPassword.trim()) {
+        setErrors((prevErrors) => {
+            return { ...prevErrors, passwordError: "Password is Required" };
+        });
     } else {
-        setErrors(prevErrors => { return { ...prevErrors, address: "" } })
+        setErrors((prevErrors) => {
+            return { ...prevErrors, passwordError: "" };
+        });
     }
+}
 
-    // Phone number validator
-    if (!phoneNumber.trim()) {
-        setErrors(prevErrors => { return { ...prevErrors, phoneNumber: "Phone number is required" } })
-    } else {
-        setErrors(prevErrors => { return { ...prevErrors, phoneNumber: "" } })
-    }
-
-    // Email validator 
-    if (!email.trim()) {
-        setErrors(prevErrors => { return { ...prevErrors, email: "Email is required" } });
-    } else if (!email.match(emailRegex)) {
-        setErrors(prevErrors => { return { ...prevErrors, email: "Email is Invalid" } });
-    } else {
-        setErrors(prevErrors => { return { ...prevErrors, email: "" } });
-    }
+// Error Handler Form DOnation page
+function dontionFormValidator({ weight, howOld }, setErrors) {
 
     // Weight Validator
     if (!weight) {
@@ -140,4 +134,29 @@ function dontionFormValidator({ name, address, phoneNumber, email, weight, howOl
     }
 }
 
-export { registrationValidator, dontionFormValidator }
+// Error Handler For Report page
+function reportFormValidator({ lastSeenAddress, childEstimatedAge }, setErrors) {
+    // valiidate Address field
+    if (!lastSeenAddress.trim()) {
+        setErrors((prevErrors) => {
+            return { ...prevErrors, address: "Address is Required." };
+        });
+    } else {
+        setErrors((prevErrors) => {
+            return { ...prevErrors, address: "" };
+        });
+    }
+
+    // validate child's age
+    if (!childEstimatedAge) {
+        setErrors((prevErrors) => {
+            return { ...prevErrors, age: "Age is Required" };
+        });
+    } else {
+        setErrors((prevErrors) => {
+            return { ...prevErrors, age: "" };
+        });
+    }
+}
+
+export { registrationValidator, signInFormValidator, dontionFormValidator, reportFormValidator };

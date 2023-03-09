@@ -5,43 +5,12 @@ import { dontionFormValidator } from "../../utils/errorHandler";
 
 function DonateNow() {
   const [donation, setDonation] = useState({
-    name: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
     weight: NaN,
     howOld: NaN,
     type: "food",
   });
 
   const [errors, setErrors] = useState({});
-  // Handle Change of Name input field
-  const nameChangeHandler = (event) => {
-    setDonation((prevDonation) => {
-      return { ...prevDonation, name: event.target.value };
-    });
-  };
-
-  // Handle change of address input field
-  const addressChangeHandler = (event) => {
-    setDonation((prevDonation) => {
-      return { ...prevDonation, address: event.target.value };
-    });
-  };
-
-  // Handle Change of Phone number Input field
-  const phoneNumberChangeHandler = (event) => {
-    setDonation((prevDonation) => {
-      return { ...prevDonation, phoneNumber: event.target.value };
-    });
-  };
-
-  // Handle change of Email Input Field
-  const emailChangeHandler = (event) => {
-    setDonation((prevDonation) => {
-      return { ...prevDonation, email: event.target.value };
-    });
-  };
 
   // Handle change of Weight input field
   const weightChangeHandler = (event) => {
@@ -82,15 +51,11 @@ function DonateNow() {
     if (formIsValid) {
       try {
         const response = await customFetch.post("/donation/createDonation", {
-          name: donation.name,
-          address: donation.address,
-          phoneNumber: donation.phoneNumber,
-          emailAddress: donation.email,
           weight: donation.weight,
           age: donation.howOld,
           donationType: donation.type,
         });
-        console.log(response)
+        console.log(response);
       } catch (errors) {
         console.log(errors);
       }
@@ -100,56 +65,6 @@ function DonateNow() {
     <section className={classes["container"]}>
       <h2>Donate Now</h2>
       <form method='POST' onSubmit={formSubmitHandler}>
-        <div className={`${classes["inputfield"]} ${errors.name ? classes["input-error"] : ""}`}>
-          <label htmlFor='username'>Name</label>
-          <input
-            type='text'
-            name='username'
-            id='username'
-            value={donation.name}
-            onChange={nameChangeHandler}
-          />
-          {errors.name && <span>{errors.name}</span>}
-        </div>
-
-        <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
-          <label htmlFor='address'>Address</label>
-          <input
-            type='text'
-            name='address'
-            id='address'
-            value={donation.address}
-            onChange={addressChangeHandler}
-          />
-          {errors.address && <span>{errors.address}</span>}
-        </div>
-
-        <div
-          className={`${classes["inputfield"]} ${errors.phoneNumber ? classes["input-error"] : ""}`}
-        >
-          <label htmlFor='phoneNumber'>Phone Number</label>
-          <input
-            type='text'
-            name='phoneNumber'
-            id='phoneNumber'
-            value={donation.phoneNumber}
-            onChange={phoneNumberChangeHandler}
-          />
-          {errors.phoneNumber && <span>{errors.phoneNumber}</span>}
-        </div>
-
-        <div className={`${classes["inputfield"]} ${errors.email ? classes["input-error"] : ""}`}>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='text'
-            name='email'
-            id='email'
-            value={donation.email}
-            onChange={emailChangeHandler}
-          />
-          {errors.email && <span>{errors.email}</span>}
-        </div>
-
         <div className={`${classes["inputfield"]} ${errors.weight ? classes["input-error"] : ""}`}>
           <label htmlFor='weight'>Weight/Quantity</label>
           <input
