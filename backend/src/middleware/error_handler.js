@@ -1,9 +1,9 @@
 class CustomError extends Error {
-    constructor(statusCode, message) {
-        super(message);
-        this.statusCode = statusCode;
-        this.message = message;
-    }
+  constructor(statusCode, message) {
+    super(message);
+    this.statusCode = statusCode;
+    this.message = message;
+  }
 }
 
 const errorHandler = (func) => {
@@ -13,7 +13,7 @@ const errorHandler = (func) => {
     } catch (err) {
       console.error(err);
       let statusCode = 500;
-      let message = 'Internal server error';
+      let message = "Internal server error";
 
       if (err instanceof CustomError) {
         statusCode = err.statusCode;
@@ -23,12 +23,14 @@ const errorHandler = (func) => {
         message = err.errors[0];
       }
 
-      res.status(statusCode).json({ status: 'error', message: message, data: null });
+      res
+        .status(statusCode)
+        .json({ status: "error", message: message, data: null });
     }
   };
 };
 
 module.exports = {
-    CustomError,
-    errorHandler,
+  CustomError,
+  errorHandler,
 };

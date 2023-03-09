@@ -6,17 +6,17 @@ const { validateRefreshToken } = require("../services/jwt_handler.js");
 const registerSchema = require("../validation/schema/registerSchema.js");
 const loginSchema = require("../validation/schema/loginSchema.js");
 
-const validateRequest = require("../validation/validator.js");
+const { validateRequestBody } = require("../validation/validator.js");
 
 router.post(
   "/signup",
-  errorHandler(validateRequest(registerSchema)),
+  errorHandler(validateRequestBody(registerSchema)),
   errorHandler(Controller.signUpUser)
 );
 
 router.post(
   "/signin",
-  errorHandler(validateRequest(loginSchema)),
+  errorHandler(validateRequestBody(loginSchema)),
   errorHandler(Controller.loginUser)
 );
 //TOOD: LATER

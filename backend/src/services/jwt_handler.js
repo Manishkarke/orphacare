@@ -2,9 +2,9 @@ const jwt = require("jsonwebtoken");
 const { CustomError } = require("../middleware/error_handler");
 function createNewAccessToken(userId) {
   const accessToken = jwt.sign(
-    { id: userId },
-    process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "15m" }
+    { id: userId }, //object
+    process.env.ACCESS_TOKEN_SECRET, //env bta halxum hashing ma help garxa
+    { expiresIn: "1d" }
   );
   return accessToken;
 }

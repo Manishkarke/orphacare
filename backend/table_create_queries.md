@@ -15,12 +15,7 @@
 
 <!-- CREATE TABLE `Donation` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
-`name` varchar(255) NOT NULL,
-`address` varchar(255) NOT NULL,
-`phoneNumber` varchar(255) NOT NULL,
-`emailAddress` varchar(255) NOT NULL,
 `weight` int(11) NOT NULL,
-`age`int(11) NOT NULL,
 `donationType` enum('Food','Cloth','Books') NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB -->
@@ -29,7 +24,6 @@ PRIMARY KEY (`id`)
 
 <!-- CREATE TABLE `MissingReport` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reporterName` varchar(255) NOT NULL,
   `childLastSeenAddress` varchar(255) NOT NULL,
   `childLastSeenTime` datetime NOT NULL,
   `childAge` int(11) NOT NULL,
