@@ -1,6 +1,8 @@
 /* Header's Container */
 .header-section {
   margin: 0;
+  /* margin-bottom: 50px; */
+  background-color: var(--background-color);
   padding: 15px 30px;
 
   position: sticky;
@@ -28,8 +30,8 @@
 }
 
 /* li a.active { */
-  /* border-bottom: 2px solid var(--header-color); */
-  /* padding-bottom: 10px; */
+/* border-bottom: 2px solid var(--header-color); */
+/* padding-bottom: 10px; */
 /* } */
 
 .navigation-section ul li a {

@@ -7,6 +7,7 @@ import AboutUs from "./components/About/AboutUs";
 import Blog from "./components/Blog";
 import SignInRoute from "./routes/SignInRoute";
 import SignUpRoute from "./routes/SignUpRoute";
+// import AboutUs from "./components/About/AboutUs";
 
 function App() {
   return (

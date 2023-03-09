@@ -1,3 +1,5 @@
+import { teamMem } from "../assets";
+
 const navigationLinks = [
     { id: "01", name: "Home", route: "/" },
     { id: "02", name: "Report", route: "/report" },
@@ -8,4 +10,10 @@ const navigationLinks = [
     { id: "07", name: "Sign In", route: "/signin" },
 ]
 
-export { navigationLinks };
+const teamMember = [
+    { photoPath: teamMem, name: 'Ram Kumar thapa', post: 'Founding Member' },
+    { photoPath: teamMem, name: 'Bimal Gharti Magar', post: 'Founding Member' },
+    { photoPath: teamMem, name: 'Shankar Shah', post: 'Founding Member' }
+]
+
+export { navigationLinks, teamMember };

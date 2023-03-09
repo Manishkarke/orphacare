@@ -36,9 +36,11 @@
 
   /* Font Size Variables */
   --fs-header: 1.125rem;
+  --fs-about-header: 1.5rem;
   --fs-section-title: 2.5rem;
   --fs-button: 1rem;
-  --fs-normal: 14px;
+  --fs-normal: 1.125rem;
+
 
   /* Color Variables */
   --background-color: #eff0ff;
