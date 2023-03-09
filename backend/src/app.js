@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 const authRouter = require("./routes/auth_route.js");
-const homeRouter = require("./routes/home_route.js");
+const reportRouter = require("./routes/report_route.js");
 const donationRouter = require("./routes/donation_route.js");
 
 app.use(cors());
@@ -37,7 +37,7 @@ const apiRouter = express.Router();
 app.use("/api", apiRouter);
 
 apiRouter.use("/auth", authRouter);
-apiRouter.use("/home", homeRouter);
+apiRouter.use("/report", reportRouter);
 apiRouter.use("/donation", donationRouter);
 
 app.get("/", (req, res) => {

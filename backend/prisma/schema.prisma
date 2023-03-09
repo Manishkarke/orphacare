@@ -20,12 +20,12 @@ model User {
   phoneNumber   String          @unique
   password      String
   createdAt     DateTime        @default(now())
-  MissingReport MissingReport[]
+  missingReport MissingReport[]
+  donaton       Donation[]
 }
 
 model MissingReport {
   id                   Int      @id @default(autoincrement())
-  reporterName         String
   childLastSeenAddress String
   childLastSeenTime    DateTime
   childAge             Int
@@ -35,7 +35,6 @@ model MissingReport {
 }
 
 
-// enum Color {  RED  GREEN  YELLOW  BLUE  WHITE}
 
 enum DonationType  {
   Food
@@ -45,12 +44,9 @@ enum DonationType  {
 
 
 model Donation {
-  id            Int             @id @default(autoincrement())
-  name          String
-  address       String
-  phoneNumber   String          
-  emailAddress  String          
+  id            Int             @id @default(autoincrement())       
   weight        Int
-  age           Int
   donationType  DonationType
+  donatorId     Int
+  donator       User            @relation(fields: [donatorId], references: [id])
 }
