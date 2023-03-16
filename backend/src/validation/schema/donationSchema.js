@@ -1,5 +1,5 @@
 const yup = require("yup");
-const Donation = require("../../constants/enums");
+const { Donation } = require("../../constants/enums");
 
 const createDonationSchema = yup.object().shape({
   weight: yup.number().integer().required(),

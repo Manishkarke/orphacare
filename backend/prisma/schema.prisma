@@ -11,6 +11,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Roles {
+  admin
+  user
+}
 
 model User {
   id            Int             @id @default(autoincrement())
@@ -22,6 +26,7 @@ model User {
   createdAt     DateTime        @default(now())
   missingReport MissingReport[]
   donaton       Donation[]
+  role          Roles
 }
 
 model MissingReport {
@@ -49,4 +54,48 @@ model Donation {
   donationType  DonationType
   donatorId     Int
   donator       User            @relation(fields: [donatorId], references: [id])
+}
+
+model Volunteer{
+  id            Int             @id @default(autoincrement()) 
+  name          String
+  age           Int
+  picture       String? 
+}
+
+
+
+enum Caste {
+Brahmin
+Kshatriya
+Vaishya
+Sudra
+
+}
+
+enum Provience {
+ Koshi
+ Madhesh 
+ Bagmati
+ Gandaki
+ Lumbini
+ Karnali
+ SudurPachim
+}
+enum Gender {
+  Male
+  Female
+  Other
+}
+model KidsForAdoption{
+  id            Int             @id @default(autoincrement()) 
+  picture       String?
+  name          String
+  surname       String
+  age           Int
+  caste         Caste
+  gender        Gender
+  provience     Provience
+  description   String
+ isAdopted      Boolean         @default(false)
 }
