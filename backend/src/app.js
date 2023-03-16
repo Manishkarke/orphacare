@@ -4,9 +4,10 @@ const cors = require("cors");
 const app = express();
 
 const authRouter = require("./routes/auth_route.js");
-const reportRouter = require("./routes/report_route.js");
+const reportRouter = require("./routes/missing_report_route.js");
 const donationRouter = require("./routes/donation_route.js");
-
+const volunteerRouter = require("./routes/volunteer_route.js");
+const adoptionRouter = require("./routes/kids_adoption_route.js");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,6 +40,8 @@ app.use("/api", apiRouter);
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/report", reportRouter);
 apiRouter.use("/donation", donationRouter);
+apiRouter.use("/volunteer", volunteerRouter);
+apiRouter.use("/kids-adoption", adoptionRouter);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the registration API!");

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Controller = require("../controller/report_controller.js");
+const Controller = require("../controller/missing_report_controller.js");
 const { errorHandler } = require("../middleware/error_handler.js");
 const { accessTokenValidator } = require("../middleware/token_validator.js");
 const {
