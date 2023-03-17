@@ -8,8 +8,9 @@ module.exports.accessTokenValidator = async (req, res, next) => {
   }
   const accessToken = bearerToken.split(" ")[1];
 
-  const userId = await jwtHandler.validateAccessToken(accessToken);
-  req.userId = userId;
+  const userData = await jwtHandler.validateAccessToken(accessToken);
+  req.userId = userData.id;
+  req.role = userData.role;
 
   next();
 };

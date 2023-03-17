@@ -26,7 +26,7 @@ model User {
   createdAt     DateTime        @default(now())
   missingReport MissingReport[]
   donaton       Donation[]
-  role          Roles
+  role          Roles           
 }
 
 model MissingReport {

@@ -13,7 +13,14 @@ module.exports.createKid = async (req, res, next) => {
       provience,
       description,
     } = req.body;
-
+    const { role } = req;
+    if (role !== "admin") {
+      return res.status(403).json({
+        status: "error",
+        message: "You are not authorized to create the kids for adoption.",
+      });
+    }
+    console.log(`The role is ${role}`);
     const kids = await prisma.kidsForAdoption.create({
       data: {
         picture,

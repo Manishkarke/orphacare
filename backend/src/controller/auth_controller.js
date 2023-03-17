@@ -12,7 +12,8 @@ const saltRounds = 10;
 
 module.exports.signUpUser = async (req, res, next) => {
   try {
-    const { name, address, emailAddress, phoneNumber, password } = req.body;
+    const { name, address, emailAddress, phoneNumber, password, role } =
+      req.body;
 
     // Check if email or phone number already exists in the database
     const existingUser = await prisma.user.findFirst({
@@ -26,6 +27,10 @@ module.exports.signUpUser = async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Use default value for role if not provided in request body
+    const userRole = role || "user";
+
     // Create new user in the database
     const user = await prisma.user.create({
       data: {
@@ -34,7 +39,7 @@ module.exports.signUpUser = async (req, res, next) => {
         emailAddress,
         phoneNumber,
         password: hashedPassword,
-        // role: Roles || Roles.user,
+        role: userRole,
       },
     });
 
@@ -48,6 +53,7 @@ module.exports.signUpUser = async (req, res, next) => {
         phoneNumber: user.phoneNumber,
         address: user.address,
         createdAt: user.createdAt,
+        role: user.role,
       },
     });
   } catch (error) {
@@ -75,8 +81,8 @@ module.exports.loginUser = async (req, res) => {
   }
 
   // Create JWT token
-  const accessToken = createNewAccessToken(user.id);
-  const refreshToken = createNewRefreshToken(user.id);
+  const accessToken = createNewAccessToken(user.id, user.role);
+  const refreshToken = createNewRefreshToken(user.id, user.role);
 
   // Return token
   const responseData = {

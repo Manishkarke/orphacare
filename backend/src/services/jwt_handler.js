@@ -1,17 +1,17 @@
 const jwt = require("jsonwebtoken");
 const { CustomError } = require("../middleware/error_handler");
-function createNewAccessToken(userId) {
+function createNewAccessToken(userId, role) {
   const accessToken = jwt.sign(
-    { id: userId }, //object
+    { id: userId, role }, //object
     process.env.ACCESS_TOKEN_SECRET, //env bta halxum hashing ma help garxa
     { expiresIn: "1d" }
   );
   return accessToken;
 }
 
-function createNewRefreshToken(userId) {
+function createNewRefreshToken(userId, role) {
   const refreshToken = jwt.sign(
-    { id: userId },
+    { id: userId, role },
     process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: "7d" }
   );
@@ -24,7 +24,7 @@ function validateAccessToken(accessToken) {
       accessToken,
       process.env.ACCESS_TOKEN_SECRET
     );
-    return jwtVerification.id;
+    return jwtVerification;
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {
       throw new CustomError(400, "Please provide a valid access token.");
