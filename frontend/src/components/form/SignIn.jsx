@@ -4,12 +4,13 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import customFetch from "../../utils/axios";
 import { addAccessTokenToLocalStorage } from "../../utils/localStorage";
 import { signInFormValidator } from "../../utils/errorHandler";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   // Reference for User Inputs
   const userEmailRef = useRef();
   const passwordRef = useRef();
@@ -67,7 +68,7 @@ const SignIn = () => {
           setShowPassword(false);
 
           // Redirect to home page
-          window.location.href = "/home";
+          navigate("/");
         }
       } catch (error) {
         if (error.response) {
