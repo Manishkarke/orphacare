@@ -11,7 +11,6 @@ module.exports.accessTokenValidator = async (req, res, next) => {
   const userData = await jwtHandler.validateAccessToken(accessToken);
   req.userId = userData.id;
   req.role = userData.role;
-
   next();
 };
 

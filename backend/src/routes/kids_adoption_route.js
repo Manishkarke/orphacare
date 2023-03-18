@@ -23,8 +23,9 @@ router.get(
   errorHandler(Controller.getAllKids)
 );
 router.get(
-  "/requestForAdoption/:id",
+  "/requestForAdoption/:kidId",
   errorHandler(accessTokenValidator),
+  errorHandler(validateRequestParams(kidIdSchema)),
   errorHandler(Controller.requestForAdoption)
 );
 router.get(
@@ -40,6 +41,7 @@ router.post(
   errorHandler(validateRequestBody(updateKidSchema)),
   errorHandler(Controller.updateKid)
 );
+
 router.delete(
   "/deleteKid/:KidId",
   errorHandler(accessTokenValidator),

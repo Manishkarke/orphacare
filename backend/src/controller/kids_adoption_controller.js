@@ -190,49 +190,43 @@ module.exports.deleteKid = async (req, res, next) => {
   } catch (err) {
     throw err;
   }
+}
 
-  module.exports.requestForAdoption = async (req, res, next) => {
-    console.log("Code is fine 1");
+module.exports.requestForAdoption = async (req, res, next) => {
+  const { kidId } = req.params;
+  try {
 
-    const { kidId } = req.params;
-    try {
-      console.log("Code is fine 2");
+    const existingKid = await prisma.kidsForAdoption.findUnique({
+      where: {
+        id: kidId,
+      },
+    });
 
-      const existingKid = await prisma.kidsforAdoption.findUnique({
-        where: {
-          id: kidId,
-        },
+    if (!existingKid) {
+      return res.status(404).json({
+        status: "error",
+        message: "Kid not found.",
       });
-      console.log("Code is fine 3");
-
-      if (!existingKid) {
-        return res.status(404).json({
-          status: "error",
-          message: "Kid not found.",
-        });
-      }
-      console.log("Code is fine 4");
-
-      if (existingKid.isAdopted) {
-        return res.status(422).json({
-          status: "error",
-          message: "Kid is already adopted.",
-        });
-      }
-      console.log("Code is fine 5");
-
-      await prisma.kidsforAdoption.update({
-        where: { id: kidId },
-        data: {
-          isAdopted: true,
-        },
-      });
-      res.status(200).json({
-        status: "success",
-        message: "Kid adopted successfully.",
-      });
-    } catch (err) {
-      throw err;
     }
-  };
+
+    if (existingKid.isAdopted) {
+      return res.status(422).json({
+        status: "error",
+        message: "Kid is already adopted.",
+      });
+    }
+
+    await prisma.kidsForAdoption.update({
+      where: { id: kidId },
+      data: {
+        isAdopted: true,
+      },
+    });
+    res.status(200).json({
+      status: "success",
+      message: "Kid adopted successfully.",
+    });
+  } catch (err) {
+    throw err;
+  }
 };
