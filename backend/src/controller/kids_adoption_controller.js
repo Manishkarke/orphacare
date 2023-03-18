@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 
 module.exports.createKid = async (req, res, next) => {
   try {
+    const { userId: adopterId } = req;
     const {
       picture,
       name,
@@ -31,6 +32,7 @@ module.exports.createKid = async (req, res, next) => {
         gender,
         provience,
         description,
+        adopterId,
       },
     });
     res.status(200).json({
@@ -46,10 +48,9 @@ module.exports.createKid = async (req, res, next) => {
 module.exports.getAllKids = async (req, res, next) => {
   try {
     const kids = await prisma.kidsForAdoption.findMany({
-
       where: {
-        isAdopted: false
-      }
+        isAdopted: false,
+      },
       // select: {
       //   id: true,
       //   picture: true,
@@ -190,24 +191,41 @@ module.exports.deleteKid = async (req, res, next) => {
     throw err;
   }
 
-  module.exports.adoptKid = async (req, res, next) => {
+  module.exports.requestForAdoption = async (req, res, next) => {
+    console.log("Code is fine 1");
+
     const { kidId } = req.params;
     try {
+      console.log("Code is fine 2");
+
       const existingKid = await prisma.kidsforAdoption.findUnique({
         where: {
           id: kidId,
         },
       });
+      console.log("Code is fine 3");
+
       if (!existingKid) {
         return res.status(404).json({
           status: "error",
           message: "Kid not found.",
         });
       }
+      console.log("Code is fine 4");
+
+      if (existingKid.isAdopted) {
+        return res.status(422).json({
+          status: "error",
+          message: "Kid is already adopted.",
+        });
+      }
+      console.log("Code is fine 5");
+
       await prisma.kidsforAdoption.update({
-        where: { id: kidId }, data: {
+        where: { id: kidId },
+        data: {
           isAdopted: true,
-        }
+        },
       });
       res.status(200).json({
         status: "success",
@@ -216,5 +234,5 @@ module.exports.deleteKid = async (req, res, next) => {
     } catch (err) {
       throw err;
     }
-  }
+  };
 };

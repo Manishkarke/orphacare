@@ -26,7 +26,8 @@ model User {
   createdAt     DateTime        @default(now())
   missingReport MissingReport[]
   donaton       Donation[]
-  role          Roles           
+  role          Roles    
+  adoptedKid    KidsForAdoption[]       
 }
 
 model MissingReport {
@@ -98,4 +99,6 @@ model KidsForAdoption{
   provience     Provience
   description   String
  isAdopted      Boolean         @default(false)
+ adopterId      Int
+ adopter        User            @relation(fields: [adopterId], references: [id])
 }

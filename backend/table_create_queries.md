@@ -50,7 +50,9 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `provience` enum('Koshi','Madhesi','Bagmati','Gandaki','Lumbini','Karnali','SudurPachim') NOT NULL,
   `description` varchar(255) NOT NULL,
   `isAdopted` boolean NOT NULL,
-   PRIMARY KEY (`id`)
+  `adopterId` int(11) NOT NULL,
+   PRIMARY KEY (`id`),
+   FOREIGN KEY (`adopterId`) REFERENCES `User` (`id`)
 )  -->
 
 //Volunteer

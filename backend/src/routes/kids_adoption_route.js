@@ -22,10 +22,14 @@ router.get(
   errorHandler(accessTokenValidator),
   errorHandler(Controller.getAllKids)
 );
-
+router.get(
+  "/requestForAdoption/:id",
+  errorHandler(accessTokenValidator),
+  errorHandler(Controller.requestForAdoption)
+);
 router.get(
   "/getKid/:kidId",
-  // errorHandler(accessTokenValidator),
+  errorHandler(accessTokenValidator),
   errorHandler(validateRequestParams(kidIdSchema)),
   errorHandler(Controller.getKid)
 );
