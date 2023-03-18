@@ -15,7 +15,7 @@ const createKidSchema = yup.object().shape({
 });
 
 const kidIdSchema = yup.object().shape({
-  kidsId: yup.number().integer().required(),
+  kidId: yup.number().integer().required(),
 });
 
 const updateKidSchema = yup.object().shape({

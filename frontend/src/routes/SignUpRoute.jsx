@@ -4,7 +4,7 @@ import ImageSlider from "../ui/ImageSlider";
 
 function SignUpRoute() {
   return (
-    <section className='container'>
+    <section className='route-container'>
       <ImageSlider />
       <SignUp />
     </section>

@@ -25,7 +25,7 @@ router.get(
 
 router.get(
   "/getKid/:kidId",
-  errorHandler(accessTokenValidator),
+  // errorHandler(accessTokenValidator),
   errorHandler(validateRequestParams(kidIdSchema)),
   errorHandler(Controller.getKid)
 );

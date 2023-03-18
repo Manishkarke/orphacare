@@ -4,7 +4,7 @@ import SignIn from "../components/form/SignIn";
 
 function SignInRoute() {
   return (
-    <section className="container">
+    <section className='route-container'>
       <ImageSlider />
       <SignIn />
     </section>

@@ -5,13 +5,13 @@ import classes from "./Form.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { registrationValidator } from "../../utils/errorHandler";
+import customFetch from "../../utils/axios";
 
 function SignUp() {
-  // API URL IS STORED HERE
-  const baseUrl = "http://localhost:4000/api/auth/signup";
+  const navigate = useNavigate();
 
   // For Storing User Data
   const [userData, setUserData] = useState({
@@ -20,6 +20,7 @@ function SignUp() {
     userEmail: "",
     phoneNumber: "",
     userPassword: "",
+    userType: "User",
   });
 
   // To Show and Hide password field
@@ -69,6 +70,12 @@ function SignUp() {
     setConfirmPasword(event.target.value);
   };
 
+  const joinAsInputChangeHandler = (event) => {
+    setUserData((prevUserData) => {
+      return { ...prevUserData, userType: event.target.value };
+    });
+  };
+
   // This function will be executed when the form is submitted.
   const formSubmitHandler = async (event) => {
     event.preventDefault();
@@ -90,15 +97,16 @@ function SignUp() {
     if (formIsValid) {
       console.log("Form is valid.");
 
-      const { userName, userAddress, userEmail, phoneNumber, userPassword } = userData;
+      const { userName, userAddress, userEmail, phoneNumber, userPassword, userType } = userData;
       // Sending Data to API
       try {
-        const response = await axios.post(baseUrl, {
+        const response = await customFetch.post("auth/signup", {
           name: userName,
           address: userAddress,
           emailAddress: userEmail,
           phoneNumber: phoneNumber,
           password: userPassword,
+          role: userType
         });
         console.log(`The response is ${response}`);
 
@@ -114,6 +122,7 @@ function SignUp() {
             userEmail: "",
             phoneNumber: "",
             userPassword: "",
+            userType: 'User'
           });
 
           // Resetting the Show/hide password buttons
@@ -126,7 +135,7 @@ function SignUp() {
           setConfirmPasword("");
 
           // Redirect to home page
-          window.location.href = "/home";
+          navigate("/signin");
         }
       } catch (error) {
         if (error.response) {
@@ -146,22 +155,22 @@ function SignUp() {
 
       console.log(formIsValid);
       // Resetting the input fields
-      setUserData({
-        userName: "",
-        userAddress: "",
-        userEmail: "",
-        phoneNumber: "",
-        userPassword: "",
-      });
+      // setUserData({
+      //   userName: "",
+      //   userAddress: "",
+      //   userEmail: "",
+      //   phoneNumber: "",
+      //   userPassword: "",
+      // });
 
       // Resetting the Show/hide password buttons
-      setShow({
-        showPassword: false,
-        showConfirmPassword: false,
-      });
+      // setShow({
+      //   showPassword: false,
+      //   showConfirmPassword: false,
+      // });
 
       // Resetting the confirm password field
-      setConfirmPasword("");
+      // setConfirmPasword("");
     }
   };
 
@@ -294,6 +303,19 @@ function SignUp() {
         </div>
 
         {/* Password Input Field End */}
+
+        <div className={classes["inputfield"]}>
+          <label htmlFor='userType'>Join As</label>
+          <select
+            name='userType'
+            id='userType'
+            value={userData.userType}
+            onChange={joinAsInputChangeHandler}
+          >
+            <option value='user'>User</option>
+            <option value='volunteer'>Volunteer</option>
+          </select>
+        </div>
 
         <button type='submit' className={classes["btn"]}>
           Sign Up

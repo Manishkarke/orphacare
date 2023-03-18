@@ -7,7 +7,8 @@ const removeAccessTokenFromLocalStorage = () => {
 }
 
 const getAccessTokenFromLocalStorage = () => {
-    localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('access_token');
+    return accessToken;
 }
 
 export { addAccessTokenToLocalStorage, removeAccessTokenFromLocalStorage, getAccessTokenFromLocalStorage };

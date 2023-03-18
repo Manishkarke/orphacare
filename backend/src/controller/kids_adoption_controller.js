@@ -45,18 +45,22 @@ module.exports.createKid = async (req, res, next) => {
 
 module.exports.getAllKids = async (req, res, next) => {
   try {
-    const kids = await prisma.kidsforAdoption.findMany({
-      select: {
-        id: true,
-        picture: true,
-        name: true,
-        surname: true,
-        age: true,
-        caste: true,
-        gender: true,
-        provience: true,
-        description: true,
-      },
+    const kids = await prisma.kidsForAdoption.findMany({
+
+      where: {
+        isAdopted: false
+      }
+      // select: {
+      //   id: true,
+      //   picture: true,
+      //   name: true,
+      //   surname: true,
+      //   age: true,
+      //   caste: true,
+      //   gender: true,
+      //   provience: true,
+      //   description: true,
+      // },
     });
     res.status(200).json({
       status: "success",
@@ -70,21 +74,21 @@ module.exports.getAllKids = async (req, res, next) => {
 module.exports.getKid = async (req, res, next) => {
   const { kidId } = req.params;
   try {
-    const singleKid = await prisma.kidsforAdoption.findUnique({
+    const singleKid = await prisma.kidsForAdoption.findUnique({
       where: {
         id: kidId,
       },
-      select: {
-        id: true,
-        picture: true,
-        name: true,
-        surname: true,
-        age: true,
-        caste: true,
-        gender: true,
-        provience: true,
-        description: true,
-      },
+      // select: {
+      //   id: true,
+      //   picture: true,
+      //   name: true,
+      //   surname: true,
+      //   age: true,
+      //   caste: true,
+      //   gender: true,
+      //   provience: true,
+      //   description: true,
+      // },
     });
     res.status(200).json({
       status: "success",
@@ -184,5 +188,33 @@ module.exports.deleteKid = async (req, res, next) => {
     });
   } catch (err) {
     throw err;
+  }
+
+  module.exports.adoptKid = async (req, res, next) => {
+    const { kidId } = req.params;
+    try {
+      const existingKid = await prisma.kidsforAdoption.findUnique({
+        where: {
+          id: kidId,
+        },
+      });
+      if (!existingKid) {
+        return res.status(404).json({
+          status: "error",
+          message: "Kid not found.",
+        });
+      }
+      await prisma.kidsforAdoption.update({
+        where: { id: kidId }, data: {
+          isAdopted: true,
+        }
+      });
+      res.status(200).json({
+        status: "success",
+        message: "Kid adopted successfully.",
+      });
+    } catch (err) {
+      throw err;
+    }
   }
 };
