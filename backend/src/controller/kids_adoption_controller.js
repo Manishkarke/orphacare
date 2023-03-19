@@ -1,9 +1,9 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const emailService = require("../services/email_service.js");
 
 module.exports.createKid = async (req, res, next) => {
   try {
-    const { userId: adopterId } = req;
     const {
       picture,
       name,
@@ -32,7 +32,6 @@ module.exports.createKid = async (req, res, next) => {
         gender,
         provience,
         description,
-        adopterId,
       },
     });
     res.status(200).json({
@@ -51,17 +50,6 @@ module.exports.getAllKids = async (req, res, next) => {
       where: {
         isAdopted: false,
       },
-      // select: {
-      //   id: true,
-      //   picture: true,
-      //   name: true,
-      //   surname: true,
-      //   age: true,
-      //   caste: true,
-      //   gender: true,
-      //   provience: true,
-      //   description: true,
-      // },
     });
     res.status(200).json({
       status: "success",
@@ -79,17 +67,6 @@ module.exports.getKid = async (req, res, next) => {
       where: {
         id: kidId,
       },
-      // select: {
-      //   id: true,
-      //   picture: true,
-      //   name: true,
-      //   surname: true,
-      //   age: true,
-      //   caste: true,
-      //   gender: true,
-      //   provience: true,
-      //   description: true,
-      // },
     });
     res.status(200).json({
       status: "success",
@@ -124,14 +101,6 @@ module.exports.updateKid = async (req, res, next) => {
         message: "Kid not found.",
       });
     }
-    // Check if authenticated user owns this donation
-
-    //   if (existing.donatorId !== req.userId) {
-    //     return res.status(403).json({
-    //       status: "error",
-    //       message: "You are not authorized to update this donation.",
-    //     });}
-    // If the ID exists, update the record
     const updatedKid = await prisma.kidsforAdoption.update({
       where: {
         id,
@@ -147,6 +116,7 @@ module.exports.updateKid = async (req, res, next) => {
         description,
       },
     });
+    const adopterDetails = await prisma.user.findUnique;
     res.status(200).json({
       status: "success",
       message: "Donation updated successfully.",
@@ -171,15 +141,6 @@ module.exports.deleteKid = async (req, res, next) => {
         message: "Kid not found.",
       });
     }
-    // // Check if authenticated user owns this donation
-
-    // if (existingDonation.donatorId !== req.userId) {
-    //     return res.status(403).json({
-    //       status: "error",
-    //       message: "You are not authorized to delete this donation.",
-    //     });
-    //   }
-    // If the ID exists, delete the record
     await prisma.kidsforAdoption.delete({
       where: { id: kidId },
     });
@@ -190,12 +151,13 @@ module.exports.deleteKid = async (req, res, next) => {
   } catch (err) {
     throw err;
   }
-}
+};
 
 module.exports.requestForAdoption = async (req, res, next) => {
   const { kidId } = req.params;
-  try {
+  const { userId: adopterId } = req;
 
+  try {
     const existingKid = await prisma.kidsForAdoption.findUnique({
       where: {
         id: kidId,
@@ -220,11 +182,20 @@ module.exports.requestForAdoption = async (req, res, next) => {
       where: { id: kidId },
       data: {
         isAdopted: true,
+        adopterId,
       },
     });
+    const adopterData = await prisma.user.findUnique({
+      where: { id: adopterId },
+      select: {
+        emailAddress,
+      },
+    });
+    await emailService.sendMail(adopterData.emailAddress, existingKid.name);
+
     res.status(200).json({
       status: "success",
-      message: "Kid adopted successfully.",
+      message: "Kid adoption request sent successfully.",
     });
   } catch (err) {
     throw err;

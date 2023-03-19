@@ -6,12 +6,15 @@ const prisma = new PrismaClient();
 module.exports.createDonation = async (req, res, next) => {
   try {
     const { userId: donatorId } = req;
-    const { weight, donationType } = req.body;
+    const { weight, donationType, donateAmount } = req.body;
 
+    // Use default value for donate amount if not provided in request body
+    const amount = donateAmount || 0;
     const donation = await prisma.donation.create({
       data: {
         weight,
         donationType,
+        donateAmount: amount,
         donatorId,
       },
     });

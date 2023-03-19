@@ -36,6 +36,8 @@ model MissingReport {
   childLastSeenTime    DateTime
   childAge             Int
   remarks              String?
+  longitude            Int
+  latitude             Int
   reporterId           Int
   reporter             User     @relation(fields: [reporterId], references: [id])
 }
@@ -53,6 +55,7 @@ model Donation {
   id            Int             @id @default(autoincrement())       
   weight        Int
   donationType  DonationType
+  donateAmount  Int
   donatorId     Int
   donator       User            @relation(fields: [donatorId], references: [id])
 }

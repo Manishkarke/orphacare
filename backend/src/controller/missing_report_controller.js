@@ -8,8 +8,14 @@ const prisma = new PrismaClient();
 module.exports.createMissingReport = async (req, res, next) => {
   try {
     const { userId: reporterId } = req;
-    const { childLastSeenAddress, childLastSeenTime, childAge, remarks } =
-      req.body;
+    const {
+      childLastSeenAddress,
+      childLastSeenTime,
+      childAge,
+      remarks,
+      longitude,
+      latitude,
+    } = req.body;
 
     const user = await prisma.user.findUnique({ where: { id: reporterId } });
     if (!user) throw new Error("Reporter not found.");
@@ -20,6 +26,8 @@ module.exports.createMissingReport = async (req, res, next) => {
         childLastSeenTime,
         childAge,
         remarks,
+        longitude,
+        latitude,
         reporterId,
       },
     });
@@ -48,6 +56,8 @@ module.exports.getAllMissingReports = async (req, res, next) => {
         childLastSeenTime: true,
         childAge: true,
         remarks: true,
+        longitude: true,
+        latitude: true,
         reporter: {
           select: {
             id: true,
@@ -80,6 +90,8 @@ module.exports.getMyMissingReport = async (req, res, next) => {
         childLastSeenTime: true,
         childAge: true,
         remarks: true,
+        longitude: true,
+        latitude: true,
         reporter: {
           select: {
             id: true,
@@ -112,6 +124,8 @@ module.exports.getMissingReport = async (req, res, next) => {
         childLastSeenTime: true,
         childAge: true,
         remarks: true,
+        longitude: true,
+        latitude: true,
         reporter: {
           select: {
             id: true,
@@ -133,8 +147,15 @@ module.exports.getMissingReport = async (req, res, next) => {
 //updating a donation
 module.exports.updateMissingReport = async (req, res, next) => {
   try {
-    const { id, childLastSeenAddress, childLastSeenTime, childAge, remarks } =
-      req.body;
+    const {
+      id,
+      childLastSeenAddress,
+      childLastSeenTime,
+      childAge,
+      remarks,
+      longitude,
+      latitude,
+    } = req.body;
     const existingMissingReport = await prisma.missingReport.findUnique({
       where: {
         id,
@@ -164,6 +185,8 @@ module.exports.updateMissingReport = async (req, res, next) => {
         childLastSeenTime,
         childAge,
         remarks,
+        longitude,
+        latitude,
       },
     });
     res.status(200).json({

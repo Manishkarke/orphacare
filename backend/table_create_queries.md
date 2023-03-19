@@ -18,6 +18,7 @@
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `weight` int(11) NOT NULL,
 `donationType` enum('Food','Cloth','Books') NOT NULL,
+`donateAmount` int(11) NOT NULL DEFAULT 0,
 `donatorId` int(11) NOT NULL,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
@@ -31,6 +32,8 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `childLastSeenTime` datetime NOT NULL,
   `childAge` int(11) NOT NULL,
   `remarks` varchar(255) NOT NULL,
+  `longitude` int(11) NOT NULL,
+  `latitude` int(11) NOT NULL,
   `reporterId` int(11) NOT NULL,
    PRIMARY KEY (`id`),
    FOREIGN KEY (`reporterId`) REFERENCES `User` (`id`)
@@ -50,7 +53,7 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `provience` enum('Koshi','Madhesi','Bagmati','Gandaki','Lumbini','Karnali','SudurPachim') NOT NULL,
   `description` varchar(255) NOT NULL,
   `isAdopted` boolean NOT NULL,
-  `adopterId` int(11) NOT NULL,
+  `adopterId` int(11),
    PRIMARY KEY (`id`),
    FOREIGN KEY (`adopterId`) REFERENCES `User` (`id`)
 )  -->
