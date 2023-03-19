@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import customFetch from "../../utils/axios";
 import classes from "./Form.module.css";
 import { dontionFormValidator } from "../../utils/errorHandler";
+import KhaltiCheckout from "khalti-checkout-web";
+import Khalti from "../../utils/Khalti";
 
 function DonateNow() {
   const [donation, setDonation] = useState({
     weight: NaN,
     howOld: NaN,
     type: "food",
+    money: NaN,
   });
 
   const [errors, setErrors] = useState({});
@@ -33,6 +36,13 @@ function DonateNow() {
     });
   };
 
+  // Donate money
+  const donationAmountChangeHanlder = (event) => {
+    setDonation((prevDonation) => {
+      return { ...prevDonation, money: event.target.value };
+    });
+  };
+
   // Is Executed on Form Submit
   const formSubmitHandler = async (event) => {
     event.preventDefault();
@@ -55,12 +65,17 @@ function DonateNow() {
           age: donation.howOld,
           donationType: donation.type,
         });
+        if (donation.money && donation.money != 0) {
+          await Khalti(donation.money,response.data.data.id);
+        }
+
         console.log(response);
       } catch (errors) {
         console.log(errors);
       }
     }
   };
+
   return (
     <section className={classes["container"]}>
       <h2>Donate Now</h2>
@@ -96,6 +111,17 @@ function DonateNow() {
             <option value='Cloth'>Cloth</option>
             <option value='Books'>Books</option>
           </select>
+        </div>
+
+        <div className={classes["inputfield"]}>
+          <label htmlFor='donateMoney'>Donate Money</label>
+          <input
+            type='number'
+            name='donation Amount'
+            id='donateMoney'
+            value={donation.money}
+            onChange={donationAmountChangeHanlder}
+          />
         </div>
 
         <button type='submit' className={classes["btn"]}>

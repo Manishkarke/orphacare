@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import customFetch from "../../utils/axios";
 import { reportFormValidator } from "../../utils/errorHandler";
 import classes from "./Form.module.css";
-
+import Map from "../Map/Map";
 function Report() {
   // Report State Variable to Store all the input's value
   const [report, setReport] = useState({
-    lastSeenAddress: "",
     lastSeenTime: new Date().toISOString().slice(0, 16),
     childEstimatedAge: NaN,
     remarks: "",
@@ -80,13 +79,7 @@ function Report() {
       <form action='POST' onSubmit={formSubmitHandler}>
         <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
           <label htmlFor='lastSeenAddress'>Last Seen Address</label>
-          <input
-            type='text'
-            name='lastSeenAddress'
-            id='lastSeenAddress'
-            value={report.lastSeenAddress}
-            onChange={seenAddressInputChangeHandler}
-          />
+          <Map />
           {errors.address && <span>{errors.address}</span>}
         </div>
 

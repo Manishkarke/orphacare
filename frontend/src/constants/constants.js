@@ -16,4 +16,6 @@ const teamMember = [
     { photoPath: teamMem, name: 'Shankar Shah', post: 'Founding Member' }
 ]
 
-export { navigationLinks, teamMember };
+const googleMapsApi = 'AIzaSyBLEaTTrzYWeyeL_0JVU2uPOxQTR08BCrg';
+
+export { navigationLinks, teamMember, googleMapsApi };
