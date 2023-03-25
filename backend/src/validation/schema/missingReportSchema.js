@@ -3,7 +3,7 @@ const yup = require("yup");
 const createMissingReportSchema = yup.object().shape({
   childLastSeenAddress: yup.string().required(),
   childLastSeenTime: yup.date().required(),
-  childAge: yup.number().required().strict().positive(),
+  childAge: yup.number().required().positive(),
   remarks: yup.string(),
   longitude: yup
     .number()
@@ -25,7 +25,7 @@ const updateMissingReportSchema = yup.object().shape({
   id: yup.number().required(),
   childLastSeenAddress: yup.string(),
   childLastSeenTime: yup.date(),
-  childAge: yup.number().strict().positive(),
+  childAge: yup.number().positive(),
   remarks: yup.string(),
 });
 module.exports = {

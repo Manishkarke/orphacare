@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import customFetch from "../../utils/axios";
 
 function ChildDetail() {
@@ -15,7 +16,17 @@ function ChildDetail() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [id]);
+
+  const adoptKidHandler = async () => {
+    try {
+      const response = await customFetch.get(`/kids-adoption/requestForAdoption/${id}`);
+      toast.success(response.data.message);
+      console.log(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   console.log(`Child detial is ${childDetails}`);
   return (
@@ -32,7 +43,10 @@ function ChildDetail() {
         <p>gender: {`${childDetails.gender}`}</p>
         <p>provience: {`${childDetails.provience}`}</p>
       </div>
-      <button className='btn'>Adopt</button>
+      <button className='btn' onClick={adoptKidHandler}>
+        Adopt
+      </button>
+      <ToastContainer />
     </article>
   );
 }

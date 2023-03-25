@@ -2,13 +2,13 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import classes from "./Form.module.css";
-import axios from "axios";
+// import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 
 import { registrationValidator } from "../../utils/errorHandler";
-import customFetch from "../../utils/axios";
+import { signUpApiHandler } from "../../utils/axios";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function SignUp() {
     userEmail: "",
     phoneNumber: "",
     userPassword: "",
-    userType: "User",
+    userType: "user",
   });
 
   // To Show and Hide password field
@@ -100,14 +100,14 @@ function SignUp() {
       const { userName, userAddress, userEmail, phoneNumber, userPassword, userType } = userData;
       // Sending Data to API
       try {
-        const response = await customFetch.post("auth/signup", {
-          name: userName,
-          address: userAddress,
-          emailAddress: userEmail,
-          phoneNumber: phoneNumber,
-          password: userPassword,
-          role: userType
-        });
+        const response = await signUpApiHandler(
+          userName,
+          userAddress,
+          userEmail,
+          phoneNumber,
+          userPassword,
+          userType
+        );
         console.log(`The response is ${response}`);
 
         if (response.data.status === "error") {
@@ -122,7 +122,7 @@ function SignUp() {
             userEmail: "",
             phoneNumber: "",
             userPassword: "",
-            userType: 'User'
+            userType: "user",
           });
 
           // Resetting the Show/hide password buttons

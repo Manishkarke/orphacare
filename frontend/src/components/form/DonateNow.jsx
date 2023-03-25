@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import customFetch from "../../utils/axios";
+import { addDonationApiHandler } from "../../utils/axios";
 import classes from "./Form.module.css";
 import { dontionFormValidator } from "../../utils/errorHandler";
-import KhaltiCheckout from "khalti-checkout-web";
 import Khalti from "../../utils/Khalti";
 
 function DonateNow() {
   const [donation, setDonation] = useState({
     weight: NaN,
-    howOld: NaN,
-    type: "food",
-    money: NaN,
+    donationType: "Food",
+    donateAmount: NaN,
   });
 
   const [errors, setErrors] = useState({});
@@ -19,13 +17,6 @@ function DonateNow() {
   const weightChangeHandler = (event) => {
     setDonation((prevDonation) => {
       return { ...prevDonation, weight: event.target.value };
-    });
-  };
-
-  // Handle change of How Old Input Field
-  const howOldChangeHandler = (event) => {
-    setDonation((prevDonation) => {
-      return { ...prevDonation, howOld: event.target.value };
     });
   };
 
@@ -39,7 +30,7 @@ function DonateNow() {
   // Donate money
   const donationAmountChangeHanlder = (event) => {
     setDonation((prevDonation) => {
-      return { ...prevDonation, money: event.target.value };
+      return { ...prevDonation, donateAmount: event.target.value };
     });
   };
 
@@ -60,13 +51,10 @@ function DonateNow() {
 
     if (formIsValid) {
       try {
-        const response = await customFetch.post("/donation/createDonation", {
-          weight: donation.weight,
-          age: donation.howOld,
-          donationType: donation.type,
-        });
-        if (donation.money && donation.money != 0) {
-          await Khalti(donation.money,response.data.data.id);
+        const response = await addDonationApiHandler(donation);
+        if (donation.donateAmount && donation.donateAmount !== 0) {
+          console.log("I want to donate");
+          await Khalti(donation.donateAmount, response.data.data.id);
         }
 
         console.log(response);
@@ -90,18 +78,6 @@ function DonateNow() {
             onChange={weightChangeHandler}
           />
           {errors.weight && <span>{errors.weight}</span>}
-        </div>
-
-        <div className={`${classes["inputfield"]} ${errors.howOld ? classes["input-error"] : ""}`}>
-          <label htmlFor='howOld'>How Old</label>
-          <input
-            type='number'
-            name='howOld'
-            id='howOld'
-            value={donation.howOld}
-            onChange={howOldChangeHandler}
-          />
-          {errors.howOld && <span>{errors.howOld}</span>}
         </div>
 
         <div className={classes["inputfield"]}>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import customFetch from "../../utils/axios";
+import { addReportApiHandler } from "../../utils/axios";
 import { reportFormValidator } from "../../utils/errorHandler";
 import classes from "./Form.module.css";
 import Map from "../Map/Map";
+
 function Report() {
   // Report State Variable to Store all the input's value
   const [report, setReport] = useState({
@@ -16,11 +17,6 @@ function Report() {
 
   // Input-Field Change Handlers
   // Last Seen Address
-  const seenAddressInputChangeHandler = (event) => {
-    setReport((prevReport) => {
-      return { ...prevReport, lastSeenAddress: event.target.value };
-    });
-  };
 
   // Last Seen Time
   const seenTimeInputChangeHandler = (event) => {
@@ -63,12 +59,7 @@ function Report() {
 
     if (formIsValid) {
       try {
-        const response = await customFetch.post("/report/createMissingReport", {
-          childLastSeenAddress: report.lastSeenAddress,
-          childLastSeenTime: report.lastSeenTime,
-          childAge: report.childEstimatedAge,
-          remarks: report.remarks,
-        });
+        const response = await addReportApiHandler(report);
         console.log(response);
       } catch (error) {}
     }

@@ -4,17 +4,15 @@ const { Donation } = require("../../constants/enums");
 const createDonationSchema = yup.object().shape({
   weight: yup.number().integer().required(),
   donationType: yup.mixed().oneOf(Object.values(Donation)).required(),
-  donateAmount: yup.number().required().strict().positive().min(1),
+  donateAmount: yup.number().required().positive().min(1),
 });
 
 const donationIdSchema = yup.object().shape({
   donationId: yup.number().integer().required(),
+  donateAmount: yup.number().required().positive().min(1),
 });
 
 const updateDonationSchema = yup.object().shape({
-  id: yup.number().integer().strict().required(),
-  weight: yup.number().integer().strict().positive(),
-  donationType: yup.mixed().oneOf(Object.values(Donation)),
 });
 module.exports = {
   donationIdSchema,

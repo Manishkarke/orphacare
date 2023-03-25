@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
-import customFetch from "../../utils/axios";
+import { signInApiHandler } from "../../utils/axios";
 import { addAccessTokenToLocalStorage } from "../../utils/localStorage";
 import { signInFormValidator } from "../../utils/errorHandler";
 
@@ -43,10 +43,7 @@ const SignIn = () => {
     if (formIsvaild) {
       // FORM SUBMITTING LOGIC ARE HERE
       try {
-        const response = await customFetch.post("auth/signin", {
-          emailAddress: userEmail,
-          password: userPassword,
-        });
+        const response = await signInApiHandler(userEmail, userPassword);
 
         addAccessTokenToLocalStorage(response.data.data.accessToken);
 

@@ -4,7 +4,6 @@ import Header from "./components/header/Header";
 import AddReport from "./components/form/AddReport";
 import DonateNow from "./components/form/DonateNow";
 import AboutUs from "./components/About/AboutUs";
-// import Blog from "./components/Blog";
 import SignInRoute from "./routes/SignInRoute";
 import SignUpRoute from "./routes/SignUpRoute";
 import AdoptKidsRoute from "./routes/adoptKidsRoute";

@@ -7,7 +7,7 @@ const createKidSchema = yup.object().shape({
   picture: yup.string().required(),
   name: yup.string().required(),
   surname: yup.string().required(),
-  age: yup.number().required().strict().positive().max(14),
+  age: yup.number().required().positive().max(14),
   caste: yup.mixed().oneOf(Object.values(Caste)).required(),
   gender: yup.mixed().oneOf(Object.values(Gender)).required(),
   provience: yup.mixed().oneOf(Object.values(Provience)).required(),
@@ -19,11 +19,11 @@ const kidIdSchema = yup.object().shape({
 });
 
 const updateKidSchema = yup.object().shape({
-  id: yup.number().integer().strict().required(),
+  id: yup.number().integer().required(),
   picture: yup.string(),
   name: yup.string(),
   surname: yup.string(),
-  age: yup.number().strict().positive().max(14),
+  age: yup.number().positive().max(14),
   caste: yup.mixed().oneOf(Object.values(Caste)),
   gender: yup.mixed().oneOf(Object.values(Gender)),
   provience: yup.mixed().oneOf(Object.values(Provience)),

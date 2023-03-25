@@ -124,14 +124,6 @@ function dontionFormValidator({ weight, howOld }, setErrors) {
         setErrors(prevErrors => { return { ...prevErrors, weight: "" } });
     }
 
-    // How Old Validator
-    if (!howOld) {
-        setErrors(prevErrors => { return { ...prevErrors, howOld: "Age is required" } });
-    } else if (howOld < 0) {
-        setErrors(prevErrors => { return { ...prevErrors, howOld: "Age cannot be Negative" } });
-    } else {
-        setErrors(prevErrors => { return { ...prevErrors, howOld: "" } });
-    }
 }
 
 // Error Handler For Report page

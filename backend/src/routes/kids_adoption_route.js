@@ -22,7 +22,7 @@ router.get(
   errorHandler(accessTokenValidator),
   errorHandler(Controller.getAllKids)
 );
-router.post(
+router.get(
   "/requestForAdoption/:kidId",
   errorHandler(accessTokenValidator),
   errorHandler(validateRequestParams(kidIdSchema)),

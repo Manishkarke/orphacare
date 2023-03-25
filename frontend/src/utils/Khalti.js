@@ -1,9 +1,10 @@
 import KhaltiCheckout from "khalti-checkout-web";
+import { updateDonationAmount } from "./axios";
 
-const Khalti = async (amount,donationId) => {
+const Khalti = async (donateAmount, id) => {
     const config = {
         // replace the publicKey with yours
-        "publicKey": "test_public_key_dc74e0fd57cb46cd93832aee0a390234",
+        "publicKey": "test_public_key_b545a132548e48fea898fb580d489be2",
         "productIdentity": "1234567890",
         "productName": "Donation for OrphaCare",
         "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
@@ -16,6 +17,7 @@ const Khalti = async (amount,donationId) => {
         ],
         "eventHandler": {
             onSuccess(payload) {
+                // updateDonationAmount(id, donateAmount);
                 // hit merchant api for initiating verfication
                 console.log(payload);
             },
@@ -28,28 +30,10 @@ const Khalti = async (amount,donationId) => {
         }
     };
 
-    var checkout = new KhaltiCheckout(config);
-    checkout.show({ amount: amount * 100 });
+    let checkout = new KhaltiCheckout(config);
+    await checkout.show({ amount: donateAmount * 100 });
 
-    // const config = {
-    //     amount: amount * 100, // amount in paisa
-    //     productIdentity: "donation",
-    //     productName: "Donation",
-    //     productUrl: "http://example.com/donation",
-    //     additionalData: {},
-    //     checkoutUrl: "http://example.com/checkount",
-    //     returnUrl: "http://example.com/return",
-    //     // You can also provide `eventHandler` and `closedHandler` functions
-    // };
-
-    // try {
-    //     const response = await khalti.checkout(config);
-    //     console.log(response);
-    // } catch (error) {
-    //     console.log(error);
-    // }
-
-    console.log(`User want to donate ${amount}`)
+    console.log(`User want to donate ${donateAmount}`)
 };
 
 export default Khalti;

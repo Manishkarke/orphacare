@@ -187,11 +187,11 @@ module.exports.requestForAdoption = async (req, res, next) => {
     });
     const adopterData = await prisma.user.findUnique({
       where: { id: adopterId },
-      select: {
-        emailAddress,
-      },
+      // select: {
+      //   emailAddress,
+      // },
     });
-    await emailService.sendMail(adopterData.emailAddress, existingKid.name);
+    // await emailService.sendMail(adopterData.emailAddress, existingKid.name);
 
     res.status(200).json({
       status: "success",
