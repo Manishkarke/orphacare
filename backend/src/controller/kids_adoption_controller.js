@@ -90,7 +90,7 @@ module.exports.updateKid = async (req, res, next) => {
     description,
   } = req.body;
   try {
-    const existingKid = await prisma.kidsforAdoption.findUnique({
+    const existingKid = await prisma.kidsForAdoption.findUnique({
       where: {
         id,
       },
@@ -101,7 +101,7 @@ module.exports.updateKid = async (req, res, next) => {
         message: "Kid not found.",
       });
     }
-    const updatedKid = await prisma.kidsforAdoption.update({
+    const updatedKid = await prisma.kidsForAdoption.update({
       where: {
         id,
       },
@@ -130,7 +130,7 @@ module.exports.updateKid = async (req, res, next) => {
 module.exports.deleteKid = async (req, res, next) => {
   const { kidId } = req.params;
   try {
-    const existingKid = await prisma.kidsforAdoption.findUnique({
+    const existingKid = await prisma.kidsForAdoption.findUnique({
       where: {
         id: kidId,
       },

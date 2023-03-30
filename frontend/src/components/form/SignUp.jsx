@@ -2,7 +2,6 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import classes from "./Form.module.css";
-// import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -195,21 +194,6 @@ function SignUp() {
         </div>
 
         <div
-          className={`${classes["inputfield"]} ${errors.userAddress ? classes["input-error"] : ""}`}
-        >
-          <label htmlFor='address'>Address</label>
-          <input
-            type='text'
-            name='useraddress'
-            id='address'
-            placeholder='Enter your Address'
-            value={userData.userAddress}
-            onChange={addressInputChangeHandler}
-          />
-          {errors.userAddress && <span>{errors.userAddress}</span>}
-        </div>
-
-        <div
           className={`${classes["inputfield"]} ${errors.userEmail ? classes["input-error"] : ""}`}
         >
           <label htmlFor='useremail'>Email</label>
@@ -222,6 +206,21 @@ function SignUp() {
             onChange={emailInputChangeHandler}
           />
           {errors.userEmail && <span>{errors.userEmail}</span>}
+        </div>
+
+        <div
+          className={`${classes["inputfield"]} ${errors.userAddress ? classes["input-error"] : ""}`}
+        >
+          <label htmlFor='address'>Address</label>
+          <input
+            type='text'
+            name='useraddress'
+            id='address'
+            placeholder='Enter your Address'
+            value={userData.userAddress}
+            onChange={addressInputChangeHandler}
+          />
+          {errors.userAddress && <span>{errors.userAddress}</span>}
         </div>
 
         <div className={classes["inputfield"]}>

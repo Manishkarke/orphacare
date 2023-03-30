@@ -1,4 +1,4 @@
-import { teamMem } from "../assets";
+import { teamMem, vol1, vol2, vol3 } from "../assets";
 
 const navigationLinks = [
     { id: "01", name: "Home", route: "/" },
@@ -6,8 +6,7 @@ const navigationLinks = [
     { id: "03", name: "Volunteer", route: "/volunteer" },
     { id: "04", name: "Donate", route: "/donate" },
     { id: "05", name: "About us", route: "/about" },
-    { id: "06", name: "Blog", route: "/blog" },
-    { id: "07", name: "Sign In", route: "/signin" },
+    { id: "06", name: "Sign In", route: "/signin" },
 ]
 
 const teamMember = [
@@ -18,4 +17,14 @@ const teamMember = [
 
 const googleMapsApi = 'AIzaSyBLEaTTrzYWeyeL_0JVU2uPOxQTR08BCrg';
 
-export { navigationLinks, teamMember, googleMapsApi };
+const volunteers = [
+    { id: 1, name: "Rakesh Khadka", age: 26, imgPath: vol1 },
+    { id: 2, name: "Rakesh Ksdbha", age: 26, imgPath: vol2 },
+    { id: 3, name: "Rakesh Khadasdwa", age: 26, imgPath: vol3 },
+    { id: 4, name: "Rakesh Khadkawe", age: 26, imgPath: vol1 },
+    { id: 5, name: "Rakesh Khadkea", age: 26, imgPath: vol2 },
+    { id: 6, name: "Rakesh Khadska", age: 26, imgPath: vol3 },
+    // { id: 7, name: "Rakesh Khadkasx", age: 26, imgPath: 's' },
+]
+
+export { navigationLinks, teamMember, googleMapsApi, volunteers };

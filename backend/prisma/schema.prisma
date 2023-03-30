@@ -1,7 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,17 +16,17 @@ enum Roles {
 }
 
 model User {
-  id            Int             @id @default(autoincrement())
+  id            Int               @id @default(autoincrement())
   name          String
   address       String
-  emailAddress  String          @unique
-  phoneNumber   String          @unique
+  emailAddress  String            @unique
+  phoneNumber   String            @unique
   password      String
-  createdAt     DateTime        @default(now())
+  createdAt     DateTime          @default(now())
   missingReport MissingReport[]
   donaton       Donation[]
-  role          Roles    
-  adoptedKid    KidsForAdoption[]       
+  role          Roles
+  adoptedKid    KidsForAdoption[]
 }
 
 model MissingReport {
@@ -42,66 +41,62 @@ model MissingReport {
   reporter             User     @relation(fields: [reporterId], references: [id])
 }
 
-
-
-enum DonationType  {
+enum DonationType {
   Food
   Cloth
   Books
 }
 
-
 model Donation {
-  id            Int             @id @default(autoincrement())       
-  weight        Int
-  donationType  DonationType
-  donateAmount  Int
-  donatorId     Int
-  donator       User            @relation(fields: [donatorId], references: [id])
+  id           Int          @id @default(autoincrement())
+  weight       Int
+  donationType DonationType
+  donateAmount Int
+  donatorId    Int
+  donator      User         @relation(fields: [donatorId], references: [id])
 }
 
-model Volunteer{
-  id            Int             @id @default(autoincrement()) 
-  name          String
-  age           Int
-  picture       String? 
+model Volunteer {
+  id      Int     @id @default(autoincrement())
+  name    String
+  age     Int
+  picture String?
 }
-
-
 
 enum Caste {
-Brahmin
-Kshatriya
-Vaishya
-Sudra
-
+  Brahmin
+  Kshatriya
+  Vaishya
+  Sudra
 }
 
 enum Provience {
- Koshi
- Madhesh 
- Bagmati
- Gandaki
- Lumbini
- Karnali
- SudurPachim
+  Koshi
+  Madhesh
+  Bagmati
+  Gandaki
+  Lumbini
+  Karnali
+  SudurPachim
 }
+
 enum Gender {
   Male
   Female
   Other
 }
-model KidsForAdoption{
-  id            Int             @id @default(autoincrement()) 
-  picture       String?
-  name          String
-  surname       String
-  age           Int
-  caste         Caste
-  gender        Gender
-  provience     Provience
-  description   String
- isAdopted      Boolean         @default(false)
- adopterId      Int
- adopter        User            @relation(fields: [adopterId], references: [id])
+
+model KidsForAdoption {
+  id          Int       @id @default(autoincrement())
+  picture     String?
+  name        String
+  surname     String
+  age         Int
+  caste       Caste
+  gender      Gender
+  provience   Provience
+  description String
+  isAdopted   Boolean   @default(false)
+  adopterId   Int?
+  adopter     User?      @relation(fields: [adopterId], references: [id])
 }

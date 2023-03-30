@@ -67,3 +67,6 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `picture` varchar(255) NOT NULL,
    PRIMARY KEY (`id`)
 )  -->
+
+
+⮚ Books-Directory-API Github: https://github.com/Sheela7/books-directory.git Description: API made using nodeJS, mongoDB and typescript helps to 		        	       buy and sell books through online platform.

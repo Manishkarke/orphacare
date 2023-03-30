@@ -5,12 +5,10 @@
 }
 
 .child {
-  /* border: 2px solid red; */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   overflow: hidden;
   margin: 3rem;
-  /* gap: 1rem; */
 }
 .child-info {
   margin-top: 1rem;

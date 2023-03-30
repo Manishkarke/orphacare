@@ -54,5 +54,12 @@ const updateDonationAmount = async (id, donationAmount) => {
     return response;
 }
 
-export { signUpApiHandler, signInApiHandler, addDonationApiHandler, addReportApiHandler, getAllKidApiHandler, updateDonationAmount };
+// VOlunteer API Handling
+const getVolunteerList = async () => {
+    const response = await customFetch.get('/volunteer/getAllVolunteers');
+    return response;
+}
+export {
+    signUpApiHandler, signInApiHandler, addDonationApiHandler, addReportApiHandler, getAllKidApiHandler, updateDonationAmount, getVolunteerList
+};
 export default customFetch;

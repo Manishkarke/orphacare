@@ -3,8 +3,10 @@ import { addDonationApiHandler } from "../../utils/axios";
 import classes from "./Form.module.css";
 import { dontionFormValidator } from "../../utils/errorHandler";
 import Khalti from "../../utils/Khalti";
+import { useNavigate } from "react-router-dom";
 
 function DonateNow() {
+  const navigate = useNavigate();
   const [donation, setDonation] = useState({
     weight: NaN,
     donationType: "Food",
@@ -57,7 +59,9 @@ function DonateNow() {
           await Khalti(donation.donateAmount, response.data.data.id);
         }
 
-        console.log(response);
+        if(response.data.status == "success") {
+          navigate("/");
+        }
       } catch (errors) {
         console.log(errors);
       }

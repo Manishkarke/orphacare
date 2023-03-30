@@ -131,7 +131,7 @@ module.exports.getDonation = async (req, res, next) => {
 //updating a donation
 module.exports.updateDonation = async (req, res, next) => {
   try {
-    const { id, donateAmount} = req.body;
+    const { id, donateAmount } = req.body;
     const existingDonation = await prisma.donation.findUnique({
       where: {
         id,
@@ -157,7 +157,10 @@ module.exports.updateDonation = async (req, res, next) => {
         id,
       },
       data: {
-        donateAmount
+        donateAmount,
+        donationType: existingDonation.donationType,
+        donatorId: existingDonation.donatorId,
+        weight: existingDonation.weight
       },
     });
     res.status(200).json({

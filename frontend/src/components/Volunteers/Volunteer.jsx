@@ -1,15 +1,14 @@
 import React from "react";
 
-function Volunteer({ picture, name, address, description }) {
+function Volunteer({ imgPath, name, age }) {
   return (
-    <article className='card'>
-      <div className='card-image'>
-        <img src={picture} alt={name} />
+    <article className='volunteer'>
+      <div className='volunteer-img'>
+        <img src={imgPath} alt={name} />
       </div>
-      <div className='card-info'>
+      <div className='volunteer-info'>
         <h4>{name}</h4>
-        <span>{address}</span>
-        <p>{description}</p>
+        <span>{age} years old</span>
       </div>
     </article>
   );

@@ -1,4 +1,51 @@
-.section {
+.volunteer-list {
   width: 80vw;
-  
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.volunteer {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 2.5rem;
+}
+.volunteer-info {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.volunteer h4 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.volunteer span {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.volunteer .volnteer-info {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.volunteer-img {
+  object-fit: cover;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+@media only screen and (min-width: 992px) {
+  .volunteer-list {
+    width: 80vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+  }
+
+  .volunteer {
+    width: 27rem;
+  }
 }

@@ -17,7 +17,6 @@ function App() {
       <Routes>
         <Route path="/about" element={<AboutUs />} />
         <Route path="/childdetail/:id" element={<ChildDetail />} />
-        {/* <Route path="/blog" element={<Blog />} /> */}
         <Route path="/donate" element={<DonateNow />} />
         <Route path="/signin" element={<SignInRoute />} />
         <Route path="/signup" element={<SignUpRoute />} />
