@@ -45,7 +45,7 @@ const SignIn = () => {
       try {
         const response = await signInApiHandler(userEmail, userPassword);
 
-        addAccessTokenToLocalStorage(response.data.data.accessToken);
+        addAccessTokenToLocalStorage(response.data.data.accessToken, response.data.data.name);
 
         console.log(`The access token is: ${response.data.data.accessToken}`);
 

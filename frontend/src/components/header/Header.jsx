@@ -12,7 +12,7 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
-  const accessToken = getAccessTokenFromLocalStorage();
+  const { accessToken, userName } = getAccessTokenFromLocalStorage();
 
   useEffect(() => {
     if (accessToken) {
@@ -22,11 +22,11 @@ const Header = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      setUsername("manish");
+      setUsername(userName);
     } else {
       setUsername("");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, userName]);
 
   return (
     <header className={classes["header-section"]}>
