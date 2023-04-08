@@ -156,6 +156,7 @@ module.exports.deleteKid = async (req, res, next) => {
 module.exports.requestForAdoption = async (req, res, next) => {
   const { kidId } = req.params;
   const { userId: adopterId } = req;
+  console.log(`The user Id is as: ${adopterId}`)
 
   try {
     const existingKid = await prisma.kidsForAdoption.findUnique({
@@ -191,7 +192,7 @@ module.exports.requestForAdoption = async (req, res, next) => {
       //   emailAddress,
       // },
     });
-    // await emailService.sendMail(adopterData.emailAddress, existingKid.name);
+    await emailService.sendMail(adopterData.emailAddress, existingKid.name);
 
     res.status(200).json({
       status: "success",
