@@ -37,7 +37,7 @@ model MissingReport {
   remarks              String?
   longitude            Int
   latitude             Int
-  image                Bytes?
+  image                String
   reporterId           Int
   reporter             User     @relation(fields: [reporterId], references: [id])
 }

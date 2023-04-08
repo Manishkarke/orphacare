@@ -34,7 +34,7 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `remarks` varchar(255) NOT NULL,
   `longitude` int(11) NOT NULL,
   `latitude` int(11) NOT NULL,
-  `image` BLOB ,
+  `image` varchar(255),
   `reporterId` int(11) NOT NULL,
    PRIMARY KEY (`id`),
    FOREIGN KEY (`reporterId`) REFERENCES `User` (`id`)

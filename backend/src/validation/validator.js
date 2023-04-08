@@ -3,7 +3,6 @@ const { CustomError } = require("../middleware/error_handler");
 
 const validateRequestBody = (validationSchema) => async (req, res, next) => {
   try {
-    console.log(`The child age is ${req.body.childAge}`);
     const result = await validationSchema.validate(req.body);
     if (result) {
       req.body = result;
