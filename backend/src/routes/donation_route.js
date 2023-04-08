@@ -18,6 +18,11 @@ router.post(
   errorHandler(validateRequestBody(createDonationSchema)),
   errorHandler(Controller.createDonation)
 );
+router.post(
+  "/createDonationAmount",
+  errorHandler(accessTokenValidator),
+  errorHandler(Controller.createDonationAmount)
+);
 router.get(
   "/getAllDonations",
   errorHandler(accessTokenValidator),

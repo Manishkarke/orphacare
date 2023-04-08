@@ -51,9 +51,13 @@ model Donation {
   id           Int          @id @default(autoincrement())
   weight       Int
   donationType DonationType
-  donateAmount Int
   donatorId    Int
   donator      User         @relation(fields: [donatorId], references: [id])
+}
+
+model DonationAmount {
+  id            Int    @id @default(autoincrement())
+  amount        Int
 }
 
 model Volunteer {
