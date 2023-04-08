@@ -34,6 +34,7 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `remarks` varchar(255) NOT NULL,
   `longitude` int(11) NOT NULL,
   `latitude` int(11) NOT NULL,
+  `image` BLOB ,
   `reporterId` int(11) NOT NULL,
    PRIMARY KEY (`id`),
    FOREIGN KEY (`reporterId`) REFERENCES `User` (`id`)
@@ -50,7 +51,7 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `age` int(11) NOT NULL,
   `caste` enum('Brahmin','Kshatriya','Vaishya','Sudra') NOT NULL,
   `gender` enum('Male','Female','Other') NOT NULL,
-  `provience` enum('Koshi','Madhesi','Bagmati','Gandaki','Lumbini','Karnali','SudurPachim') NOT NULL,
+  `provience` enum('Koshi','Madhesh','Bagmati','Gandaki','Lumbini','Karnali','SudurPachim') NOT NULL,
   `description` varchar(255) NOT NULL,
   `isAdopted` boolean NOT NULL,
   `adopterId` int(11),
@@ -68,5 +69,4 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
    PRIMARY KEY (`id`)
 )  -->
 
-
-⮚ Books-Directory-API Github: https://github.com/Sheela7/books-directory.git Description: API made using nodeJS, mongoDB and typescript helps to 		        	       buy and sell books through online platform.
+⮚
