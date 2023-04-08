@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import customFetch from "../../utils/axios";
 import { getAccessTokenFromLocalStorage } from "../../utils/localStorage";
 import Child from "./Child";
+import { childList } from "../../constants/constants";
 
 function AdoptKids() {
   const navigate = useNavigate();
   const [kids, setKids] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const accessToken = getAccessTokenFromLocalStorage();
+
   useEffect(() => {
     (async () => {
       try {
@@ -28,17 +31,31 @@ function AdoptKids() {
   }, [accessToken, navigate]);
   return (
     <section className='child-list'>
-      {kids.map(({ id, picture, name, surname, description }) => {
-        return (
-          <Child
-            key={id}
-            id={id}
-            name={`${name} ${surname}`}
-            picture={picture}
-            description={description}
-          />
-        );
-      })}
+      <div className='searchbox'>
+        <input
+          type='text'
+          name='searchbox'
+          id='searchbox'
+          placeholder="Search Child"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+      {kids
+        .filter((kids) => {
+          return searchTerm.toLowerCase() ? kids.name.toLowerCase().includes(searchTerm) : kids;
+        })
+        .map(({ id, picture, name, surname, description }) => {
+          return (
+            <Child
+              key={id}
+              id={id}
+              name={`${name} ${surname}`}
+              picture={picture}
+              description={description}
+            />
+          );
+        })}
     </section>
   );
 }
