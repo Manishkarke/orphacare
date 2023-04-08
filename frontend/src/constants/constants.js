@@ -1,4 +1,4 @@
-import { teamMem} from "../assets";
+import { teamMem } from "../assets";
 
 const navigationLinks = [
     { id: "01", name: "Home", route: "/" },
@@ -17,4 +17,8 @@ const teamMember = [
 
 const googleMapsApi = 'AIzaSyBLEaTTrzYWeyeL_0JVU2uPOxQTR08BCrg';
 
-export { navigationLinks, teamMember, googleMapsApi };
+const messenger = {
+    pageId: "106560697968888", appId: "561671326031331"
+}
+
+export { navigationLinks, teamMember, googleMapsApi, messenger };

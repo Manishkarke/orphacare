@@ -6,7 +6,6 @@ const addAccessTokenToLocalStorage = (accessToken, userName) => {
 const removeAccessTokenFromLocalStorage = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("userName");
-
 }
 
 const getAccessTokenFromLocalStorage = () => {
