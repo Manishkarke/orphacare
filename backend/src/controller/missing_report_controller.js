@@ -16,8 +16,7 @@ module.exports.createMissingReport = async (req, res, next) => {
       longitude,
       latitude,
     } = req.body;
-    const image = req.file.path.toString();
-    console.log(`The file path is ${image}`);
+    const image = req.file.path;
     const user = await prisma.user.findUnique({ where: { id: reporterId } });
     if (!user) throw new Error("Reporter not found.");
 
@@ -60,6 +59,7 @@ module.exports.getAllMissingReports = async (req, res, next) => {
         remarks: true,
         longitude: true,
         latitude: true,
+        image:true,
         reporter: {
           select: {
             id: true,
