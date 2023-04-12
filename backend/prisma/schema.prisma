@@ -33,6 +33,7 @@ model User {
 
 model MissingReport {
   id                   Int      @id @default(autoincrement())
+  name                 String?
   childLastSeenAddress String
   childLastSeenTime    DateTime
   childAge             Int

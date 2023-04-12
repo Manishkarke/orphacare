@@ -1,6 +1,5 @@
-// USER TABLE
 
-<!-- CREATE TABLE `User` (
+CREATE TABLE `User` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -8,13 +7,12 @@
   `phoneNumber` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `role` varchar(255) NOT NULL DEFAULT 'user'
+  `role` varchar(255) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`)
-) -->
+);
 
-//Donation table
 
-<!-- CREATE TABLE `Donation` (
+CREATE TABLE `Donation` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `weight` int(11) NOT NULL,
 `donationType` enum('Food','Cloth','Books') NOT NULL,
@@ -22,12 +20,12 @@
 `donatorId` int(11) NOT NULL,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
-) -->
+);
 
-//MissingReport Table
 
-<!-- CREATE TABLE `MissingReport` (
+CREATE TABLE `MissingReport` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL,
   `childLastSeenAddress` varchar(255) NOT NULL,
   `childLastSeenTime` datetime NOT NULL,
   `childAge` int(11) NOT NULL,
@@ -39,11 +37,10 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
    PRIMARY KEY (`id`),
    FOREIGN KEY (`reporterId`) REFERENCES `User` (`id`)
 
-)  -->
+);
 
-//KidsForAdoption
 
-<!-- CREATE TABLE `KidsForAdoption` (
+CREATE TABLE `KidsForAdoption` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `picture` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -57,16 +54,29 @@ FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
   `adopterId` int(11),
    PRIMARY KEY (`id`),
    FOREIGN KEY (`adopterId`) REFERENCES `User` (`id`)
-)  -->
+); 
 
-//Volunteer
-
-<!-- CREATE TABLE `Volunteer` (
+CREATE TABLE `Volunteer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
   `picture` varchar(255) NOT NULL,
    PRIMARY KEY (`id`)
-)  -->
+); 
 
-//adoption request
+CREATE TABLE `AdoptionRequest` (
+  `kidId` INT NOT NULL,
+  `adopterId` INT NOT NULL,
+  PRIMARY KEY (`kidId`, `adopterId`),
+  CONSTRAINT `fk_kid`
+    FOREIGN KEY (`kidId`)
+    REFERENCES KidsForAdoption (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  CONSTRAINT `fk_adopter`
+    FOREIGN KEY (`adopterId`)
+    REFERENCES User (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
