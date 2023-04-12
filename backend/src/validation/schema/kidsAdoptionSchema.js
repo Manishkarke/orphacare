@@ -17,6 +17,11 @@ const createKidSchema = yup.object().shape({
 const kidIdSchema = yup.object().shape({
   kidId: yup.number().integer().required(),
 });
+const filteredKidSchema = yup.object().shape({
+  age: yup.number().positive().max(14),
+  caste: yup.mixed().oneOf(Object.values(Caste)),
+  gender: yup.mixed().oneOf(Object.values(Gender)),
+});
 
 const updateKidSchema = yup.object().shape({
   id: yup.number().integer().required(),
@@ -33,4 +38,5 @@ module.exports = {
   createKidSchema,
   kidIdSchema,
   updateKidSchema,
+  filteredKidSchema,
 };

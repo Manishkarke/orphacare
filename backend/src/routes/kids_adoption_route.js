@@ -10,6 +10,7 @@ const {
   createKidSchema,
   kidIdSchema,
   updateKidSchema,
+  filteredKidSchema,
 } = require("../validation/schema/kidsAdoptionSchema");
 router.post(
   "/createKid",
@@ -21,6 +22,12 @@ router.get(
   "/getAllKids",
   errorHandler(accessTokenValidator),
   errorHandler(Controller.getAllKids)
+);
+router.post(
+  "/getFilteredKids",
+  errorHandler(accessTokenValidator),
+  errorHandler(validateRequestBody(filteredKidSchema)),
+  errorHandler(Controller.getFilteredKids)
 );
 router.get(
   "/requestForAdoption/:kidId",
