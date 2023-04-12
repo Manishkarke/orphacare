@@ -15,7 +15,7 @@ const teamMember = [
     { photoPath: teamMem, name: 'Shankar Shah', post: 'Founding Member' }
 ]
 
-const googleMapsApi = 'AIzaSyBLEaTTrzYWeyeL_0JVU2uPOxQTR08BCrg';
+const googleMapsApi = process.env.REACT_MAP_TOKEN;
 
 const messenger = {
     pageId: "106560697968888", appId: "561671326031331"

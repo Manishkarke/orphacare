@@ -129,6 +129,7 @@ function dontionFormValidator({ weight, howOld }, setErrors) {
 // Error Handler For Report page
 function reportFormValidator({ lastSeenAddress, childEstimatedAge }, setErrors) {
     // valiidate Address field
+    lastSeenAddress="Hamro Address";
     if (!lastSeenAddress.trim()) {
         setErrors((prevErrors) => {
             return { ...prevErrors, address: "Address is Required." };

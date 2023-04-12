@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { addReportApiHandler } from "../../utils/axios";
 import { reportFormValidator } from "../../utils/errorHandler";
 import classes from "./Form.module.css";
-import Map from "../Map/Map";
 
 function Report() {
   // Report State Variable to Store all the input's value
@@ -70,7 +69,6 @@ function Report() {
       <form action='POST' onSubmit={formSubmitHandler}>
         <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
           <label htmlFor='lastSeenAddress'>Last Seen Address</label>
-          <Map />
           {errors.address && <span>{errors.address}</span>}
         </div>
 

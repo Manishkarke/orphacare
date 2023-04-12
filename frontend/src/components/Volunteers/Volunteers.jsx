@@ -18,12 +18,10 @@ function Volunteers() {
     })();
   }, []);
   return (
-    <section className=''>
-      <div className='volunteer-list'>
-        {volunteers.map(({ id, name, age, picture }) => {
-          return <Volunteer key={id} name={name} age={age} imgPath={picture} />;
-        })}
-      </div>
+    <section className='card-list'>
+      {volunteers.map(({ id, name, age, picture }) => {
+        return <Volunteer key={id} name={name} age={age} imgPath={picture} />;
+      })}
     </section>
   );
 }
