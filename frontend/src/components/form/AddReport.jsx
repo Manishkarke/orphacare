@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { addReportApiHandler } from "../../utils/axios";
 import { reportFormValidator } from "../../utils/errorHandler";
 import classes from "./Form.module.css";
-import Map from "../Map/Map";
+import ReactMap from "../Map/ReactMap";
 
 function Report() {
   // Report State Variable to Store all the input's value
   const [report, setReport] = useState({
+    childImage: null,
+
     lastSeenTime: new Date().toISOString().slice(0, 16),
     childEstimatedAge: NaN,
     remarks: "",
@@ -16,6 +18,13 @@ function Report() {
   const [errors, setErrors] = useState({});
 
   // Input-Field Change Handlers
+  // CHild image
+  const imageChangeHandler = (event) => {
+    console.log(event);
+    setReport((prevReport) => {
+      return { ...prevReport, childImage: event.target.files[0] };
+    });
+  };
   // Last Seen Address
 
   // Last Seen Time
@@ -68,9 +77,21 @@ function Report() {
     <section className={classes["container"]}>
       <h2>Report</h2>
       <form action='POST' onSubmit={formSubmitHandler}>
+        <div className={`${classes["inputfield"]}`}>
+          <label htmlFor='child-img'>Child's Photo</label>
+          <input
+            type='file'
+            name='child-img'
+            id='child-img'
+            value={""}
+            onChange={imageChangeHandler}
+          />
+        </div>
+
         <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
           <label htmlFor='lastSeenAddress'>Last Seen Address</label>
-          <Map />
+          {/* <MapBox /> */}
+          <ReactMap />
           {errors.address && <span>{errors.address}</span>}
         </div>
 

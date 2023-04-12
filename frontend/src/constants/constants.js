@@ -15,10 +15,10 @@ const teamMember = [
     { photoPath: teamMem, name: 'Shankar Shah', post: 'Founding Member' }
 ]
 
-const googleMapsApi = 'AIzaSyBLEaTTrzYWeyeL_0JVU2uPOxQTR08BCrg';
+const MapBoxApiKey = "pk.eyJ1IjoiZGV2ZW5kcmFzYWgiLCJhIjoiY2xnYjNlM3JvMTZ5aTN4cGkyM29xamRqdiJ9.fXRKtqUq-qwa0iz3VndW-A";
 
 const messenger = {
     pageId: "106560697968888", appId: "561671326031331"
 }
 
-export { navigationLinks, teamMember, googleMapsApi, messenger };
+export { navigationLinks, teamMember, MapBoxApiKey, messenger };

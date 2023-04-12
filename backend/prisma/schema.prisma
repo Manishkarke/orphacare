@@ -27,6 +27,7 @@ model User {
   donaton       Donation[]
   role          Roles
   adoptedKid    KidsForAdoption[]
+  adoptionReq AdoptionRequest[]
 }
 
 model MissingReport {
@@ -37,6 +38,7 @@ model MissingReport {
   remarks              String?
   longitude            Int
   latitude             Int
+  image                String?
   reporterId           Int
   reporter             User     @relation(fields: [reporterId], references: [id])
 }
@@ -100,7 +102,16 @@ model KidsForAdoption {
   gender      Gender
   provience   Provience
   description String
+  adoptionReq AdoptionRequest[]
   isAdopted   Boolean   @default(false)
   adopterId   Int?
   adopter     User?      @relation(fields: [adopterId], references: [id])
+}
+
+model AdoptionRequest{ 
+kidId      Int
+kid        KidsForAdoption @relation(fields: [kidId], references: [id])
+adopterId  Int 
+adopter    User @relation(fields: [adopterId], references: [id])
+ @@id([kidId, adopterId])
 }

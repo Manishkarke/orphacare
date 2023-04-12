@@ -31,10 +31,12 @@ const addDonationApiHandler = async ({ weight, age, donationType, donateAmount }
 // Report Api handling here
 const addReportApiHandler = async ({ lastSeenAddress, lastSeenTime, childEstimatedAge, remarks }) => {
     const response = await customFetch.post('/report/createMissingReport', {
-        childLastSeenAddress: lastSeenAddress,
+        childLastSeenAddress: "Hello world",
         childLastSeenTime: lastSeenTime,
         childAge: childEstimatedAge,
-        remarks: remarks
+        remarks: remarks,
+        longitude: 10,
+        latitude: 10,
     });
     return response;
 }

@@ -1,0 +1,45 @@
+.card-logout {
+  margin-left: auto;
+  margin-right: auto;
+  /* display: flex; */
+  text-align: center;
+  flex-direction: column;
+  border: 1px solid red;
+  width: 300px;
+  padding: 1rem 1rem;
+}
+.card-logout p {
+  padding-top: 1rem;
+  font-size: var(--fs-normal);
+}
+
+.card-logout > div {
+  margin: 1.125rem auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  background-color: initial;
+  color: var(--secondary-color);
+  font-size: var(--fs-button);
+  font-weight: var(--fw-button);
+  transition: background-color .5s linear;
+}
+
+.btn.cancel {
+  color: red;
+}
+.btn.cancel:hover {
+  color: white;
+  background-color: red;
+}
+
+.btn.confirm {
+  color: #26b9ee;
+}
+
+.btn.confirm:hover {
+  color: white;
+  background-color: #26b9ee;
+}

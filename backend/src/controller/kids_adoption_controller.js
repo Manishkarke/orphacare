@@ -21,7 +21,6 @@ module.exports.createKid = async (req, res, next) => {
         message: "You are not authorized to create the kids for adoption.",
       });
     }
-    console.log(`The role is ${role}`);
     const kids = await prisma.kidsForAdoption.create({
       data: {
         picture,
@@ -46,6 +45,7 @@ module.exports.createKid = async (req, res, next) => {
 
 module.exports.getAllKids = async (req, res, next) => {
   try {
+    const { caste, minAge, maxAge, gender } = req.query;
     const kids = await prisma.kidsForAdoption.findMany({
       where: {
         isAdopted: false,
@@ -60,6 +60,31 @@ module.exports.getAllKids = async (req, res, next) => {
     throw err;
   }
 };
+
+module.exports.getFilteredKids = async (req, res, next) => {
+  try {
+    const { age, caste, gender } = req.body;
+    const kids = await prisma.kidsForAdoption.findMany({
+      where: {
+        isAdopted: false,
+        caste: caste ? caste : undefined,
+        age: age ? age : undefined,
+        // minAge && maxAge
+        //   ? { gte: parseInt(minAge), lte: parseInt(maxAge) }
+        //   : undefined,
+        gender: gender ? gender : undefined,
+      },
+    });
+    res.status(200).json({
+      status: "success",
+      message: "filtered kids shown successfully.",
+      data: kids,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports.getKid = async (req, res, next) => {
   const { kidId } = req.params;
   try {
@@ -116,7 +141,6 @@ module.exports.updateKid = async (req, res, next) => {
         description,
       },
     });
-    const adopterDetails = await prisma.user.findUnique;
     res.status(200).json({
       status: "success",
       message: "Donation updated successfully.",
@@ -156,7 +180,7 @@ module.exports.deleteKid = async (req, res, next) => {
 module.exports.requestForAdoption = async (req, res, next) => {
   const { kidId } = req.params;
   const { userId: adopterId } = req;
-  console.log(`The user Id is as: ${adopterId}`)
+  console.log(`The user Id is as: ${adopterId}`);
 
   try {
     const existingKid = await prisma.kidsForAdoption.findUnique({
@@ -179,13 +203,24 @@ module.exports.requestForAdoption = async (req, res, next) => {
       });
     }
 
-    await prisma.kidsForAdoption.update({
-      where: { id: kidId },
+    const adoptionReqData = await prisma.adoptionRequest.findUnique({
+      where: { kidId_adopterId: { kidId, adopterId } },
+      include: { kid: true, adopter: true },
+    });
+    console.log(JSON.stringify(adoptionReqData));
+    if (adoptionReqData) {
+      return res.status(422).json({
+        status: "error",
+        message: "you have already sent adoption request.",
+      });
+    }
+    await prisma.adoptionRequest.create({
       data: {
-        isAdopted: true,
-        adopterId,
+        kid: { connect: { id: kidId } },
+        adopter: { connect: { id: adopterId } },
       },
     });
+
     const adopterData = await prisma.user.findUnique({
       where: { id: adopterId },
       // select: {

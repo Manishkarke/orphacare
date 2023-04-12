@@ -12,10 +12,13 @@ const {
   validateRequestBody,
   validateRequestParams,
 } = require("../validation/validator.js");
+const multer = require("multer");
+const multer_config = require("../services/multer_config.js");
 
 router.post(
   "/createMissingReport",
   errorHandler(accessTokenValidator),
+  multer_config.upload.single("image"),
   errorHandler(validateRequestBody(createMissingReportSchema)),
   errorHandler(Controller.createMissingReport)
 );

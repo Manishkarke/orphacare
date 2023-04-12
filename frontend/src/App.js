@@ -10,6 +10,7 @@ import AdoptKidsRoute from "./routes/adoptKidsRoute";
 import ChildDetail from "./components/Child/ChildDetail";
 import Volunteers from "./components/Volunteers/Volunteers";
 import PrivateRoute from "./utils/PrivateRoute";
+import LogOut from "./ui/LogOut";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<AdoptKidsRoute />} />
         <Route path="/signin" element={<SignInRoute />} />
         <Route path="/signup" element={<SignUpRoute />} />
+        <Route path="/logout" element={<LogOut />} />
       </Routes>
     </div>
   );

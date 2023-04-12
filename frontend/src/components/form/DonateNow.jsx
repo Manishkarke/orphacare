@@ -59,7 +59,7 @@ function DonateNow() {
           await Khalti(donation.donateAmount, response.data.data.id);
         }
 
-        if(response.data.status == "success") {
+        if(response.data.status === "success") {
           navigate("/");
         }
       } catch (errors) {
