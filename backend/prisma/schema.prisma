@@ -25,9 +25,10 @@ model User {
   createdAt     DateTime          @default(now())
   missingReport MissingReport[]
   donaton       Donation[]
+  donatonAmount DonationAmount[]
   role          Roles
   adoptedKid    KidsForAdoption[]
-  adoptionReq AdoptionRequest[]
+  adoptionReq   AdoptionRequest[]
 }
 
 model MissingReport {
@@ -58,8 +59,10 @@ model Donation {
 }
 
 model DonationAmount {
-  id            Int    @id @default(autoincrement())
-  amount        Int
+  id        Int  @id @default(autoincrement())
+  amount    Int
+  donatorId Int
+  donator   User @relation(fields: [donatorId], references: [id])
 }
 
 model Volunteer {
@@ -93,7 +96,7 @@ enum Gender {
 }
 
 model KidsForAdoption {
-  id          Int       @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   picture     String?
   name        String
   surname     String
@@ -103,15 +106,16 @@ model KidsForAdoption {
   provience   Provience
   description String
   adoptionReq AdoptionRequest[]
-  isAdopted   Boolean   @default(false)
+  isAdopted   Boolean           @default(false)
   adopterId   Int?
-  adopter     User?      @relation(fields: [adopterId], references: [id])
+  adopter     User?             @relation(fields: [adopterId], references: [id])
 }
 
-model AdoptionRequest{ 
-kidId      Int
-kid        KidsForAdoption @relation(fields: [kidId], references: [id])
-adopterId  Int 
-adopter    User @relation(fields: [adopterId], references: [id])
- @@id([kidId, adopterId])
+model AdoptionRequest {
+  kidId     Int
+  kid       KidsForAdoption @relation(fields: [kidId], references: [id])
+  adopterId Int
+  adopter   User            @relation(fields: [adopterId], references: [id])
+
+  @@id([kidId, adopterId])
 }

@@ -6,10 +6,9 @@ const prisma = new PrismaClient();
 module.exports.createDonation = async (req, res, next) => {
   try {
     const { userId: donatorId } = req;
-    const { weight, donationType,  } = req.body;
+    const { weight, donationType, } = req.body;
 
     // Use default value for donate amount if not provided in request body
-    const amount = donateAmount || 0;
     const donation = await prisma.donation.create({
       data: {
         weight,
@@ -31,20 +30,18 @@ module.exports.createDonation = async (req, res, next) => {
 module.exports.createDonationAmount = async (req, res, next) => {
   try {
     const { userId: donatorId } = req;
-    const { weight, donationType,  } = req.body;
+    const { donateAmount, } = req.body;
 
     // Use default value for donate amount if not provided in request body
     const amount = donateAmount || 0;
-    const donation = await prisma.donation.create({
+    const donation = await prisma.donationAmount.create({
       data: {
-        weight,
-        donationType,
-        donatorId,
+        donateAmount: amount, donatorId
       },
     });
     res.status(200).json({
       status: "success",
-      message: "Donation created successfully.",
+      message: "Donation amount created successfully.",
       data: donation,
     });
   } catch (err) {
