@@ -8,7 +8,6 @@ function Report() {
   // Report State Variable to Store all the input's value
   const [report, setReport] = useState({
     childImage: null,
-
     lastSeenTime: new Date().toISOString().slice(0, 16),
     childEstimatedAge: NaN,
     remarks: "",
@@ -86,11 +85,12 @@ function Report() {
             value={""}
             onChange={imageChangeHandler}
           />
+
+          {}
         </div>
 
         <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
           <label htmlFor='lastSeenAddress'>Last Seen Address</label>
-          {/* <MapBox /> */}
           <ReactMap />
           {errors.address && <span>{errors.address}</span>}
         </div>
