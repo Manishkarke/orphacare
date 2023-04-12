@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { addReportApiHandler } from "../../utils/axios";
 import { reportFormValidator } from "../../utils/errorHandler";
 import classes from "./Form.module.css";
-import MapBox from "../Map/MapBox";
 import ReactMap from "../Map/ReactMap";
 
 function Report() {
@@ -21,6 +20,7 @@ function Report() {
   // Input-Field Change Handlers
   // CHild image
   const imageChangeHandler = (event) => {
+    console.log(event);
     setReport((prevReport) => {
       return { ...prevReport, childImage: event.target.files[0] };
     });
@@ -83,7 +83,7 @@ function Report() {
             type='file'
             name='child-img'
             id='child-img'
-            value={report.childImage}
+            value={""}
             onChange={imageChangeHandler}
           />
         </div>
