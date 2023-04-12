@@ -94,6 +94,7 @@ module.exports.getMyMissingReport = async (req, res, next) => {
         remarks: true,
         longitude: true,
         latitude: true,
+        image:true,
         reporter: {
           select: {
             id: true,
@@ -128,6 +129,7 @@ module.exports.getMissingReport = async (req, res, next) => {
         remarks: true,
         longitude: true,
         latitude: true,
+        image: true,
         reporter: {
           select: {
             id: true,
