@@ -111,7 +111,7 @@ button.btn {
   font-size: var(--fs-button);
   line-height: 20px;
   margin: 15px 0;
-  padding: 12px 40%;
+  padding: 12px;
   width: 100%;
 }
 
@@ -150,4 +150,11 @@ button.btn {
   margin-top: 5px;
   font-size: var(--fs-normal);
   font-weight: var(--fw-label);
+}
+
+span.divider {
+  font-size: var(--fs-normal);
+  font-weight: var(--fw-label);
+  display: block;
+  text-align: center;
 }

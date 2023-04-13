@@ -10,9 +10,8 @@ function DonateNow() {
   const [donation, setDonation] = useState({
     weight: NaN,
     donationType: "Food",
-    donateAmount: NaN,
   });
-
+  const [donateAmount, setDonateAmount] = useState();
   const [errors, setErrors] = useState({});
 
   // Handle change of Weight input field
@@ -31,9 +30,7 @@ function DonateNow() {
 
   // Donate money
   const donationAmountChangeHanlder = (event) => {
-    setDonation((prevDonation) => {
-      return { ...prevDonation, donateAmount: event.target.value };
-    });
+    setDonateAmount(event.target.value);
   };
 
   // Is Executed on Form Submit
@@ -54,18 +51,18 @@ function DonateNow() {
     if (formIsValid) {
       try {
         const response = await addDonationApiHandler(donation);
-        if (donation.donateAmount && donation.donateAmount !== 0) {
-          console.log("I want to donate");
-          await Khalti(donation.donateAmount, response.data.data.id);
-        }
-
-        if(response.data.status === "success") {
+        if (response.data.status === "success") {
           navigate("/");
         }
       } catch (errors) {
         console.log(errors);
       }
     }
+  };
+
+  // Execute when donate money button is clicked
+  const donateMoneyHandler = async (event) => {
+    await Khalti(donateAmount);
   };
 
   return (
@@ -92,6 +89,11 @@ function DonateNow() {
             <option value='Books'>Books</option>
           </select>
         </div>
+        <button type='submit' className={classes["btn"]}>
+          Donate
+        </button>
+
+        <span className={classes["divider"]}>Or</span>
 
         <div className={classes["inputfield"]}>
           <label htmlFor='donateMoney'>Donate Money</label>
@@ -99,13 +101,12 @@ function DonateNow() {
             type='number'
             name='donation Amount'
             id='donateMoney'
-            value={donation.money}
+            value={donateAmount}
             onChange={donationAmountChangeHanlder}
           />
         </div>
-
-        <button type='submit' className={classes["btn"]}>
-          Donate
+        <button className={classes["btn"]} type='button' onClick={donateMoneyHandler}>
+          Donate Money
         </button>
       </form>
     </section>

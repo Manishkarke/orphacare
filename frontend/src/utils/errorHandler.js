@@ -113,7 +113,7 @@ function signInFormValidator({ userEmail, userPassword }, setErrors) {
 }
 
 // Error Handler Form DOnation page
-function dontionFormValidator({ weight, howOld }, setErrors) {
+function dontionFormValidator({ weight }, setErrors) {
 
     // Weight Validator
     if (!weight) {
@@ -129,7 +129,7 @@ function dontionFormValidator({ weight, howOld }, setErrors) {
 // Error Handler For Report page
 function reportFormValidator({ lastSeenAddress, childEstimatedAge }, setErrors) {
     // valiidate Address field
-    lastSeenAddress="Hamro Address";
+    lastSeenAddress = "Hamro Address";
     if (!lastSeenAddress.trim()) {
         setErrors((prevErrors) => {
             return { ...prevErrors, address: "Address is Required." };

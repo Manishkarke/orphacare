@@ -17,7 +17,7 @@ const Khalti = async (donateAmount, id) => {
         ],
         "eventHandler": {
             async onSuccess(payload) {
-                await updateDonationAmount(id, donateAmount);
+                await updateDonationAmount(donateAmount);
                 // hit merchant api for initiating verfication
                 console.log(payload);
             },
