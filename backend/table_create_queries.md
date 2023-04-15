@@ -16,6 +16,13 @@ CREATE TABLE `Donation` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `weight` int(11) NOT NULL,
 `donationType` enum('Food','Cloth','Books') NOT NULL,
+`donatorId` int(11) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`donatorId`) REFERENCES `User` (`id`)
+);
+
+CREATE TABLE `DonationAmount` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
 `donateAmount` int(11) NOT NULL DEFAULT 0,
 `donatorId` int(11) NOT NULL,
 PRIMARY KEY (`id`),
