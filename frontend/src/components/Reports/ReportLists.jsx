@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../ui/Card";
 import SearchBox from "../../ui/SearchBox";
 import { getAllReportsApiHandler } from "../../utils/axios";
+import { useNavigate } from "react-router-dom";
 
 function ReportLists() {
   const [reports, setReports] = useState([]);
-  const [searchTerm, setSearchTerms] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -23,7 +25,7 @@ function ReportLists() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [navigate]);
 
   // Define searchHandler to update the search term state
   const searchHandler = (data) => {
@@ -39,7 +41,7 @@ function ReportLists() {
     <>
       <SearchBox onSearch={searchHandler} searchFor="Reports" />
       <section className="card-list">
-        {reports.map(({ id, name, picture }) => {
+        {filteredReports.map(({ id, name, picture }) => {
           return <Card key={id} id={id} name={name} picture={picture} />;
         })}
       </section>
