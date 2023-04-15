@@ -36,6 +36,10 @@ function App() {
           element={<PrivateRoute children={<ReportRoutes />} />}
         />
         <Route
+          path="/addReport"
+          element={<PrivateRoute children={<AddReport />} />}
+        />
+        <Route
           path="/volunteer"
           element={<PrivateRoute children={<Volunteers />} />}
         />

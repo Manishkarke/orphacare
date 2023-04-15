@@ -3,6 +3,7 @@
   border-radius: 10px;
   overflow: hidden;
   margin: 3rem;
+  /* max-height: 500px; */
 }
 
 .card-img {
