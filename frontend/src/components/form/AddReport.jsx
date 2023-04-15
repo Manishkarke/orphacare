@@ -4,7 +4,7 @@ import { reportFormValidator } from "../../utils/errorHandler";
 import classes from "./Form.module.css";
 import ReactMap from "../Map/ReactMap";
 
-function Report() {
+function AddReport() {
   // Report State Variable to Store all the input's value
   const [report, setReport] = useState({
     childImage: null,
@@ -138,4 +138,4 @@ function Report() {
   );
 }
 
-export default Report;
+export default AddReport;

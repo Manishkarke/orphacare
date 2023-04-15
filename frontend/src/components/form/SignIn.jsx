@@ -45,7 +45,10 @@ const SignIn = () => {
       try {
         const response = await signInApiHandler(userEmail, userPassword);
 
-        addAccessTokenToLocalStorage(response.data.data.accessToken, response.data.data.name);
+        addAccessTokenToLocalStorage(
+          response.data.data.accessToken,
+          response.data.data.name
+        );
 
         console.log(`The access token is: ${response.data.data.accessToken}`);
 
@@ -65,21 +68,28 @@ const SignIn = () => {
           setShowPassword(false);
 
           // Redirect to home page
-          navigate("/");
+          window.location.href = "/";
+          // navigate("/");
         }
       } catch (error) {
         if (error.response) {
           // The request was made and the server responded with an error status code
-          console.log(`The server responded with an error: ${error.response.data.message}`);
+          console.log(
+            `The server responded with an error: ${error.response.data.message}`
+          );
           toast.error(error.response.data.message);
         } else if (error.request) {
           // The request was made but no response was received
           console.log("No response was received from the server.");
-          toast.error("An error occurred while processing your request. Please try again later.");
+          toast.error(
+            "An error occurred while processing your request. Please try again later."
+          );
         } else {
           // Something else happened in making the request that triggered an error
           console.log(`An error occurred: ${error.message}`);
-          toast.error("An error occurred while processing your request. Please try again later.");
+          toast.error(
+            "An error occurred while processing your request. Please try again later."
+          );
         }
       }
 
@@ -92,10 +102,17 @@ const SignIn = () => {
       <h2>Sign In</h2>
       <form onSubmit={formSubmitHandler}>
         <div
-          className={`${classes["inputfield"]} ${errors.emailError ? classes["input-error"] : ""}`}
+          className={`${classes["inputfield"]} ${
+            errors.emailError ? classes["input-error"] : ""
+          }`}
         >
-          <label htmlFor='username'>Email</label>
-          <input type='text' placeholder='Enter your email' id='username' ref={userEmailRef} />
+          <label htmlFor="username">Email</label>
+          <input
+            type="text"
+            placeholder="Enter your email"
+            id="username"
+            ref={userEmailRef}
+          />
           {errors.emailError && <span>{errors.emailError}</span>}
         </div>
 
@@ -104,12 +121,12 @@ const SignIn = () => {
             errors.passwordError ? classes["input-error"] : ""
           }`}
         >
-          <label htmlFor='password'>Password</label>
+          <label htmlFor="password">Password</label>
           <div className={classes["inputfield__password"]}>
             <input
               type={showPassword ? "text" : "password"}
-              placeholder='Enter your password'
-              id='password'
+              placeholder="Enter your password"
+              id="password"
               ref={passwordRef}
             />
             <FontAwesomeIcon
@@ -126,14 +143,19 @@ const SignIn = () => {
         {/* Section For forget password and remember user */}
         <div className={classes["helper-section"]}>
           <div className={classes["helper-section__inner"]}>
-            <input type='checkbox' name='rememberme' id='rememberme' ref={rememberUserRef} />
-            <label htmlFor='rememberme'>Remember Me</label>
+            <input
+              type="checkbox"
+              name="rememberme"
+              id="rememberme"
+              ref={rememberUserRef}
+            />
+            <label htmlFor="rememberme">Remember Me</label>
           </div>
 
-          <a href='#h'>Forget Password?</a>
+          <a href="#h">Forget Password?</a>
         </div>
 
-        <button type='submit' className={classes["btn"]}>
+        <button type="submit" className={classes["btn"]}>
           Sign In
         </button>
       </form>
@@ -141,7 +163,7 @@ const SignIn = () => {
 
       <div className={classes["footer_link"]}>
         <span>Don't have an account?</span>
-        <Link to='/signup'>Sign up</Link>
+        <Link to="/signup">Sign up</Link>
       </div>
     </section>
   );
