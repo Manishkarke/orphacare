@@ -3,8 +3,10 @@ import { addReportApiHandler } from "../../utils/axios";
 import { reportFormValidator } from "../../utils/errorHandler";
 import classes from "./Form.module.css";
 import ReactMap from "../Map/ReactMap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 
-function AddReport() {
+function AddReport({ closeModal }) {
   // Report State Variable to Store all the input's value
   const [report, setReport] = useState({
     childImage: null,
@@ -73,15 +75,20 @@ function AddReport() {
     }
   };
   return (
-    <section className={classes["container"]}>
+    <section className={`${classes["container"]}`}>
+      <FontAwesomeIcon
+        icon={faXmarkCircle}
+        onClick={() => closeModal(false)}
+        className="cancel"
+      />
       <h2>Report</h2>
-      <form action='POST' onSubmit={formSubmitHandler}>
+      <form action="POST" onSubmit={formSubmitHandler}>
         <div className={`${classes["inputfield"]}`}>
-          <label htmlFor='child-img'>Child's Photo</label>
+          <label htmlFor="child-img">Child's Photo</label>
           <input
-            type='file'
-            name='child-img'
-            id='child-img'
+            type="file"
+            name="child-img"
+            id="child-img"
             value={""}
             onChange={imageChangeHandler}
           />
@@ -89,29 +96,37 @@ function AddReport() {
           {}
         </div>
 
-        <div className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}>
-          <label htmlFor='lastSeenAddress'>Last Seen Address</label>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.address ? classes["input-error"] : ""
+          }`}
+        >
+          <label htmlFor="lastSeenAddress">Last Seen Address</label>
           <ReactMap />
           {errors.address && <span>{errors.address}</span>}
         </div>
 
         <div className={classes["inputfield"]}>
-          <label htmlFor='lastSeenTime'>Last Seen Time</label>
+          <label htmlFor="lastSeenTime">Last Seen Time</label>
           <input
-            type='datetime-local'
-            name='lastSeenTime'
-            id='lastSeenTime'
+            type="datetime-local"
+            name="lastSeenTime"
+            id="lastSeenTime"
             value={report.lastSeenTime}
             onChange={seenTimeInputChangeHandler}
           />
         </div>
 
-        <div className={`${classes["inputfield"]} ${errors.age ? classes["input-error"] : ""}`}>
-          <label htmlFor='estimatedAge'>Child Estimated Age</label>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.age ? classes["input-error"] : ""
+          }`}
+        >
+          <label htmlFor="estimatedAge">Child Estimated Age</label>
           <input
-            type='number'
-            name='estimatedAge'
-            id='estimatedAge'
+            type="number"
+            name="estimatedAge"
+            id="estimatedAge"
             value={report.childEstimatedAge}
             onChange={childAgeInputChangeHandler}
           />
@@ -119,18 +134,18 @@ function AddReport() {
         </div>
 
         <div className={classes["inputfield"]}>
-          <label htmlFor='remarks'>Remarks</label>
+          <label htmlFor="remarks">Remarks</label>
           <textarea
-            name='remarks'
-            id='remarks'
-            cols='30'
-            rows='3'
+            name="remarks"
+            id="remarks"
+            cols="30"
+            rows="3"
             value={report.remarks}
             onChange={remarksInputChangeHandler}
           />
         </div>
 
-        <button type='submit' className={classes["btn"]}>
+        <button type="submit" className={classes["btn"]}>
           Report
         </button>
       </form>

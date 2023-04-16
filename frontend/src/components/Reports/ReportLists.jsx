@@ -4,13 +4,14 @@ import Card from "../../ui/Card";
 import { getAllReportsApiHandler } from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import Report from "./Report";
-import Model from "../../ui/Model";
+// import Model from "../../ui/Model";
 import AddReport from "../form/AddReport";
+import OverlayModel from "../../ui/OverlayModel";
 
 function ReportLists() {
   const [reports, setReports] = useState([]);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   // const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
@@ -44,21 +45,14 @@ function ReportLists() {
 
   return (
     <>
-      <button
-        type="button"
-        className="btn"
-        onClick={() => {
-          console.log(isOpen);
-          setIsOpen(true);
-        }}
-      >
+      <button type="button" className="btn" onClick={() => setShowModal(true)}>
         Add Report
       </button>
-
-      {isOpen && (
-        <Model>
-          <AddReport />
-        </Model>
+      {showModal && (
+        <OverlayModel
+          children={<AddReport closeModal={setShowModal} />}
+          closeModal={setShowModal}
+        />
       )}
       {/* <SearchBox onSearch={searchHandler} searchFor="Reports" /> */}
       <section className="card-list">

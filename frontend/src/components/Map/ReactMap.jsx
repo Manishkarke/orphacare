@@ -21,19 +21,19 @@ function ReactMap() {
   });
 
   // Find user Current location by its IP Address
-  useEffect(() => {
-    if (!viewport.latitude && !viewport.longitude) {
-      console.log("I am running");
-      fetch("https://ipapi.co/json")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          setNewPlace({ lng: data.longitude, lat: data.latitude });
-          mapRef.current?.flyTo({ center: [data.longitude, data.latitude] });
-        });
-    }
-  });
+  // useEffect(() => {
+  //   if (!viewport.latitude && !viewport.longitude) {
+  //     console.log("I am running");
+  //     fetch("https://ipapi.co/json")
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         setNewPlace({ lng: data.longitude, lat: data.latitude });
+  //         mapRef.current?.flyTo({ center: [data.longitude, data.latitude] });
+  //       });
+  //   }
+  // });
 
   const LocationMark = (event) => {
     const [longitude, latitude] = event.lngLat.toArray();
@@ -41,8 +41,6 @@ function ReactMap() {
       lng: longitude,
       lat: latitude,
     });
-
-    console.log(newPlace);
   };
 
   const locateOnDrag = (event) => {
@@ -53,15 +51,20 @@ function ReactMap() {
       lat: latitude,
     });
 
-    console.log(`New Location: Latitide: ${newPlace.lat} longitude: ${newPlace.lng}`);
+    console.log(
+      `New Location: Latitide: ${newPlace.lat} longitude: ${newPlace.lng}`
+    );
   };
 
   return (
-    <div style={{ width: "400px", height: "400px", zIndex: 999 }} onDrag={() => setViewport()}>
+    <div
+      style={{ width: "400px", height: "400px", zIndex: 999 }}
+      onDrag={() => setViewport()}
+    >
       <ReactMapGl
         ref={mapRef}
         {...viewport}
-        mapStyle='mapbox://styles/devendrasah/clgd65odx006g01okk92quisx'
+        mapStyle="mapbox://styles/devendrasah/clgd65odx006g01okk92quisx"
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}
@@ -85,10 +88,10 @@ function ReactMap() {
             />
           </Marker>
         ) : null}
-        <FullscreenControl position='bottom-right' />
+        <FullscreenControl position="bottom-right" />
         <NavigationControl />
         <GeolocateControl
-          position='bottom-right'
+          position="bottom-right"
           trackUserLocation
           onGeolocate={(e) => {
             setViewport((prevViewport) => {
@@ -98,7 +101,9 @@ function ReactMap() {
                 latitude: e.coords.latitude,
               };
             });
-            console.log(`my location: lat: ${viewport.latitude} lng: ${viewport.longitude}`);
+            console.log(
+              `my location: lat: ${viewport.latitude} lng: ${viewport.longitude}`
+            );
           }}
           showUserHeading={true}
         />

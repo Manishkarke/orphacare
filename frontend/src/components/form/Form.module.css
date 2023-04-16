@@ -1,8 +1,11 @@
 .container {
-  z-index: 3;
+  position: relative;
+  background-color: var(--background-color);
+  z-index: 99;
+  object-fit: cover;
   border-radius: 10px;
   font-family: var(--ff-form);
-  max-width: 375px;
+  max-width: 430px;
   margin-right: auto;
   margin-left: auto;
   padding: 20px 10px;
