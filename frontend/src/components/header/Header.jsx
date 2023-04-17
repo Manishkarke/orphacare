@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { navigationLinks } from "../../constants/constants";
 import classes from "./Header.module.css";
-import {
-  getAccessTokenFromLocalStorage,
-  removeAccessTokenFromLocalStorage,
-} from "../../utils/localStorage";
-import OverlayModel from "../../ui/OverlayModel";
+import { getAccessTokenFromLocalStorage } from "../../utils/localStorage";
+import OverlayModel from "../../ui/OverlayModal";
 import LogOut from "../../ui/LogOut";
 
 const Header = () => {

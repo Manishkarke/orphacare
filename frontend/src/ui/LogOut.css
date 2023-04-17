@@ -1,12 +1,13 @@
 .card-logout {
+  background-color: var(--background-color);
   margin-left: auto;
   margin-right: auto;
   display: flex;
   text-align: center;
   flex-direction: column;
-  border: 1px solid red;
   width: 350px;
   padding: 1rem 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .card-logout p {
@@ -15,6 +16,7 @@
 }
 
 .card-logout > div {
+  margin: 1rem 0;
   display: flex;
   justify-content: space-around;
 }
@@ -24,22 +26,23 @@
   color: var(--secondary-color);
   font-size: var(--fs-button);
   font-weight: var(--fw-button);
-  transition: background-color .5s linear;
+  transition: background-color 0.5s linear;
 }
 
-.btn.cancel {
-  color: red;
-}
-.btn.cancel:hover {
-  color: white;
-  background-color: red;
-}
-
-.btn.confirm {
+.btn.agree {
   color: #26b9ee;
 }
 
-.btn.confirm:hover {
+.btn.agree:hover {
   color: white;
   background-color: #26b9ee;
+}
+
+.btn.disagree {
+  color: red;
+}
+
+.btn.disagree:hover {
+  color: white;
+  background-color: red;
 }

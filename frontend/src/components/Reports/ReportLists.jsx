@@ -1,18 +1,18 @@
-import React, { useState, useEffect, Children } from "react";
-import Card from "../../ui/Card";
-// import SearchBox from "../../ui/SearchBox";
+import React, { useState, useEffect } from "react";
+// import Card from "../../ui/Card";
+import "./Report.css";
+import SearchBox from "../../ui/SearchBox";
 import { getAllReportsApiHandler } from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import Report from "./Report";
-// import Model from "../../ui/Model";
 import AddReport from "../form/AddReport";
-import OverlayModel from "../../ui/OverlayModel";
+import OverlayModel from "../../ui/OverlayModal";
 
 function ReportLists() {
   const [reports, setReports] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-  // const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,9 +34,9 @@ function ReportLists() {
   }, [navigate]);
 
   // Define searchHandler to update the search term state
-  // const searchHandler = (data) => {
-  //   setSearchTerm(data);
-  // };
+  const searchHandler = (data) => {
+    setSearchTerm(data);
+  };
 
   // Filter Reports array based on search term
   // const filteredReports = reports.filter((report) => {
@@ -45,16 +45,22 @@ function ReportLists() {
 
   return (
     <>
-      <button type="button" className="btn" onClick={() => setShowModal(true)}>
-        Add Report
-      </button>
+      <div className="Search-div">
+        <SearchBox onSearch={searchHandler} searchFor="Reports" />
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setShowModal(true)}
+        >
+          Add Report
+        </button>
+      </div>
       {showModal && (
         <OverlayModel
           children={<AddReport closeModal={setShowModal} />}
           closeModal={setShowModal}
         />
       )}
-      {/* <SearchBox onSearch={searchHandler} searchFor="Reports" /> */}
       <section className="card-list">
         {reports.map(({ id, image, remarks }) => {
           return (

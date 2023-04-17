@@ -1,0 +1,14 @@
+.Search-div {
+  background-color: inherit;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+}
+
+.Search-div .btn {
+  width: 15%;
+  margin-left: 3rem;
+}

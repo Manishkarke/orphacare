@@ -15,11 +15,11 @@ function LogOut({ closeModal }) {
       <h2>Log Out</h2>
       <p className="message">Are you sure you want to logout?</p>
       <div>
-        <button className="btn" onClick={cancelLogOut}>
+        <button className="btn disagree" onClick={cancelLogOut}>
           Cancel
         </button>
-        <button className="btn" onClick={confirmLogOut}>
-          Yes
+        <button className="btn agree" onClick={confirmLogOut}>
+          Confirm
         </button>
         {/* <button className='btn cancel'>Cancel</button> */}
         {/* <button className='btn confirm'>Yes</button> */}
