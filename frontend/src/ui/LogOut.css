@@ -1,20 +1,20 @@
 .card-logout {
   margin-left: auto;
   margin-right: auto;
-  /* display: flex; */
+  display: flex;
   text-align: center;
   flex-direction: column;
   border: 1px solid red;
-  width: 300px;
+  width: 350px;
   padding: 1rem 1rem;
 }
+
 .card-logout p {
   padding-top: 1rem;
   font-size: var(--fs-normal);
 }
 
 .card-logout > div {
-  margin: 1.125rem auto;
   display: flex;
   justify-content: space-around;
 }

@@ -1,13 +1,28 @@
 import React from "react";
 import "./LogOut.css";
-function LogOut() {
+import { removeAccessTokenFromLocalStorage } from "../utils/localStorage";
+function LogOut({ closeModal }) {
+  const cancelLogOut = () => {
+    closeModal(false);
+  };
+
+  const confirmLogOut = () => {
+    removeAccessTokenFromLocalStorage();
+    window.location.href = "/";
+  };
   return (
-    <div className='card-logout'>
+    <div className="card-logout">
       <h2>Log Out</h2>
-      <p className='message'>Are you sure you want to logout?</p>
+      <p className="message">Are you sure you want to logout?</p>
       <div>
-        <button className='btn cancel'>Cancel</button>
-        <button className='btn confirm'>Yes</button>
+        <button className="btn" onClick={cancelLogOut}>
+          Cancel
+        </button>
+        <button className="btn" onClick={confirmLogOut}>
+          Yes
+        </button>
+        {/* <button className='btn cancel'>Cancel</button> */}
+        {/* <button className='btn confirm'>Yes</button> */}
       </div>
     </div>
   );

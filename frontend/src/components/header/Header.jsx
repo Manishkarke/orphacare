@@ -6,11 +6,14 @@ import {
   getAccessTokenFromLocalStorage,
   removeAccessTokenFromLocalStorage,
 } from "../../utils/localStorage";
+import OverlayModel from "../../ui/OverlayModel";
+import LogOut from "../../ui/LogOut";
 
 const Header = () => {
   const [links] = useState(navigationLinks);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const { accessToken, userName } = getAccessTokenFromLocalStorage();
 
@@ -35,12 +38,14 @@ const Header = () => {
         <ul>
           {links.map(({ name, route, id }) => {
             return (
-              <li key={id} className={`${name === "Sign In" ? classes["sign-in"] : ""}`}>
+              <li
+                key={id}
+                className={`${name === "Sign In" ? classes["sign-in"] : ""}`}
+              >
                 {isLoggedIn && name === "Sign In" ? (
                   <NavLink
-                    to={`logOut`}
                     onClick={() => {
-                      removeAccessTokenFromLocalStorage();
+                      setShowModal(true);
                     }}
                   >
                     {username}
@@ -52,6 +57,12 @@ const Header = () => {
             );
           })}
         </ul>
+        {showModal && (
+          <OverlayModel
+            children={<LogOut closeModal={setShowModal} />}
+            closeModal={setShowModal}
+          />
+        )}
       </nav>
     </header>
   );
