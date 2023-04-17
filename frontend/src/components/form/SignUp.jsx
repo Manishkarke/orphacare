@@ -312,7 +312,6 @@ function SignUp() {
             onChange={joinAsInputChangeHandler}
           >
             <option value='user'>User</option>
-            <option value='volunteer'>Volunteer</option>
           </select>
         </div>
 

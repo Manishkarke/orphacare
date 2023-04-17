@@ -13,6 +13,7 @@ function AddReport({ closeModal }) {
     lastSeenTime: new Date().toISOString().slice(0, 16),
     childEstimatedAge: NaN,
     remarks: "",
+    name: "",
   });
 
   // State variable to Store errors
@@ -67,6 +68,12 @@ function AddReport({ closeModal }) {
     });
   };
 
+  // Name
+  const nameInputChangeHandler = (event) => {
+    setReport((prevReport) => {
+      return { ...prevReport, name: event.target.value };
+    });
+  };
   // Form Submit Logics here
   const formSubmitHandler = async (event) => {
     event.preventDefault();
@@ -89,6 +96,10 @@ function AddReport({ closeModal }) {
       try {
         const response = await addReportApiHandler(report);
         console.log(response);
+        if (response.status === 200 && response.data.status === "success") {
+          // close the form by updating the state
+          closeModal(false);
+        }
       } catch (error) {}
     }
   };
@@ -149,10 +160,18 @@ function AddReport({ closeModal }) {
                 </button>
               </div>
             )}
-          {}
+            {}
           </div>
-          
-
+          <div className={classes["inputfield"]}>
+            <label htmlFor='name'>Child's Name (Optional)</label>
+            <input
+              type='text'
+              name='name'
+              id='name'
+              value={report.name}
+              onChange={nameInputChangeHandler}
+            />
+          </div>
           <div
             className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}
           >
@@ -180,6 +199,8 @@ function AddReport({ closeModal }) {
               id='estimatedAge'
               value={report.childEstimatedAge}
               onChange={childAgeInputChangeHandler}
+              min={1}
+              max={18}
             />
             {errors.age && <span>{errors.age}</span>}
           </div>
