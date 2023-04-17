@@ -20,14 +20,32 @@ function AddReport({ closeModal }) {
 
   // Input-Field Change Handlers
   // CHild image
+  // const imageChangeHandler = (event) => {
+  //   console.log(event);
+  //   setReport((prevReport) => {
+  //     return { ...prevReport, childImage: event.target.files[0] };
+  //   });
+  // };
   const imageChangeHandler = (event) => {
-    console.log(event);
-    setReport((prevReport) => {
-      return { ...prevReport, childImage: event.target.files[0] };
-    });
-  };
-  // Last Seen Address
+    const selectedFile = event.target.files[0];
+    const reader = new FileReader();
 
+    reader.onload = () => {
+      setReport((prevReport) => {
+        return {
+          ...prevReport,
+          childImage: selectedFile,
+          childImageDataUrl: reader.result,
+        };
+      });
+    };
+
+    if (selectedFile) {
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  // Last Seen Address
   // Last Seen Time
   const seenTimeInputChangeHandler = (event) => {
     setReport((prevReport) => {
@@ -76,79 +94,113 @@ function AddReport({ closeModal }) {
   };
   return (
     <section className={`${classes["container"]}`}>
-      <FontAwesomeIcon
-        icon={faXmarkCircle}
-        onClick={() => closeModal(false)}
-        className="cancel"
-      />
-      <h2>Report</h2>
-      <form action="POST" onSubmit={formSubmitHandler}>
+      <div style={{ height: "800px", overflow: "auto" }}>
+        <FontAwesomeIcon
+          icon={faXmarkCircle}
+          onClick={() => closeModal(false)}
+          className='cancel'
+        />
+        <h2>Report</h2>
+        <form action='POST' onSubmit={formSubmitHandler}>
+          {/* Show the image preview */}
+          {/* {report.childImageDataUrl && <img src={report.childImageDataUrl} alt='Selected file' />}
         <div className={`${classes["inputfield"]}`}>
-          <label htmlFor="child-img">Child's Photo</label>
-          <input
-            type="file"
-            name="child-img"
-            id="child-img"
-            value={""}
-            onChange={imageChangeHandler}
-          />
+          <label htmlFor='child-img'>Child's Photo</label>
+          {!report.childImageDataUrl && (
+            <input
+              type='file'
+              name='child-img'
+              id='child-img'
+              accept='image/*'
+              value={""}
+              onChange={imageChangeHandler}
+            />
+          )}
 
           {}
-        </div>
+        </div> */}
+          <div className={`${classes["inputfield"]}`}>
+            <label htmlFor='child-img'>Child's Photo</label>
+            {!report.childImageDataUrl && (
+              <input
+                type='file'
+                name='child-img'
+                id='child-img'
+                accept='image/*'
+                value={""}
+                onChange={imageChangeHandler}
+              />
+            )}
 
-        <div
-          className={`${classes["inputfield"]} ${
-            errors.address ? classes["input-error"] : ""
-          }`}
-        >
-          <label htmlFor="lastSeenAddress">Last Seen Address</label>
-          <ReactMap />
-          {errors.address && <span>{errors.address}</span>}
-        </div>
+            {report.childImageDataUrl && (
+              <div className={classes["image-preview"]}>
+                <img src={report.childImageDataUrl} alt='Child' />
+                <button
+                  onClick={() => {
+                    setReport((prevReport) => {
+                      return {
+                        ...prevReport,
+                        childImageDataUrl: null,
+                      };
+                    });
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+          {}
+          </div>
+          
 
-        <div className={classes["inputfield"]}>
-          <label htmlFor="lastSeenTime">Last Seen Time</label>
-          <input
-            type="datetime-local"
-            name="lastSeenTime"
-            id="lastSeenTime"
-            value={report.lastSeenTime}
-            onChange={seenTimeInputChangeHandler}
-          />
-        </div>
+          <div
+            className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}
+          >
+            <label htmlFor='lastSeenAddress'>Last Seen Address</label>
+            <ReactMap />
+            {errors.address && <span>{errors.address}</span>}
+          </div>
 
-        <div
-          className={`${classes["inputfield"]} ${
-            errors.age ? classes["input-error"] : ""
-          }`}
-        >
-          <label htmlFor="estimatedAge">Child Estimated Age</label>
-          <input
-            type="number"
-            name="estimatedAge"
-            id="estimatedAge"
-            value={report.childEstimatedAge}
-            onChange={childAgeInputChangeHandler}
-          />
-          {errors.age && <span>{errors.age}</span>}
-        </div>
+          <div className={classes["inputfield"]}>
+            <label htmlFor='lastSeenTime'>Last Seen Time</label>
+            <input
+              type='datetime-local'
+              name='lastSeenTime'
+              id='lastSeenTime'
+              value={report.lastSeenTime}
+              onChange={seenTimeInputChangeHandler}
+            />
+          </div>
 
-        <div className={classes["inputfield"]}>
-          <label htmlFor="remarks">Remarks</label>
-          <textarea
-            name="remarks"
-            id="remarks"
-            cols="30"
-            rows="3"
-            value={report.remarks}
-            onChange={remarksInputChangeHandler}
-          />
-        </div>
+          <div className={`${classes["inputfield"]} ${errors.age ? classes["input-error"] : ""}`}>
+            <label htmlFor='estimatedAge'>Child Estimated Age</label>
+            <input
+              type='number'
+              name='estimatedAge'
+              id='estimatedAge'
+              value={report.childEstimatedAge}
+              onChange={childAgeInputChangeHandler}
+            />
+            {errors.age && <span>{errors.age}</span>}
+          </div>
 
-        <button type="submit" className={classes["btn"]}>
-          Report
-        </button>
-      </form>
+          <div className={classes["inputfield"]}>
+            <label htmlFor='remarks'>Remarks</label>
+            <textarea
+              name='remarks'
+              id='remarks'
+              cols='30'
+              rows='3'
+              value={report.remarks}
+              onChange={remarksInputChangeHandler}
+            />
+          </div>
+
+          <button type='submit' className={classes["btn"]}>
+            Report
+          </button>
+        </form>
+      </div>
     </section>
   );
 }

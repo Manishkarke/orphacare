@@ -58,17 +58,22 @@ const addDonationApiHandler = async ({
 // Report Api handling here
 const addReportApiHandler = async ({
   lastSeenAddress,
-  lastSeenTime,
+  lastSeenTime, childImage,
   childEstimatedAge,
   remarks,
 }) => {
-  const response = await customFetch.post("/report/createMissingReport", {
-    childLastSeenAddress: "Hello world",
+  const response = await axios.post("/report/createMissingReport", {
+    childLastSeenAddress: "a",
     childLastSeenTime: lastSeenTime,
     childAge: childEstimatedAge,
     remarks: remarks,
     longitude: 10,
+    image: childImage,
     latitude: 10,
+  }, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
   });
   return response;
 };

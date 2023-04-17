@@ -162,3 +162,13 @@ span.divider {
   display: block;
   text-align: center;
 }
+
+.image-preview {
+  position: relative;
+}
+
+.image-preview button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
