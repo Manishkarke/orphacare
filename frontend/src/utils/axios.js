@@ -38,29 +38,6 @@ const signInApiHandler = async (emailAddress, password) => {
   return response;
 };
 
-// Report Api handling here
-const addReportApiHandler = async ({
-  lastSeenAddress,
-  lastSeenTime, childImage,
-  childEstimatedAge,
-  remarks,
-}) => {
-  const response = await axios.post("/report/createMissingReport", {
-    childLastSeenAddress: "a",
-    childLastSeenTime: lastSeenTime,
-    childAge: childEstimatedAge,
-    remarks: remarks,
-    longitude: 10,
-    image: childImage,
-    latitude: 10,
-  }, {
-    headers: {
-      "Content-Type": "multipart/form-data"
-    }
-  });
-  return response;
-};
-
 const getAllReportsApiHandler = async () => {
   const response = await customFetch.get("/report/getAllMissingReports");
   return response;
@@ -90,12 +67,26 @@ const addDonationApiHandler = async ({
   return response;
 };
 
-// CreateDonation Aboumt
-const createDonationAmountApiHandler = async (donateAmount) => {
-  const response = await customFetch.post(
-    "/donation/createDonationAmount",
-    donateAmount
-  );
+// Report Api handling here
+const addReportApiHandler = async ({
+  lastSeenAddress,
+  lastSeenTime, childImage,
+  childEstimatedAge,
+  remarks,
+}) => {
+  const response = await axios.post("/report/createMissingReport", {
+    childLastSeenAddress: "a",
+    childLastSeenTime: lastSeenTime,
+    childAge: childEstimatedAge,
+    remarks: remarks,
+    longitude: 10,
+    image: childImage,
+    latitude: 10,
+  }, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
   return response;
 };
 
