@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { addDonationApiHandler } from "../../utils/axios";
 import classes from "./Form.module.css";
 import { dontionFormValidator } from "../../utils/errorHandler";
+// import Khalti from "../../utils/Khalti";
 import { useNavigate } from "react-router-dom";
 import DonateMoney from "../Donation/DonateMoney";
 
@@ -52,6 +53,11 @@ function DonateNow() {
         console.log(errors);
       }
     }
+  };
+
+  // Execute when donate money button is clicked
+  const donateMoneyHandler = async (event) => {
+    // await Khalti(donateAmount);
   };
 
   return (
