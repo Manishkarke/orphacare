@@ -38,23 +38,6 @@ const signInApiHandler = async (emailAddress, password) => {
   return response;
 };
 
-// Donate Api Handlers
-const addDonationApiHandler = async ({
-  weight,
-  age,
-  donationType,
-  donateAmount,
-}) => {
-  const response = await customFetch.post("donation/createDonation", {
-    weight,
-    age,
-    donationType,
-    donateAmount,
-  });
-
-  return response;
-};
-
 // Report Api handling here
 const addReportApiHandler = async ({
   lastSeenAddress,
@@ -85,6 +68,32 @@ const getAllKidApiHandler = async () => {
 };
 
 // Donation Api Handling
+// Donate Api Handlers
+const addDonationApiHandler = async ({
+  weight,
+  age,
+  donationType,
+  donateAmount,
+}) => {
+  const response = await customFetch.post("donation/createDonation", {
+    weight,
+    age,
+    donationType,
+    donateAmount,
+  });
+
+  return response;
+};
+
+// CreateDonation Aboumt
+const createDonationAmountApiHandler = async (donateAmount) => {
+  const response = await customFetch.post(
+    "/donation/createDonationAmount",
+    donateAmount
+  );
+  return response;
+};
+
 // Update donation
 const updateDonationAmount = async (id, donationAmount) => {
   console.log("Update Amount function is called.");
@@ -108,6 +117,7 @@ export {
   getAllReportsApiHandler,
   getAllKidApiHandler,
   addDonationApiHandler,
+  createDonationAmountApiHandler,
   updateDonationAmount,
   getVolunteerList,
 };

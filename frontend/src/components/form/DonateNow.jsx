@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { addDonationApiHandler } from "../../utils/axios";
 import classes from "./Form.module.css";
 import { dontionFormValidator } from "../../utils/errorHandler";
-import Khalti from "../../utils/Khalti";
 import { useNavigate } from "react-router-dom";
+import DonateMoney from "../Donation/DonateMoney";
 
 function DonateNow() {
   const navigate = useNavigate();
   const [donation, setDonation] = useState({
-    weight: NaN,
+    weight: undefined,
     donationType: "Food",
   });
-  const [donateAmount, setDonateAmount] = useState();
   const [errors, setErrors] = useState({});
 
   // Handle change of Weight input field
@@ -26,11 +25,6 @@ function DonateNow() {
     setDonation((prevDonation) => {
       return { ...prevDonation, type: event.target.value };
     });
-  };
-
-  // Donate money
-  const donationAmountChangeHanlder = (event) => {
-    setDonateAmount(event.target.value);
   };
 
   // Is Executed on Form Submit
@@ -60,21 +54,20 @@ function DonateNow() {
     }
   };
 
-  // Execute when donate money button is clicked
-  const donateMoneyHandler = async (event) => {
-    await Khalti(donateAmount);
-  };
-
   return (
     <section className={classes["container"]}>
       <h2>Donate Now</h2>
-      <form method='POST' onSubmit={formSubmitHandler}>
-        <div className={`${classes["inputfield"]} ${errors.weight ? classes["input-error"] : ""}`}>
-          <label htmlFor='weight'>Weight/Quantity</label>
+      <form method="POST" onSubmit={formSubmitHandler}>
+        <div
+          className={`${classes["inputfield"]} ${
+            errors.weight ? classes["input-error"] : ""
+          }`}
+        >
+          <label htmlFor="weight">Weight/Quantity</label>
           <input
-            type='number'
-            name='weight'
-            id='weight'
+            type="number"
+            name="weight"
+            id="weight"
             value={donation.weight}
             onChange={weightChangeHandler}
           />
@@ -82,32 +75,25 @@ function DonateNow() {
         </div>
 
         <div className={classes["inputfield"]}>
-          <label htmlFor='type'>Types(Food/Cloth/Books)</label>
-          <select name='type' id='type' value={donation.type} onChange={typeChangeHandler}>
-            <option value='Food'>Food</option>
-            <option value='Cloth'>Cloth</option>
-            <option value='Books'>Books</option>
+          <label htmlFor="type">Types(Food/Cloth/Books)</label>
+          <select
+            name="type"
+            id="type"
+            value={donation.type}
+            onChange={typeChangeHandler}
+          >
+            <option value="Food">Food</option>
+            <option value="Cloth">Cloth</option>
+            <option value="Books">Books</option>
           </select>
         </div>
-        <button type='submit' className={classes["btn"]}>
+        <button type="submit" className={classes["btn"]}>
           Donate
         </button>
 
         <span className={classes["divider"]}>Or</span>
 
-        <div className={classes["inputfield"]}>
-          <label htmlFor='donateMoney'>Donate Money</label>
-          <input
-            type='number'
-            name='donation Amount'
-            id='donateMoney'
-            value={donateAmount}
-            onChange={donationAmountChangeHanlder}
-          />
-        </div>
-        <button className={classes["btn"]} type='button' onClick={donateMoneyHandler}>
-          Donate Money
-        </button>
+        <DonateMoney />
       </form>
     </section>
   );
