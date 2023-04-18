@@ -2,8 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header/Header";
 import AddReport from "./components/form/AddReport";
-import DonateNow from "./components/form/DonateNow";
-import AboutUs from "./components/About/AboutUs";
+import AboutUs from "./components/About/AboutUs"; 
 import SignInRoute from "./routes/SignInRoute";
 import SignUpRoute from "./routes/SignUpRoute";
 import AdoptKidsRoute from "./routes/AdoptKidsRoute";
@@ -12,6 +11,7 @@ import Volunteers from "./components/Volunteers/Volunteers";
 import PrivateRoute from "./utils/PrivateRoute";
 import LogOut from "./ui/LogOut";
 import ReportRoutes from "./routes/ReportRoutes";
+import DonationRoute from "./routes/DonationRoute";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         />
         <Route
           path="/donate"
-          element={<PrivateRoute children={<DonateNow />} />}
+          element={<PrivateRoute children={<DonationRoute />} />}
         />
         <Route
           path="/report"

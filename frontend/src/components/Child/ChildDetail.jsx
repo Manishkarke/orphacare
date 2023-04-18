@@ -22,7 +22,7 @@ function ChildDetail() {
     try {
       const response = await customFetch.get(`/kids-adoption/requestForAdoption/${id}`);
       toast.success(response.data.message);
-      console.log(response.status);
+      // console.log(response.status);
     } catch (error) {
       console.log(error);
     }

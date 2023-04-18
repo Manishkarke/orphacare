@@ -1,0 +1,20 @@
+.route-div {
+  /* border: 1px solid red; */
+}
+.section-title {
+  text-align: center;
+}
+.sidebar-list {
+  margin-top: 2rem;
+}
+
+.sidebar-donation {
+  z-index: -1;
+}
+
+@media only screen and (min-width: 968px) {
+  .route-div {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+}

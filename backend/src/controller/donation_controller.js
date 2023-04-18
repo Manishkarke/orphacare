@@ -54,11 +54,7 @@ module.exports.getAllDonations = async (req, res, next) => {
   try {
     const { userId: donatorId } = req;
     const getAllDonations = await prisma.donation.findMany({
-      where: {
-        NOT: {
-          donatorId,
-        },
-      },
+     
       select: {
         id: true,
         weight: true,
