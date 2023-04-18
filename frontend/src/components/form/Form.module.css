@@ -1,7 +1,7 @@
 .container {
   position: relative;
   background-color: var(--background-color);
-  z-index: 99;
+  /* z-index: ; */
   object-fit: cover;
   border-radius: 10px;
   font-family: var(--ff-form);

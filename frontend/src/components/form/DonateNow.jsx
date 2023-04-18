@@ -5,6 +5,7 @@ import { dontionFormValidator } from "../../utils/errorHandler";
 // import Khalti from "../../utils/Khalti";
 import { useNavigate } from "react-router-dom";
 import DonateMoney from "../Donation/DonateMoney";
+import DonationList from "../Donation/DonationList";
 
 function DonateNow() {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ function DonateNow() {
   };
 
   return (
-    <section className={classes["container"]}>
+    <section className={`${classes["container"]} sidebar-donation`}>
       <h2>Donate Now</h2>
       <form method="POST" onSubmit={formSubmitHandler}>
         <div

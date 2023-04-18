@@ -41,30 +41,42 @@ const signInApiHandler = async (emailAddress, password) => {
 // Report Api handling here
 const addReportApiHandler = async ({
   lastSeenAddress,
-  lastSeenTime, childImage, name,
+  lastSeenTime,
+  childImage,
+  name,
   childEstimatedAge,
   remarks,
 }) => {
-  const response = await axios.post("http://localhost:4000/api/report/createMissingReport", {
-    childLastSeenAddress: "a",
-    childLastSeenTime: lastSeenTime,
-    childAge: childEstimatedAge,
-    remarks: remarks,
-    longitude: 10,
-    image: childImage,
-    name: name,
-    latitude: 10,
-  }, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `bearer ${accessToken}`,
+  const response = await axios.post(
+    "http://localhost:4000/api/report/createMissingReport",
+    {
+      childLastSeenAddress: "a",
+      childLastSeenTime: lastSeenTime,
+      childAge: childEstimatedAge,
+      remarks: remarks,
+      longitude: 10,
+      image: childImage,
+      name: name,
+      latitude: 10,
+    },
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `bearer ${accessToken}`,
+      },
     }
-  });
+  );
   return response;
 };
 
 const getAllReportsApiHandler = async () => {
   const response = await customFetch.get("/report/getAllMissingReports");
+  return response;
+};
+
+// Get a Single report
+const getAReportApiHandler = async (id) => {
+  const response = await customFetch.get(`/report//getMissingReport/${id}`);
   return response;
 };
 
@@ -92,12 +104,18 @@ const addDonationApiHandler = async ({
   return response;
 };
 
-// CreateDonation Aboumt
+// CreateDonation Amount
 const createDonationAmountApiHandler = async (donateAmount) => {
   const response = await customFetch.post(
     "/donation/createDonationAmount",
     donateAmount
   );
+  return response;
+};
+
+// Get all donation lists
+const getAllDontionApiHandler = async () => {
+  const response = await customFetch.get("/donation/getAllDonations");
   return response;
 };
 
@@ -118,14 +136,25 @@ const getVolunteerList = async () => {
 };
 
 export {
+  // For Registration and log in
   signUpApiHandler,
   signInApiHandler,
+
+  // For Reports
   addReportApiHandler,
   getAllReportsApiHandler,
+  getAReportApiHandler,
+
+  // for Kid Adoptions
   getAllKidApiHandler,
+
+  // FOr donations
   addDonationApiHandler,
   createDonationAmountApiHandler,
+  getAllDontionApiHandler,
   updateDonationAmount,
+  
+  // for Voluteer list
   getVolunteerList,
 };
 export default customFetch;
