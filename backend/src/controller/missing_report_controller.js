@@ -48,11 +48,6 @@ module.exports.getAllMissingReports = async (req, res, next) => {
   try {
     const { userId: reporterId } = req;
     const missingReports = await prisma.missingReport.findMany({
-      where: {
-        NOT: {
-          reporterId,
-        },
-      },
       select: {
         id: true,
         name: true,

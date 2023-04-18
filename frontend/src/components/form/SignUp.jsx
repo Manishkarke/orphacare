@@ -19,7 +19,6 @@ function SignUp() {
     userEmail: "",
     phoneNumber: "",
     userPassword: "",
-    userType: "user",
   });
 
   // To Show and Hide password field
@@ -69,12 +68,6 @@ function SignUp() {
     setConfirmPasword(event.target.value);
   };
 
-  const joinAsInputChangeHandler = (event) => {
-    setUserData((prevUserData) => {
-      return { ...prevUserData, userType: event.target.value };
-    });
-  };
-
   // This function will be executed when the form is submitted.
   const formSubmitHandler = async (event) => {
     event.preventDefault();
@@ -96,7 +89,7 @@ function SignUp() {
     if (formIsValid) {
       console.log("Form is valid.");
 
-      const { userName, userAddress, userEmail, phoneNumber, userPassword, userType } = userData;
+      const { userName, userAddress, userEmail, phoneNumber, userPassword,  } = userData;
       // Sending Data to API
       try {
         const response = await signUpApiHandler(
@@ -105,7 +98,6 @@ function SignUp() {
           userEmail,
           phoneNumber,
           userPassword,
-          userType
         );
         console.log(`The response is ${response}`);
 
@@ -299,20 +291,6 @@ function SignUp() {
             />
           </div>
           {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
-        </div>
-
-        {/* Password Input Field End */}
-
-        <div className={classes["inputfield"]}>
-          <label htmlFor='userType'>Join As</label>
-          <select
-            name='userType'
-            id='userType'
-            value={userData.userType}
-            onChange={joinAsInputChangeHandler}
-          >
-            <option value='user'>User</option>
-          </select>
         </div>
 
         <button type='submit' className={classes["btn"]}>

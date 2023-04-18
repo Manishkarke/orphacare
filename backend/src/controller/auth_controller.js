@@ -12,7 +12,7 @@ const saltRounds = 10;
 
 module.exports.signUpUser = async (req, res, next) => {
   try {
-    const { name, address, emailAddress, phoneNumber, password, role } =
+    const { name, address, emailAddress, phoneNumber, password, } =
       req.body;
 
     // Check if email or phone number already exists in the database
@@ -29,7 +29,7 @@ module.exports.signUpUser = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Use default value for role if not provided in request body
-    const userRole = role || "user";
+    const userRole = "user";
 
     // Create new user in the database
     const user = await prisma.user.create({

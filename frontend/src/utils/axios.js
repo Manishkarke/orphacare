@@ -17,7 +17,6 @@ const signUpApiHandler = async (
   emailAddress,
   phoneNumber,
   password,
-  role
 ) => {
   const response = await customFetch.post("auth/signup", {
     name,
@@ -25,7 +24,6 @@ const signUpApiHandler = async (
     emailAddress,
     phoneNumber,
     password,
-    role,
   });
   return response;
 };

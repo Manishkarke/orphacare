@@ -9,6 +9,5 @@ const registerSchema = yup.object().shape({
     .matches(/^\d{10}$/)
     .required(),
   password: yup.string().min(8).required(),
-  role: yup.string(),
 });
 module.exports = registerSchema;

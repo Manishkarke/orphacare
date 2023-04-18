@@ -105,7 +105,7 @@ function AddReport({ closeModal }) {
   };
   return (
     <section className={`${classes["container"]}`}>
-      <div style={{ height: "800px", overflow: "auto" }}>
+      <div style={{ height: "700px", overflow: "auto" }}>
         <FontAwesomeIcon
           icon={faXmarkCircle}
           onClick={() => closeModal(false)}
