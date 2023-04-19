@@ -2,6 +2,7 @@ import KhaltiCheckout from "khalti-checkout-web";
 import { updateDonationAmount } from "./axios";
 
 const Khalti = async (donateAmount, id) => {
+  const isSuccess = false;
   const config = {
     // replace the publicKey with yours
     publicKey: "test_public_key_b545a132548e48fea898fb580d489be2",
@@ -18,13 +19,13 @@ const Khalti = async (donateAmount, id) => {
     eventHandler: {
       async onSuccess(payload) {
         await updateDonationAmount(donateAmount);
-        return true;
+        return isSuccess = true;
       },
       onError(error) {
         console.log(error);
       },
       onClose() {
-        return false;
+        return isSuccess = false;
       },
     },
   };
@@ -33,7 +34,7 @@ const Khalti = async (donateAmount, id) => {
   await checkout.show({ amount: donateAmount * 100 });
 
   console.log(`User want to donate ${donateAmount}`);
-  return false;
+  return isSuccess;
 };
 
 export default Khalti;

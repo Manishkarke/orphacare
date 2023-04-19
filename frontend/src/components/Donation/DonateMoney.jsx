@@ -23,21 +23,19 @@ function DonateMoney() {
     try {
       const isSuccess = await Khalti(donateAmount);
       if (isSuccess) {
-        // const response = await createDonationAmountApiHandler(donateAmount);
-        toast.success("Transaction successfull");
-      } else {
-        // toast.error("Transaction failed");
+        const response = await createDonationAmountApiHandler(donateAmount);
+        toast.success(response.data.message);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // useEffect(() => {
-  //   if (error) {
-  //     console.log(error);
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+  }, [error]);
 
   return (
     <>
