@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import GeoCoder from "./GeoCoder";
 
-function ReactMap() {
+function ReactMap({ onConfirm }) {
   const mapRef = useRef(null);
   const [newPlace, setNewPlace] = useState(null);
   const [viewport, setViewport] = useState({
@@ -41,6 +41,8 @@ function ReactMap() {
       lng: longitude,
       lat: latitude,
     });
+
+    onConfirm(newPlace);
   };
 
   const locateOnDrag = (event) => {
@@ -54,6 +56,7 @@ function ReactMap() {
     console.log(
       `New Location: Latitide: ${newPlace.lat} longitude: ${newPlace.lng}`
     );
+    onConfirm(newPlace);
   };
 
   return (
@@ -101,6 +104,7 @@ function ReactMap() {
                 latitude: e.coords.latitude,
               };
             });
+            onConfirm(viewport);
             console.log(
               `my location: lat: ${viewport.latitude} lng: ${viewport.longitude}`
             );

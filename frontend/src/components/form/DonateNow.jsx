@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addDonationApiHandler } from "../../utils/axios";
 import classes from "./Form.module.css";
 import { dontionFormValidator } from "../../utils/errorHandler";
-// import Khalti from "../../utils/Khalti";
-import { useNavigate } from "react-router-dom";
 import DonateMoney from "../Donation/DonateMoney";
-import DonationList from "../Donation/DonationList";
+import { toast } from "react-toastify";
 
 function DonateNow() {
-  const navigate = useNavigate();
+
   const [donation, setDonation] = useState({
-    weight: undefined,
+    weight: 0,
     donationType: "Food",
   });
   const [errors, setErrors] = useState({});
@@ -48,17 +46,16 @@ function DonateNow() {
       try {
         const response = await addDonationApiHandler(donation);
         if (response.data.status === "success") {
-          navigate("/");
+          toast.success(response.data.message);
+          setDonation({
+            weight: 0,
+            donationType: "Food",
+          });
         }
       } catch (errors) {
         console.log(errors);
       }
     }
-  };
-
-  // Execute when donate money button is clicked
-  const donateMoneyHandler = async (event) => {
-    // await Khalti(donateAmount);
   };
 
   return (
@@ -94,7 +91,11 @@ function DonateNow() {
             <option value="Books">Books</option>
           </select>
         </div>
-        <button type="submit" className={classes["btn"]}>
+        <button
+          type="submit"
+          className={classes["btn"]}
+          onClick={console.log(donation)}
+        >
           Donate
         </button>
 

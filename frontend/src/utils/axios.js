@@ -16,7 +16,7 @@ const signUpApiHandler = async (
   address,
   emailAddress,
   phoneNumber,
-  password,
+  password
 ) => {
   const response = await customFetch.post("auth/signup", {
     name,
@@ -38,7 +38,8 @@ const signInApiHandler = async (emailAddress, password) => {
 
 // Report Api handling here
 const addReportApiHandler = async ({
-  lastSeenAddress,
+  lng,
+  lat,
   lastSeenTime,
   childImage,
   name,
@@ -52,10 +53,10 @@ const addReportApiHandler = async ({
       childLastSeenTime: lastSeenTime,
       childAge: childEstimatedAge,
       remarks: remarks,
-      longitude: 10,
+      longitude: lng,
       image: childImage,
       name: name,
-      latitude: 10,
+      latitude: lat,
     },
     {
       headers: {
@@ -74,7 +75,8 @@ const getAllReportsApiHandler = async () => {
 
 // Get a Single report
 const getAReportApiHandler = async (id) => {
-  const response = await customFetch.get(`/report//getMissingReport/${id}`);
+
+  const response = await customFetch.get(`/report/getMissingReport/${id}`);
   return response;
 };
 
@@ -151,7 +153,7 @@ export {
   createDonationAmountApiHandler,
   getAllDontionApiHandler,
   updateDonationAmount,
-  
+
   // for Voluteer list
   getVolunteerList,
 };

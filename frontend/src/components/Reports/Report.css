@@ -12,3 +12,19 @@
   width: 15%;
   margin-left: 3rem;
 }
+
+.report-container {
+  width: 70vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.report-container .report-img , .report-img img{
+  width: 50%;
+  max-height: 500px;
+  margin-bottom: 3rem;
+}
+
+.report-container .report-info {
+  margin-bottom: 3rem;
+}

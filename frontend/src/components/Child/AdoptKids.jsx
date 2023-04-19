@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllKidApiHandler } from "../../utils/axios";
-// import { getAccessTokenFromLocalStorage } from "../../utils/localStorage";
 import Child from "./Child";
 import SearchBox from "../../ui/SearchBox";
 
@@ -20,13 +19,12 @@ function AdoptKids() {
           navigate("/signin");
         } else {
           setKids(response.data.data);
-          console.log(response.data.data);
         }
       } catch (error) {
         console.log(error);
       }
     })();
-  }, [navigate]);
+  }, [kids, navigate]);
 
   // Define searchHandler to update the search term state
   const searchHandler = (data) => {

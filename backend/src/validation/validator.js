@@ -15,7 +15,7 @@ const validateRequestBody = (validationSchema) => async (req, res, next) => {
 };
 const validateRequestParams = (validationSchema) => async (req, res, next) => {
   try {
-    // console.error(`The params is ${req.params.donationId}`);
+    console.error(`The params is ${JSON.stringify(req.params)}`);
     const result = await validationSchema.validate(req.params);
     if (result) {
       req.params = result;

@@ -39,9 +39,9 @@ function ReportLists() {
   };
 
   // Filter Reports array based on search term
-  // const filteredReports = reports.filter((report) => {
-  //   return report.name.toLowerCase().includes(searchTerm.toLowerCase());
-  // });
+  const filteredReports = reports.filter((report) => {
+    return report.remarks.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <>
@@ -62,9 +62,9 @@ function ReportLists() {
         />
       )}
       <section className="card-list">
-        {reports.map(({ id, image, remarks }) => {
+        {filteredReports.map(({ id, image, remarks }) => {
           return (
-            <Report key={id} picture={image} description={remarks}></Report>
+            <Report key={id} id={id} picture={image} description={remarks}></Report>
           );
         })}
       </section>

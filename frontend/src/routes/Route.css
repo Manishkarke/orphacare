@@ -1,20 +1,27 @@
-.route-div {
-  /* border: 1px solid red; */
-}
 .section-title {
   text-align: center;
 }
+
 .sidebar-list {
-  margin-top: 2rem;
+  flex-basis: 70%;
+  width: 100%;
+  text-align: center;
 }
 
-.sidebar-donation {
-  z-index: -1;
-}
-
-@media only screen and (min-width: 968px) {
-  .route-div {
+@media screen and (min-width: 992px) {
+  .card-list {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+  }
+}
+
+
+@media only screen and (min-width: 992px) {
+  .route-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 5%;
   }
 }

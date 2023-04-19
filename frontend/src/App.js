@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header/Header";
 import AddReport from "./components/form/AddReport";
-import AboutUs from "./components/About/AboutUs"; 
+import AboutUs from "./components/About/AboutUs";
 import SignInRoute from "./routes/SignInRoute";
 import SignUpRoute from "./routes/SignUpRoute";
 import AdoptKidsRoute from "./routes/AdoptKidsRoute";
@@ -12,6 +12,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import LogOut from "./ui/LogOut";
 import ReportRoutes from "./routes/ReportRoutes";
 import DonationRoute from "./routes/DonationRoute";
+import ReportDetails from "./components/Reports/ReportDetails";
 
 function App() {
   return (
@@ -38,6 +39,11 @@ function App() {
         <Route
           path="/addReport"
           element={<PrivateRoute children={<AddReport />} />}
+        />
+
+        <Route
+          path="/reportDetail/:id"
+          element={<PrivateRoute children={<ReportDetails />} />}
         />
         <Route
           path="/volunteer"

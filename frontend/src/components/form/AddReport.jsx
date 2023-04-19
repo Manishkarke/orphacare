@@ -10,6 +10,8 @@ function AddReport({ closeModal }) {
   // Report State Variable to Store all the input's value
   const [report, setReport] = useState({
     childImage: null,
+    lat: 28.3974,
+    lng: 84.1258,
     lastSeenTime: new Date().toISOString().slice(0, 16),
     childEstimatedAge: NaN,
     remarks: "",
@@ -74,13 +76,17 @@ function AddReport({ closeModal }) {
       return { ...prevReport, name: event.target.value };
     });
   };
+  // Map Data handler
+  const mapDataHandler = ({ latitude, longitude }) => {
+    setReport((prevReport) => {
+      return { ...prevReport, lng: longitude, lat: latitude };
+    });
+  };
+
   // Form Submit Logics here
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(report);
-
     reportFormValidator(report, setErrors);
-    console.log(errors);
 
     // Checking If there is any errors and if not then sending the data to server
     let formIsValid = true;
@@ -97,10 +103,11 @@ function AddReport({ closeModal }) {
         const response = await addReportApiHandler(report);
         console.log(response);
         if (response.status === 200 && response.data.status === "success") {
-          // close the form by updating the state
           closeModal(false);
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (
@@ -109,10 +116,10 @@ function AddReport({ closeModal }) {
         <FontAwesomeIcon
           icon={faXmarkCircle}
           onClick={() => closeModal(false)}
-          className='cancel'
+          className="cancel"
         />
         <h2>Report</h2>
-        <form action='POST' onSubmit={formSubmitHandler}>
+        <form action="POST" onSubmit={formSubmitHandler}>
           {/* Show the image preview */}
           {/* {report.childImageDataUrl && <img src={report.childImageDataUrl} alt='Selected file' />}
         <div className={`${classes["inputfield"]}`}>
@@ -131,13 +138,13 @@ function AddReport({ closeModal }) {
           {}
         </div> */}
           <div className={`${classes["inputfield"]}`}>
-            <label htmlFor='child-img'>Child's Photo</label>
+            <label htmlFor="child-img">Child's Photo</label>
             {!report.childImageDataUrl && (
               <input
-                type='file'
-                name='child-img'
-                id='child-img'
-                accept='image/*'
+                type="file"
+                name="child-img"
+                id="child-img"
+                accept="image/*"
                 value={""}
                 onChange={imageChangeHandler}
               />
@@ -145,7 +152,7 @@ function AddReport({ closeModal }) {
 
             {report.childImageDataUrl && (
               <div className={classes["image-preview"]}>
-                <img src={report.childImageDataUrl} alt='Child' />
+                <img src={report.childImageDataUrl} alt="Child" />
                 <button
                   onClick={() => {
                     setReport((prevReport) => {
@@ -163,40 +170,46 @@ function AddReport({ closeModal }) {
             {}
           </div>
           <div className={classes["inputfield"]}>
-            <label htmlFor='name'>Child's Name (Optional)</label>
+            <label htmlFor="name">Child's Name (Optional)</label>
             <input
-              type='text'
-              name='name'
-              id='name'
+              type="text"
+              name="name"
+              id="name"
               value={report.name}
               onChange={nameInputChangeHandler}
             />
           </div>
           <div
-            className={`${classes["inputfield"]} ${errors.address ? classes["input-error"] : ""}`}
+            className={`${classes["inputfield"]} ${
+              errors.address ? classes["input-error"] : ""
+            }`}
           >
-            <label htmlFor='lastSeenAddress'>Last Seen Address</label>
-            <ReactMap />
+            <label htmlFor="lastSeenAddress">Last Seen Address</label>
+            <ReactMap onConfirm={mapDataHandler} />
             {errors.address && <span>{errors.address}</span>}
           </div>
 
           <div className={classes["inputfield"]}>
-            <label htmlFor='lastSeenTime'>Last Seen Time</label>
+            <label htmlFor="lastSeenTime">Last Seen Time</label>
             <input
-              type='datetime-local'
-              name='lastSeenTime'
-              id='lastSeenTime'
+              type="datetime-local"
+              name="lastSeenTime"
+              id="lastSeenTime"
               value={report.lastSeenTime}
               onChange={seenTimeInputChangeHandler}
             />
           </div>
 
-          <div className={`${classes["inputfield"]} ${errors.age ? classes["input-error"] : ""}`}>
-            <label htmlFor='estimatedAge'>Child Estimated Age</label>
+          <div
+            className={`${classes["inputfield"]} ${
+              errors.age ? classes["input-error"] : ""
+            }`}
+          >
+            <label htmlFor="estimatedAge">Child Estimated Age</label>
             <input
-              type='number'
-              name='estimatedAge'
-              id='estimatedAge'
+              type="number"
+              name="estimatedAge"
+              id="estimatedAge"
               value={report.childEstimatedAge}
               onChange={childAgeInputChangeHandler}
               min={1}
@@ -206,18 +219,18 @@ function AddReport({ closeModal }) {
           </div>
 
           <div className={classes["inputfield"]}>
-            <label htmlFor='remarks'>Remarks</label>
+            <label htmlFor="remarks">Remarks</label>
             <textarea
-              name='remarks'
-              id='remarks'
-              cols='30'
-              rows='3'
+              name="remarks"
+              id="remarks"
+              cols="30"
+              rows="3"
               value={report.remarks}
               onChange={remarksInputChangeHandler}
             />
           </div>
 
-          <button type='submit' className={classes["btn"]}>
+          <button type="submit" className={classes["btn"]}>
             Report
           </button>
         </form>
