@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the 'uploads' directory
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 const { PrismaClient } = require("@prisma/client");
 
@@ -38,7 +38,7 @@ prisma
   });
 
 const apiRouter = express.Router();
-app.use("/api", apiRouter);
+app.use("/apis", apiRouter);
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/report", reportRouter);
@@ -50,6 +50,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to the registration API!");
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+app.listen(5000, () => {
+  console.log("Server running on http://localhost:5000");
 });
