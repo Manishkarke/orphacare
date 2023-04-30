@@ -28,12 +28,14 @@ const prisma = new PrismaClient({
 const DATABASE_URL = process.env.DATABASE_URL;
 console.log(DATABASE_URL);
 
+console.log("hello world");
 prisma
   .$connect()
   .then(() => {
-    console.log("Database connected");
+    console.log("Database is connected");
   })
   .catch((error) => {
+    console.log("hello suresh");
     console.log("Error connecting to database", error);
   });
 
