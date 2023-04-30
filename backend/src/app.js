@@ -50,6 +50,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to the registration API!");
 });
 
-app.listen(4000, () => {
-  console.log("Server running on http://localhost:4000");
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
 });
