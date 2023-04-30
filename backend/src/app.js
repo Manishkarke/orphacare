@@ -28,7 +28,7 @@ const prisma = new PrismaClient({
 const DATABASE_URL = process.env.DATABASE_URL;
 console.log(DATABASE_URL);
 
-console.log("hello world");
+console.log("hello sheela p");
 prisma
   .$connect()
   .then(() => {
@@ -37,6 +37,7 @@ prisma
   .catch((error) => {
     console.log("hello suresh");
     console.log("Error connecting to database", error);
+    console.log("HI");
   });
 
 const apiRouter = express.Router();
